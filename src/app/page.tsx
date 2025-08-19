@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { ConnectWallet } from '@thirdweb-dev/react';
 import { PWAInstallPrompt } from '@/components/pwa/PWAInstallPrompt';

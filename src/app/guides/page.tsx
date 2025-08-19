@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import { BookingForm } from '@/components/web3/BookingForm';
 
 interface Guide {
@@ -11,6 +14,7 @@ interface Guide {
 }
 
 export default function GuidesPage() {
+  const [selectedGuide, setSelectedGuide] = useState<Guide | null>(null);
   // Mock data for now - will be replaced with real data after contract deployment
   const guides = [
     {
@@ -23,7 +27,6 @@ export default function GuidesPage() {
       expiresAt: (Date.now() + 365 * 24 * 60 * 60 * 1000).toString()
     }
   ];
-  const selectedGuide = null;
 
   const mockGuideData = (guide: Guide) => ({
     address: guide.id,
@@ -42,7 +45,7 @@ export default function GuidesPage() {
       <div className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-4xl mx-auto px-4">
           <button
-            onClick={() => window.history.back()}
+            onClick={() => setSelectedGuide(null)}
             className="mb-6 text-primary-600 hover:text-primary-800"
           >
             ← Back to Guides
@@ -140,7 +143,7 @@ export default function GuidesPage() {
                         {guideData.pricePerPerson} USDC
                       </div>
                       <button
-                        onClick={() => alert('Booking will be available after contract deployment')}
+                        onClick={() => setSelectedGuide(guide)}
                         className="bg-primary-600 text-white px-4 py-2 rounded hover:bg-primary-700 transition-colors"
                       >
                         View & Book

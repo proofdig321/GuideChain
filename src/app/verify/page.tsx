@@ -1,3 +1,5 @@
+'use client';
+
 import { GuideVerificationForm } from '@/components/web3/GuideVerificationForm';
 
 export default function VerifyPage() {

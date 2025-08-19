@@ -1,4 +1,12 @@
 // Core Web3 Types
+export interface ImageType {
+  asset: {
+    _ref: string;
+    _type: string;
+  };
+  alt?: string;
+}
+
 export interface Guide {
   id: string;
   address: string;

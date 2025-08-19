@@ -15,6 +15,8 @@ const nextConfig = {
       net: false,
       tls: false,
     };
+    config.externals = config.externals || [];
+    config.externals.push('pino-pretty');
     return config;
   },
 };

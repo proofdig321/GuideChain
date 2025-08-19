@@ -78,7 +78,7 @@ export const GET_BOOKING_DETAILS = gql`
 export class GraphService {
   async getGuideBookings(guide: string) {
     try {
-      const data = await request(SUBGRAPH_URL, GET_GUIDE_BOOKINGS, { guide: guide.toLowerCase() });
+      const data = await request(SUBGRAPH_URL, GET_GUIDE_BOOKINGS, { guide: guide.toLowerCase() }) as any;
       return data.bookings;
     } catch (error) {
       console.error('Failed to fetch guide bookings:', error);
@@ -88,7 +88,7 @@ export class GraphService {
 
   async getTouristBookings(tourist: string) {
     try {
-      const data = await request(SUBGRAPH_URL, GET_TOURIST_BOOKINGS, { tourist: tourist.toLowerCase() });
+      const data = await request(SUBGRAPH_URL, GET_TOURIST_BOOKINGS, { tourist: tourist.toLowerCase() }) as any;
       return data.bookings;
     } catch (error) {
       console.error('Failed to fetch tourist bookings:', error);
@@ -98,7 +98,7 @@ export class GraphService {
 
   async getGuideReviews(guide: string) {
     try {
-      const data = await request(SUBGRAPH_URL, GET_GUIDE_REVIEWS, { guide: guide.toLowerCase() });
+      const data = await request(SUBGRAPH_URL, GET_GUIDE_REVIEWS, { guide: guide.toLowerCase() }) as any;
       return data.reviews;
     } catch (error) {
       console.error('Failed to fetch guide reviews:', error);
@@ -108,7 +108,7 @@ export class GraphService {
 
   async getVerifiedGuides() {
     try {
-      const data = await request(SUBGRAPH_URL, GET_VERIFIED_GUIDES);
+      const data = await request(SUBGRAPH_URL, GET_VERIFIED_GUIDES) as any;
       return data.guides;
     } catch (error) {
       console.error('Failed to fetch verified guides:', error);
@@ -118,7 +118,7 @@ export class GraphService {
 
   async getBookingDetails(id: string) {
     try {
-      const data = await request(SUBGRAPH_URL, GET_BOOKING_DETAILS, { id });
+      const data = await request(SUBGRAPH_URL, GET_BOOKING_DETAILS, { id }) as any;
       return data.booking;
     } catch (error) {
       console.error('Failed to fetch booking details:', error);

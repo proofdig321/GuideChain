@@ -1,7 +1,3 @@
-'use client';
-
-import { useState, useEffect } from 'react';
-import { graphService } from '@/lib/graph';
 import { BookingForm } from '@/components/web3/BookingForm';
 
 interface Guide {
@@ -15,25 +11,19 @@ interface Guide {
 }
 
 export default function GuidesPage() {
-  const [guides, setGuides] = useState<Guide[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [selectedGuide, setSelectedGuide] = useState<Guide | null>(null);
-
-  useEffect(() => {
-    loadGuides();
-  }, []);
-
-  const loadGuides = async () => {
-    try {
-      setLoading(true);
-      const verifiedGuides = await graphService.getVerifiedGuides();
-      setGuides(verifiedGuides);
-    } catch (error) {
-      console.error('Failed to load guides:', error);
-    } finally {
-      setLoading(false);
+  // Mock data for now - will be replaced with real data after contract deployment
+  const guides = [
+    {
+      id: '0x1234567890123456789012345678901234567890',
+      verified: true,
+      provincialReg: 'PR001',
+      firstAidCert: 'FA001',
+      satsaMembership: 'SATSA001',
+      verifiedAt: Date.now().toString(),
+      expiresAt: (Date.now() + 365 * 24 * 60 * 60 * 1000).toString()
     }
-  };
+  ];
+  const selectedGuide = null;
 
   const mockGuideData = (guide: Guide) => ({
     address: guide.id,
@@ -52,7 +42,7 @@ export default function GuidesPage() {
       <div className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-4xl mx-auto px-4">
           <button
-            onClick={() => setSelectedGuide(null)}
+            onClick={() => window.history.back()}
             className="mb-6 text-primary-600 hover:text-primary-800"
           >
             ← Back to Guides
@@ -111,12 +101,7 @@ export default function GuidesPage() {
       <div className="max-w-6xl mx-auto px-4">
         <h1 className="text-3xl font-bold text-center mb-8">Verified Guides</h1>
         
-        {loading ? (
-          <div className="text-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading verified guides...</p>
-          </div>
-        ) : guides.length === 0 ? (
+        {guides.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-gray-600">No verified guides found.</p>
           </div>
@@ -155,7 +140,7 @@ export default function GuidesPage() {
                         {guideData.pricePerPerson} USDC
                       </div>
                       <button
-                        onClick={() => setSelectedGuide(guide)}
+                        onClick={() => alert('Booking will be available after contract deployment')}
                         className="bg-primary-600 text-white px-4 py-2 rounded hover:bg-primary-700 transition-colors"
                       >
                         View & Book

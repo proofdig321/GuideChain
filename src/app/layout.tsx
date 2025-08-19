@@ -1,6 +1,6 @@
 import './globals.css';
 import { ThirdwebProvider } from '@thirdweb-dev/react';
-import { Polygon } from '@thirdweb-dev/chains';
+import { PolygonZkevmTestnet } from '@thirdweb-dev/chains';
 
 export const metadata = {
   title: 'GuideChain - Web3 Tourism Platform',
@@ -34,7 +34,7 @@ export default function RootLayout({
       </head>
       <body>
         <ThirdwebProvider
-          activeChain={Polygon}
+          activeChain={PolygonZkevmTestnet}
           clientId={process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID}
         >
           {children}

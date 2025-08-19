@@ -1,0 +1,53 @@
+type Guide @entity {
+  id: ID!
+  verified: Boolean!
+  provincialReg: String!
+  firstAidCert: String!
+  satsaMembership: String
+  verifiedAt: BigInt!
+  expiresAt: BigInt!
+  bookings: [Booking!]! @derivedFrom(field: "guide")
+  reviews: [Review!]! @derivedFrom(field: "guide")
+  totalEarnings: BigDecimal!
+  totalBookings: BigInt!
+  averageRating: BigDecimal!
+}
+
+type Booking @entity {
+  id: ID!
+  tourist: Bytes!
+  guide: Guide!
+  amount: BigDecimal!
+  status: BookingStatus!
+  experienceId: String!
+  createdAt: BigInt!
+  completedAt: BigInt
+  review: Review @derivedFrom(field: "booking")
+}
+
+enum BookingStatus {
+  PENDING
+  ACCEPTED
+  COMPLETED
+  CANCELLED
+  DISPUTED
+}
+
+type Review @entity {
+  id: ID!
+  booking: Booking!
+  tourist: Bytes!
+  guide: Guide!
+  rating: Int!
+  ipfsHash: String!
+  timestamp: BigInt!
+}
+
+type Platform @entity {
+  id: ID!
+  totalBookings: BigInt!
+  totalVolume: BigDecimal!
+  totalFees: BigDecimal!
+  activeGuides: BigInt!
+  completedBookings: BigInt!
+}

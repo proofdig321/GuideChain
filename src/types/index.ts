@@ -1,33 +1,35 @@
 // Core Web3 Types
-export interface ImageType {
-  asset: {
-    _ref: string;
-    _type: string;
-  };
-  alt?: string;
-}
-
 export interface Guide {
   id: string;
   address: string;
-  isVerified: boolean;
-  provincialRegistration: string;
-  firstAidCert: string;
-  satsaMembership?: string;
-  reputation: number;
+  name: string;
+  location: string;
+  specialties: string[];
+  pricePerHour: number;
+  rating: number;
+  verified: boolean;
+  verificationDate?: string;
   totalBookings: number;
-  createdAt: number;
+  profileImageHash?: string;
+  documentsHash: string;
+  languages: string[];
+  experience: string;
+  availability: boolean;
 }
 
 export interface Booking {
   id: string;
-  tourist: string;
-  guide: string;
+  guideAddress: string;
+  touristAddress: string;
   experienceId: string;
   amount: string;
   status: BookingStatus;
-  createdAt: number;
-  completedAt?: number;
+  createdAt: string;
+  scheduledDate: string;
+  completedAt?: string;
+  cancelledAt?: string;
+  specialRequests?: string;
+  participants: number;
 }
 
 export enum BookingStatus {
@@ -40,19 +42,73 @@ export enum BookingStatus {
 
 export interface Review {
   id: string;
-  booking: string;
+  bookingId: string;
+  reviewerAddress: string;
+  guideAddress: string;
   rating: number;
-  ipfsHash: string;
+  comment: string;
+  createdAt: string;
+  metadataHash: string;
+  verified: boolean;
+}
+
+export interface PlatformStats {
+  totalGuides: number;
+  totalBookings: number;
+  totalRevenue: string;
+  platformFees: string;
+  activeUsers: number;
+  averageRating: number;
+}
+
+export interface VerificationApplication {
+  id: string;
+  applicantAddress: string;
+  name: string;
+  location: string;
+  specialties: string[];
+  experience: string;
+  documentsHash: string;
+  status: VerificationStatus;
+  submittedAt: string;
+  reviewedAt?: string;
+  reviewerAddress?: string;
+  rejectionReason?: string;
+}
+
+export enum VerificationStatus {
+  PENDING = 0,
+  APPROVED = 1,
+  REJECTED = 2
+}
+
+export interface IPFSMetadata {
+  name: string;
+  description: string;
+  image?: string;
+  attributes: Array<{
+    trait_type: string;
+    value: string | number;
+  }>;
+  documents?: string[];
   timestamp: number;
 }
 
-export interface Experience {
-  id: string;
-  guide: string;
-  title: string;
-  description: string;
-  price: string;
-  duration: number;
-  maxParticipants: number;
-  isActive: boolean;
+export interface ContractEvent {
+  transactionHash: string;
+  blockNumber: number;
+  timestamp: string;
+  eventName: string;
+  args: Record<string, any>;
+}
+
+export interface UserProfile {
+  address: string;
+  isGuide: boolean;
+  isAdmin: boolean;
+  totalBookings: number;
+  totalSpent: string;
+  totalEarned: string;
+  reputation: number;
+  joinedAt: string;
 }

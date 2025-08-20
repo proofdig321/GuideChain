@@ -1,18 +1,12 @@
+import type { Metadata } from "next";
 import './globals.css';
-import { ThirdwebProvider } from '@thirdweb-dev/react';
-import { PolygonZkevmTestnet } from '@thirdweb-dev/chains';
+import { ThirdwebProvider } from "thirdweb/react";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'GuideChain - Web3 Tourism Platform',
   description: 'Decentralized peer-to-peer tourism marketplace connecting tourists with verified South African guides',
   manifest: '/manifest.json',
   themeColor: '#3b82f6',
-  viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover',
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: 'default',
-    title: 'GuideChain',
-  },
   icons: {
     apple: '/icons/icon-152x152.png',
   },
@@ -33,10 +27,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/icons/icon-152x152.png" />
       </head>
       <body>
-        <ThirdwebProvider
-          activeChain={PolygonZkevmTestnet}
-          clientId={process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID}
-        >
+        <ThirdwebProvider>
           {children}
         </ThirdwebProvider>
       </body>

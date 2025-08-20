@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useContract, useContractWrite, useAddress } from '@thirdweb-dev/react';
 import { CONTRACTS } from '@/constants/contracts';
 import { graphService } from '@/lib/graph';
@@ -6,24 +6,35 @@ import { graphService } from '@/lib/graph';
 export function useBooking() {
   const [isCreating, setIsCreating] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const address = useAddress();
-
-  const { contract } = useContract(CONTRACTS.BOOKING_ESCROW);
-  const { mutateAsync: createBooking } = useContractWrite(contract, 'createBooking');
-  const { mutateAsync: acceptBooking } = useContractWrite(contract, 'acceptBooking');
-  const { mutateAsync: completeBooking } = useContractWrite(contract, 'completeBooking');
-  const { mutateAsync: cancelBooking } = useContractWrite(contract, 'cancelBooking');
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  
+  const address = mounted ? useAddress() : null;
+  const { contract } = mounted ? useContract(CONTRACTS.BOOKING_ESCROW) : { contract: null };
+  
+  // Only use contract writes if mounted and contract exists
+  const createBookingWrite = mounted && contract ? useContractWrite(contract, 'createBooking') : null;
+  const acceptBookingWrite = mounted && contract ? useContractWrite(contract, 'acceptBooking') : null;
+  const completeBookingWrite = mounted && contract ? useContractWrite(contract, 'completeBooking') : null;
+  const cancelBookingWrite = mounted && contract ? useContractWrite(contract, 'cancelBooking') : null;
 
   const createNewBooking = async (
     guide: string,
     amount: string,
     experienceId: string
   ) => {
+    if (!mounted || !createBookingWrite) {
+      throw new Error('Booking system not ready');
+    }
+    
     setIsCreating(true);
     setError(null);
 
     try {
-      const result = await createBooking({
+      const result = await createBookingWrite.mutateAsync({
         args: [guide, amount, experienceId]
       });
 
@@ -38,9 +49,13 @@ export function useBooking() {
   };
 
   const acceptExistingBooking = async (bookingId: string) => {
+    if (!mounted || !acceptBookingWrite) {
+      throw new Error('Booking system not ready');
+    }
+    
     try {
       setError(null);
-      const result = await acceptBooking({
+      const result = await acceptBookingWrite.mutateAsync({
         args: [bookingId]
       });
       return result;
@@ -52,9 +67,13 @@ export function useBooking() {
   };
 
   const completeExistingBooking = async (bookingId: string) => {
+    if (!mounted || !completeBookingWrite) {
+      throw new Error('Booking system not ready');
+    }
+    
     try {
       setError(null);
-      const result = await completeBooking({
+      const result = await completeBookingWrite.mutateAsync({
         args: [bookingId]
       });
       return result;
@@ -66,9 +85,13 @@ export function useBooking() {
   };
 
   const cancelExistingBooking = async (bookingId: string) => {
+    if (!mounted || !cancelBookingWrite) {
+      throw new Error('Booking system not ready');
+    }
+    
     try {
       setError(null);
-      const result = await cancelBooking({
+      const result = await cancelBookingWrite.mutateAsync({
         args: [bookingId]
       });
       return result;

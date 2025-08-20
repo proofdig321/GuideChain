@@ -1,7 +1,23 @@
 'use client';
 
-import { useState } from 'react';
-import { BookingForm } from '@/components/web3/BookingForm';
+import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
+
+const BookingForm = dynamic(
+  () => import('@/components/web3/BookingForm').then(mod => ({ default: mod.BookingForm })),
+  { 
+    ssr: false,
+    loading: () => (
+      <div className="max-w-md mx-auto p-6 bg-white border rounded-lg shadow">
+        <div className="animate-pulse">
+          <div className="h-6 bg-gray-200 rounded w-3/4 mb-4"></div>
+          <div className="h-4 bg-gray-200 rounded w-full mb-4"></div>
+          <div className="h-10 bg-gray-200 rounded w-full"></div>
+        </div>
+      </div>
+    )
+  }
+);
 
 interface Guide {
   id: string;

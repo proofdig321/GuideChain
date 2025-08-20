@@ -22,11 +22,13 @@ export function BookingForm({ guide }: BookingFormProps) {
   const [success, setSuccess] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  const address = useAddress();
-  
   useEffect(() => {
     setMounted(true);
   }, []);
+  
+  // Only initialize hooks after mounting
+  const address = mounted ? useAddress() : null;
+  const bookingHook = mounted ? useBooking() : null;
   
   if (!mounted) {
     return (
@@ -39,7 +41,8 @@ export function BookingForm({ guide }: BookingFormProps) {
       </div>
     );
   }
-  const { createNewBooking, isCreating, error, clearError } = useBooking();
+  
+  const { createNewBooking, isCreating, error, clearError } = bookingHook!;
 
   const totalAmount = (parseFloat(guide.pricePerPerson) * participants).toString();
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ConnectButton, useActiveAccount } from "thirdweb/react";
 import { client } from "../client";
 
@@ -36,8 +36,24 @@ const mockGuides: Guide[] = [
 ];
 
 export default function GuidesPage() {
+  const [mounted, setMounted] = useState(false);
   const account = useActiveAccount();
   const [selectedGuide, setSelectedGuide] = useState<Guide | null>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p>Loading guides...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!account) {
     return (

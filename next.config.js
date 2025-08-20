@@ -1,12 +1,14 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const withPWA = require('next-pwa')({
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === 'development',
+});
 
-  env: {
-    NEXT_PUBLIC_CHAIN_ID: '1442',
-    NEXT_PUBLIC_NETWORK_NAME: 'polygon-zkevm-testnet',
-  },
-  images: {
-    domains: ['cdn.sanity.io', 'ipfs.io', 'gateway.ipfs.io'],
+const nextConfig = {
+  experimental: {
+    esmExternals: 'loose',
   },
   webpack: (config) => {
     config.resolve.fallback = {
@@ -15,41 +17,12 @@ const nextConfig = {
       net: false,
       tls: false,
     };
-    config.externals = config.externals || [];
-    config.externals.push('pino-pretty');
     return config;
   },
+  // Disable static optimization for pages using Web3 hooks
+  async rewrites() {
+    return [];
+  },
 };
-
-const withPWA = require('next-pwa')({
-  dest: 'public',
-  register: true,
-  skipWaiting: true,
-  disable: process.env.NODE_ENV === 'development',
-  runtimeCaching: [
-    {
-      urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
-      handler: 'CacheFirst',
-      options: {
-        cacheName: 'google-fonts',
-        expiration: {
-          maxEntries: 4,
-          maxAgeSeconds: 365 * 24 * 60 * 60 // 1 year
-        }
-      }
-    },
-    {
-      urlPattern: /^https:\/\/gateway\.ipfs\.io\/.*/i,
-      handler: 'NetworkFirst',
-      options: {
-        cacheName: 'ipfs-cache',
-        expiration: {
-          maxEntries: 100,
-          maxAgeSeconds: 24 * 60 * 60 // 1 day
-        }
-      }
-    }
-  ]
-});
 
 module.exports = withPWA(nextConfig);

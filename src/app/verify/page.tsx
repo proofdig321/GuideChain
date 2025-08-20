@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ConnectButton, useActiveAccount } from "thirdweb/react";
 import { client } from "../client";
 
 export default function VerifyPage() {
+  const [mounted, setMounted] = useState(false);
   const account = useActiveAccount();
   const [formData, setFormData] = useState({
     name: "",
@@ -14,11 +15,26 @@ export default function VerifyPage() {
     documents: null as File | null
   });
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // TODO: Implement guide verification with smart contracts
     alert("Guide verification will be implemented with smart contracts");
   };
+
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p>Loading verification form...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!account) {
     return (

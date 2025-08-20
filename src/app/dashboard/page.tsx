@@ -1,13 +1,30 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { ConnectButton, useActiveAccount } from "thirdweb/react";
 import { client } from "../client";
 
 const ADMIN_ADDRESS = "0x25E1303E503Dc60B5Eee353183A002a645439328";
 
 export default function DashboardPage() {
+  const [mounted, setMounted] = useState(false);
   const account = useActiveAccount();
   const isAdmin = account?.address?.toLowerCase() === ADMIN_ADDRESS.toLowerCase();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p>Loading dashboard...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!account) {
     return (

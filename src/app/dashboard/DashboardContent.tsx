@@ -1,7 +1,11 @@
 "use client";
 
 import { ConnectButton, useActiveAccount } from "thirdweb/react";
-import { client } from "../client";
+import { createThirdwebClient } from "thirdweb";
+
+const client = createThirdwebClient({
+  clientId: process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID || "",
+});
 
 const ADMIN_ADDRESS = "0x25E1303E503Dc60B5Eee353183A002a645439328";
 

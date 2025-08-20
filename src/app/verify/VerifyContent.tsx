@@ -2,7 +2,11 @@
 
 import { useState } from "react";
 import { ConnectButton, useActiveAccount } from "thirdweb/react";
-import { client } from "../client";
+import { createThirdwebClient } from "thirdweb";
+
+const client = createThirdwebClient({
+  clientId: process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID || "",
+});
 
 export default function VerifyContent() {
   const account = useActiveAccount();

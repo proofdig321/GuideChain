@@ -6,10 +6,17 @@ export const metadata: Metadata = {
   title: 'GuideChain - Web3 Tourism Platform',
   description: 'Decentralized peer-to-peer tourism marketplace connecting tourists with verified South African guides',
   manifest: '/manifest.json',
-  themeColor: '#3b82f6',
   icons: {
     apple: '/icons/icon-152x152.png',
   },
+};
+
+export const viewport = {
+  themeColor: '#3b82f6',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({

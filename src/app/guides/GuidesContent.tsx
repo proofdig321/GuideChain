@@ -44,67 +44,193 @@ export default function GuidesContent() {
 
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div style={{ minHeight: '100vh', background: '#f9fafb' }}>
       <Header />
       
-      <main className="py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Verified Local Guides</h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+      <main style={{ padding: '48px 0' }}>
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '0 24px'
+        }}>
+          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+            <h1 style={{
+              fontSize: 'clamp(2rem, 4vw, 3rem)',
+              fontWeight: '700',
+              color: '#1f2937',
+              marginBottom: '16px'
+            }}>
+              🧭 Verified Local Guides
+            </h1>
+            <p style={{
+              fontSize: '18px',
+              color: '#6b7280',
+              maxWidth: '600px',
+              margin: '0 auto'
+            }}>
               Discover authentic South African experiences with our verified local guides
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
+            gap: '32px'
+          }}>
             {mockGuides.map((guide) => (
-              <div key={guide.id} className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
-                <div className="h-48 bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center">
-                  <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg">
-                    <span className="text-2xl font-bold text-blue-600">{guide.name.charAt(0)}</span>
+              <div key={guide.id} style={{
+                background: 'white',
+                borderRadius: '16px',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
+                border: '1px solid #f3f4f6',
+                overflow: 'hidden',
+                transition: 'all 0.3s',
+                cursor: 'pointer'
+              }} onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.1)';
+              }} onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.05)';
+              }}>
+                <div style={{
+                  height: '192px',
+                  background: 'linear-gradient(135deg, #dbeafe 0%, #e0e7ff 50%, #fdf4ff 100%)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  position: 'relative'
+                }}>
+                  <div style={{
+                    width: '80px',
+                    height: '80px',
+                    background: 'white',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
+                    fontSize: '32px',
+                    fontWeight: '700',
+                    color: '#3b82f6'
+                  }}>
+                    {guide.name.charAt(0)}
                   </div>
+                  {guide.verified && (
+                    <div style={{
+                      position: 'absolute',
+                      top: '16px',
+                      right: '16px',
+                      background: '#dcfce7',
+                      color: '#166534',
+                      fontSize: '12px',
+                      padding: '4px 12px',
+                      borderRadius: '20px',
+                      fontWeight: '500'
+                    }}>
+                      ✓ Verified
+                    </div>
+                  )}
                 </div>
                 
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-xl font-semibold text-gray-900">{guide.name}</h3>
-                    {guide.verified && (
-                      <span className="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-medium">
-                        ✓ Verified
-                      </span>
-                    )}
-                  </div>
+                <div style={{ padding: '24px' }}>
+                  <h3 style={{
+                    fontSize: '20px',
+                    fontWeight: '600',
+                    color: '#1f2937',
+                    marginBottom: '8px'
+                  }}>
+                    {guide.name}
+                  </h3>
                   
-                  <p className="text-gray-600 mb-4 flex items-center">
-                    <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <p style={{
+                    color: '#6b7280',
+                    marginBottom: '16px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px'
+                  }}>
+                    <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     </svg>
-                    {guide.location}
+                    📍 {guide.location}
                   </p>
                   
-                  <div className="mb-4">
-                    <div className="flex flex-wrap gap-2">
+                  <div style={{ marginBottom: '20px' }}>
+                    <div style={{
+                      display: 'flex',
+                      flexWrap: 'wrap',
+                      gap: '8px'
+                    }}>
                       {guide.specialties.map((specialty, index) => (
-                        <span key={index} className="bg-blue-50 text-blue-700 text-xs px-3 py-1 rounded-full">
+                        <span key={index} style={{
+                          background: '#eff6ff',
+                          color: '#1d4ed8',
+                          fontSize: '12px',
+                          padding: '4px 12px',
+                          borderRadius: '20px',
+                          fontWeight: '500'
+                        }}>
                           {specialty}
                         </span>
                       ))}
                     </div>
                   </div>
                   
-                  <div className="flex items-center justify-between pt-4 border-t">
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    paddingTop: '16px',
+                    borderTop: '1px solid #f3f4f6'
+                  }}>
                     <div>
-                      <p className="text-2xl font-bold text-gray-900">${guide.pricePerHour}</p>
-                      <p className="text-sm text-gray-500">per hour</p>
-                      <p className="text-sm text-yellow-600 flex items-center mt-1">
+                      <div style={{
+                        fontSize: '28px',
+                        fontWeight: '700',
+                        color: '#1f2937'
+                      }}>
+                        ${guide.pricePerHour}
+                      </div>
+                      <div style={{
+                        fontSize: '14px',
+                        color: '#6b7280'
+                      }}>
+                        per hour
+                      </div>
+                      <div style={{
+                        fontSize: '14px',
+                        color: '#f59e0b',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        marginTop: '4px'
+                      }}>
                         ⭐ {guide.rating} rating
-                      </p>
+                      </div>
                     </div>
                     <button 
                       onClick={() => setSelectedGuide(guide)}
-                      className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                      style={{
+                        background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
+                        color: 'white',
+                        padding: '12px 24px',
+                        borderRadius: '12px',
+                        border: 'none',
+                        fontWeight: '600',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'translateY(-2px)';
+                        e.currentTarget.style.boxShadow = '0 10px 25px rgba(59, 130, 246, 0.3)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'translateY(0)';
+                        e.currentTarget.style.boxShadow = 'none';
+                      }}
                     >
-                      Book Now
+                      🚀 Book Now
                     </button>
                   </div>
                 </div>

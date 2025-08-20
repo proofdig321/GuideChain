@@ -20,24 +20,48 @@ export default function ContactContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div style={{ minHeight: '100vh', background: '#f9fafb' }}>
       <Header />
       
-      <main className="py-12 sm:py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-              Get in Touch
+      <main style={{ padding: '48px 0' }}>
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '0 24px'
+        }}>
+          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+            <h1 style={{
+              fontSize: 'clamp(2rem, 4vw, 3rem)',
+              fontWeight: '700',
+              color: '#1f2937',
+              marginBottom: '16px'
+            }}>
+              💬 Get in Touch
             </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p style={{
+              fontSize: '18px',
+              color: '#6b7280',
+              maxWidth: '600px',
+              margin: '0 auto'
+            }}>
               Have questions about GuideChain? Need help with your booking? We're here to help.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2">
-              <div className="bg-white rounded-xl shadow-lg p-6 sm:p-8">
-                <form onSubmit={handleSubmit} className="space-y-6">
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+            gap: '32px'
+          }}>
+            <div style={{ gridColumn: 'span 2' }}>
+              <div style={{
+                background: 'white',
+                borderRadius: '16px',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
+                border: '1px solid #f3f4f6',
+                padding: '32px'
+              }}>
+                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">

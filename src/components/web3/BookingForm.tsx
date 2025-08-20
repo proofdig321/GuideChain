@@ -40,7 +40,7 @@ export function BookingForm({ guideAddress, guideName, pricePerHour, onClose }: 
     }
 
     try {
-      alert(`Booking request sent to ${guideName}! Total: $${finalAmount.toFixed(2)} USDC`);
+      alert(`🎉 Booking request sent to ${guideName}! Total: $${finalAmount.toFixed(2)} USDC`);
       onClose();
     } catch (error) {
       console.error("Booking failed:", error);
@@ -49,26 +49,69 @@ export function BookingForm({ guideAddress, guideName, pricePerHour, onClose }: 
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
-        <div className="p-6">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-bold text-gray-900">Book with {guideName}</h2>
+    <div style={{
+      position: 'fixed',
+      inset: 0,
+      background: 'rgba(0, 0, 0, 0.5)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '16px',
+      zIndex: 50
+    }}>
+      <div style={{
+        background: 'white',
+        borderRadius: '16px',
+        maxWidth: '500px',
+        width: '100%',
+        maxHeight: '90vh',
+        overflowY: 'auto'
+      }}>
+        <div style={{ padding: '24px' }}>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: '24px'
+          }}>
+            <h2 style={{
+              fontSize: '20px',
+              fontWeight: '700',
+              color: '#1f2937'
+            }}>
+              🚀 Book with {guideName}
+            </h2>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-600 transition-colors"
+              style={{
+                color: '#9ca3af',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '4px',
+                borderRadius: '4px',
+                transition: 'color 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.color = '#6b7280'}
+              onMouseLeave={(e) => e.currentTarget.style.color = '#9ca3af'}
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg style={{ width: '24px', height: '24px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Date *
+                <label style={{
+                  display: 'block',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  color: '#374151',
+                  marginBottom: '4px'
+                }}>
+                  📅 Date *
                 </label>
                 <input
                   type="date"
@@ -76,32 +119,72 @@ export function BookingForm({ guideAddress, guideName, pricePerHour, onClose }: 
                   value={formData.date}
                   onChange={(e) => setFormData({...formData, date: e.target.value})}
                   min={new Date().toISOString().split('T')[0]}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '8px',
+                    fontSize: '14px',
+                    outline: 'none',
+                    transition: 'border-color 0.2s'
+                  }}
+                  onFocus={(e) => e.currentTarget.style.borderColor = '#3b82f6'}
+                  onBlur={(e) => e.currentTarget.style.borderColor = '#d1d5db'}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Time *
+                <label style={{
+                  display: 'block',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  color: '#374151',
+                  marginBottom: '4px'
+                }}>
+                  ⏰ Time *
                 </label>
                 <input
                   type="time"
                   required
                   value={formData.time}
                   onChange={(e) => setFormData({...formData, time: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '8px',
+                    fontSize: '14px',
+                    outline: 'none',
+                    transition: 'border-color 0.2s'
+                  }}
+                  onFocus={(e) => e.currentTarget.style.borderColor = '#3b82f6'}
+                  onBlur={(e) => e.currentTarget.style.borderColor = '#d1d5db'}
                 />
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Duration (hours) *
+                <label style={{
+                  display: 'block',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  color: '#374151',
+                  marginBottom: '4px'
+                }}>
+                  ⏱️ Duration (hours) *
                 </label>
                 <select
                   value={formData.duration}
                   onChange={(e) => setFormData({...formData, duration: parseInt(e.target.value)})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '8px',
+                    fontSize: '14px',
+                    outline: 'none',
+                    background: 'white'
+                  }}
                 >
                   {[1,2,3,4,5,6,7,8].map(hours => (
                     <option key={hours} value={hours}>{hours} hour{hours > 1 ? 's' : ''}</option>
@@ -109,13 +192,27 @@ export function BookingForm({ guideAddress, guideName, pricePerHour, onClose }: 
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Participants *
+                <label style={{
+                  display: 'block',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  color: '#374151',
+                  marginBottom: '4px'
+                }}>
+                  👥 Participants *
                 </label>
                 <select
                   value={formData.participants}
                   onChange={(e) => setFormData({...formData, participants: parseInt(e.target.value)})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '8px',
+                    fontSize: '14px',
+                    outline: 'none',
+                    background: 'white'
+                  }}
                 >
                   {[1,2,3,4,5,6,7,8,9,10].map(count => (
                     <option key={count} value={count}>{count} {count === 1 ? 'person' : 'people'}</option>
@@ -125,47 +222,122 @@ export function BookingForm({ guideAddress, guideName, pricePerHour, onClose }: 
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Special Requests
+              <label style={{
+                display: 'block',
+                fontSize: '14px',
+                fontWeight: '500',
+                color: '#374151',
+                marginBottom: '4px'
+              }}>
+                💬 Special Requests
               </label>
               <textarea
                 rows={3}
                 value={formData.specialRequests}
                 onChange={(e) => setFormData({...formData, specialRequests: e.target.value})}
                 placeholder="Any special requirements or preferences..."
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm resize-none"
+                style={{
+                  width: '100%',
+                  padding: '12px',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '8px',
+                  fontSize: '14px',
+                  outline: 'none',
+                  resize: 'none',
+                  fontFamily: 'inherit'
+                }}
+                onFocus={(e) => e.currentTarget.style.borderColor = '#3b82f6'}
+                onBlur={(e) => e.currentTarget.style.borderColor = '#d1d5db'}
               />
             </div>
 
-            <div className="bg-gray-50 rounded-lg p-4 space-y-2">
-              <div className="flex justify-between text-sm">
+            <div style={{
+              background: '#f9fafb',
+              borderRadius: '12px',
+              padding: '16px',
+              border: '1px solid #f3f4f6'
+            }}>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                fontSize: '14px',
+                marginBottom: '8px'
+              }}>
                 <span>Base rate ({formData.duration}h × ${pricePerHour})</span>
                 <span>${totalAmount.toFixed(2)}</span>
               </div>
-              <div className="flex justify-between text-sm">
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                fontSize: '14px',
+                marginBottom: '12px'
+              }}>
                 <span>Platform fee (7.5%)</span>
                 <span>${platformFee.toFixed(2)}</span>
               </div>
-              <div className="border-t pt-2 flex justify-between font-semibold">
-                <span>Total (USDC)</span>
+              <div style={{
+                borderTop: '1px solid #e5e7eb',
+                paddingTop: '12px',
+                display: 'flex',
+                justifyContent: 'space-between',
+                fontWeight: '600',
+                fontSize: '16px'
+              }}>
+                <span>💰 Total (USDC)</span>
                 <span>${finalAmount.toFixed(2)}</span>
               </div>
             </div>
 
-            <div className="flex space-x-3 pt-4">
+            <div style={{
+              display: 'flex',
+              gap: '12px',
+              paddingTop: '16px'
+            }}>
               <button
                 type="button"
                 onClick={onClose}
-                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                style={{
+                  flex: 1,
+                  padding: '12px 16px',
+                  border: '1px solid #d1d5db',
+                  color: '#374151',
+                  borderRadius: '8px',
+                  background: 'white',
+                  cursor: 'pointer',
+                  fontWeight: '500',
+                  transition: 'all 0.2s'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                onMouseLeave={(e) => e.currentTarget.style.background = 'white'}
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={isPending || !account}
-                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                style={{
+                  flex: 1,
+                  padding: '12px 16px',
+                  background: isPending || !account ? '#9ca3af' : 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
+                  color: 'white',
+                  borderRadius: '8px',
+                  border: 'none',
+                  cursor: isPending || !account ? 'not-allowed' : 'pointer',
+                  fontWeight: '600',
+                  transition: 'all 0.2s'
+                }}
+                onMouseEnter={(e) => {
+                  if (!isPending && account) {
+                    e.currentTarget.style.transform = 'translateY(-1px)';
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.3)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
               >
-                {isPending ? "Processing..." : "Book Now"}
+                {isPending ? "Processing..." : "🚀 Book Now"}
               </button>
             </div>
           </form>

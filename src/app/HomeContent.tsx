@@ -7,107 +7,230 @@ import Link from "next/link";
 
 export default function HomeContent() {
   return (
-    <div className="min-h-screen bg-white">
+    <div style={{ minHeight: '100vh', background: 'white' }}>
       <Header />
       <Hero />
       
       {/* How It Works */}
-      <section className="py-20 bg-white relative overflow-hidden">
-        <div className="absolute inset-0 travel-pattern opacity-30"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-6">
+      <section style={{
+        padding: '80px 0',
+        background: 'white',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '0 24px'
+        }}>
+          <div style={{ textAlign: 'center', marginBottom: '64px' }}>
+            <h2 style={{
+              fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+              fontWeight: '900',
+              color: '#1f2937',
+              marginBottom: '24px'
+            }}>
               🚀 How It Works
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p style={{
+              fontSize: '20px',
+              color: '#6b7280',
+              maxWidth: '600px',
+              margin: '0 auto'
+            }}>
               Three simple steps to your next South African adventure
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div className="text-center group">
-              <div className="w-20 h-20 safari-gradient rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-transform duration-300 shadow-xl">
-                <span className="text-3xl font-black text-white">1</span>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '48px'
+          }}>
+            {[
+              { num: '1', title: '🔗 Connect Wallet', desc: 'Connect your Web3 wallet to access secure USDC payments and start exploring.', gradient: 'linear-gradient(135deg, #f97316 0%, #dc2626 100%)' },
+              { num: '2', title: '🧭 Find Guide', desc: 'Browse verified local guides, read authentic reviews, and choose your perfect experience.', gradient: 'linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%)' },
+              { num: '3', title: '🌍 Explore', desc: 'Book securely with smart contracts and enjoy authentic local adventures.', gradient: 'linear-gradient(135deg, #059669 0%, #10b981 100%)' }
+            ].map((step, i) => (
+              <div key={i} style={{ textAlign: 'center' }}>
+                <div style={{
+                  width: '80px',
+                  height: '80px',
+                  background: step.gradient,
+                  borderRadius: '24px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 32px auto',
+                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.15)',
+                  transition: 'transform 0.3s'
+                }} onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'scale(1.1) rotate(5deg)';
+                }} onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'scale(1) rotate(0deg)';
+                }}>
+                  <span style={{
+                    fontSize: '36px',
+                    fontWeight: '900',
+                    color: 'white'
+                  }}>
+                    {step.num}
+                  </span>
+                </div>
+                <h3 style={{
+                  fontSize: '24px',
+                  fontWeight: '700',
+                  color: '#1f2937',
+                  marginBottom: '16px'
+                }}>
+                  {step.title}
+                </h3>
+                <p style={{
+                  color: '#6b7280',
+                  lineHeight: '1.6'
+                }}>
+                  {step.desc}
+                </p>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">🔗 Connect Wallet</h3>
-              <p className="text-gray-600 leading-relaxed">Connect your Web3 wallet to access secure USDC payments and start exploring.</p>
-            </div>
-
-            <div className="text-center group">
-              <div className="w-20 h-20 ocean-gradient rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-transform duration-300 shadow-xl">
-                <span className="text-3xl font-black text-white">2</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">🧭 Find Guide</h3>
-              <p className="text-gray-600 leading-relaxed">Browse verified local guides, read authentic reviews, and choose your perfect experience.</p>
-            </div>
-
-            <div className="text-center group">
-              <div className="w-20 h-20 mountain-gradient rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-transform duration-300 shadow-xl">
-                <span className="text-3xl font-black text-white">3</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">🌍 Explore</h3>
-              <p className="text-gray-600 leading-relaxed">Book securely with smart contracts and enjoy authentic local adventures.</p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* For Guides */}
-      <section className="py-20 travel-gradient relative overflow-hidden">
-        <div className="absolute top-10 right-10 w-32 h-32 bg-blue-200/20 rounded-full blur-2xl"></div>
-        <div className="absolute bottom-10 left-10 w-40 h-40 bg-purple-200/20 rounded-full blur-2xl"></div>
+      <section style={{
+        padding: '80px 0',
+        background: 'linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 50%, #fdf4ff 100%)',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        <div style={{
+          position: 'absolute',
+          top: '40px',
+          right: '40px',
+          width: '128px',
+          height: '128px',
+          background: 'rgba(59, 130, 246, 0.1)',
+          borderRadius: '50%',
+          filter: 'blur(40px)'
+        }}></div>
+        <div style={{
+          position: 'absolute',
+          bottom: '40px',
+          left: '40px',
+          width: '160px',
+          height: '160px',
+          background: 'rgba(139, 92, 246, 0.1)',
+          borderRadius: '50%',
+          filter: 'blur(40px)'
+        }}></div>
         
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '0 24px'
+        }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+            gap: '64px',
+            alignItems: 'center'
+          }}>
             <div>
-              <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-8">
+              <h2 style={{
+                fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+                fontWeight: '900',
+                color: '#1f2937',
+                marginBottom: '32px'
+              }}>
                 🌟 For Local Guides
               </h2>
-              <p className="text-xl text-gray-600 mb-10 leading-relaxed">
+              <p style={{
+                fontSize: '20px',
+                color: '#6b7280',
+                marginBottom: '40px',
+                lineHeight: '1.6'
+              }}>
                 Share your passion for South Africa and earn from your expertise. Join our verified guide network.
               </p>
               
-              <div className="space-y-6 mb-10">
-                <div className="flex items-center space-x-4">
-                  <div className="w-8 h-8 bg-green-500 rounded-xl flex items-center justify-center">
-                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
+              <div style={{ marginBottom: '40px' }}>
+                {[
+                  { icon: '💰', text: 'Earn 92.5% of booking fees', color: '#10b981' },
+                  { icon: '🔒', text: 'Secure USDC payments', color: '#3b82f6' },
+                  { icon: '⭐', text: 'Build blockchain reputation', color: '#8b5cf6' }
+                ].map((benefit, i) => (
+                  <div key={i} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '16px',
+                    marginBottom: '24px'
+                  }}>
+                    <div style={{
+                      width: '32px',
+                      height: '32px',
+                      background: benefit.color,
+                      borderRadius: '12px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}>
+                      <svg style={{ width: '20px', height: '20px', color: 'white' }} fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span style={{
+                      fontSize: '18px',
+                      fontWeight: '600',
+                      color: '#1f2937'
+                    }}>
+                      {benefit.icon} {benefit.text}
+                    </span>
                   </div>
-                  <span className="text-lg font-semibold text-gray-800">💰 Earn 92.5% of booking fees</span>
-                </div>
-                <div className="flex items-center space-x-4">
-                  <div className="w-8 h-8 bg-blue-500 rounded-xl flex items-center justify-center">
-                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <span className="text-lg font-semibold text-gray-800">🔒 Secure USDC payments</span>
-                </div>
-                <div className="flex items-center space-x-4">
-                  <div className="w-8 h-8 bg-purple-500 rounded-xl flex items-center justify-center">
-                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <span className="text-lg font-semibold text-gray-800">⭐ Build blockchain reputation</span>
-                </div>
+                ))}
               </div>
               
-              <Link href="/verify" className="btn-primary inline-flex items-center">
+              <Link href="/verify" className="btn-primary" style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}>
                 🚀 Become a Guide
-                <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg style={{ width: '20px', height: '20px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </Link>
             </div>
             
-            <div className="card p-12 text-center bg-gradient-to-br from-white to-blue-50">
-              <div className="text-6xl font-black bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent mb-4">
+            <div className="card" style={{
+              padding: '48px',
+              textAlign: 'center',
+              background: 'linear-gradient(135deg, white 0%, #f0f9ff 100%)'
+            }}>
+              <div style={{
+                fontSize: '72px',
+                fontWeight: '900',
+                background: 'linear-gradient(135deg, #10b981 0%, #3b82f6 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                marginBottom: '16px'
+              }}>
                 92.5%
               </div>
-              <div className="text-2xl font-bold text-gray-900 mb-3">Guide Earnings</div>
-              <div className="text-gray-600 text-lg leading-relaxed">
+              <div style={{
+                fontSize: '24px',
+                fontWeight: '700',
+                color: '#1f2937',
+                marginBottom: '12px'
+              }}>
+                Guide Earnings
+              </div>
+              <div style={{
+                color: '#6b7280',
+                fontSize: '18px',
+                lineHeight: '1.6'
+              }}>
                 Keep most of what you earn with our industry-low 7.5% platform fee
               </div>
             </div>

@@ -1,7 +1,10 @@
-import { getContract, prepareContractCall, readContract } from "thirdweb";
-import { client } from "@/app/client";
+import { getContract, prepareContractCall, readContract, createThirdwebClient } from "thirdweb";
 import { CONTRACT_ADDRESSES, PLATFORM_CONFIG } from "@/constants";
 import type { Guide, Booking, Review, VerificationApplication } from "@/types";
+
+const client = createThirdwebClient({
+  clientId: process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID || "",
+});
 
 // Contract instances
 export const guideRegistryContract = getContract({

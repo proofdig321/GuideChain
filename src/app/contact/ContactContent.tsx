@@ -44,7 +44,7 @@ export default function ContactContent() {
               maxWidth: '600px',
               margin: '0 auto'
             }}>
-              Have questions about GuideChain? Need help with your booking? We're here to help.
+              Have questions about GuidesChain? Need help with your booking? We're here to help.
             </p>
           </div>
 

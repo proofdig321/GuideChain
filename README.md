@@ -1,4 +1,4 @@
-# GuideChain - Enterprise Web3 Tourism Platform
+# GuidesChain - Enterprise Web3 Tourism Platform
 
 > Decentralized peer-to-peer tourism marketplace connecting tourists with verified South African guides
 
@@ -21,7 +21,7 @@
 ## 🏗️ Project Structure
 
 ```
-GuideChain/
+GuidesChain/
 ├── src/
 │   ├── app/                    # Next.js 15 App Router
 │   │   ├── client.ts          # thirdweb v5 client
@@ -66,8 +66,8 @@ GuideChain/
 ### Installation
 ```bash
 # Clone repository
-git clone https://github.com/proofdig321/GuideChain.git
-cd GuideChain
+git clone https://github.com/proofdig321/GuidesChain.git
+cd GuidesChain
 
 # Install dependencies
 npm install
@@ -237,7 +237,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Issues**: GitHub Issues
 - **Discussions**: GitHub Discussions
 - **Email**: support@guidechain.com
-- **Discord**: GuideChain Community (planned)
+- **Discord**: GuidesChain Community (planned)
 
 ## 🎯 Roadmap
 

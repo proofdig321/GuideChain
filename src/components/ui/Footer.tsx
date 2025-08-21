@@ -52,7 +52,7 @@ export function Footer() {
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text'
                 }}>
-                  GuideChain
+                  GuidesChain
                 </div>
                 <div style={{ fontSize: '12px', color: '#9ca3af' }}>
                   South Africa Tourism
@@ -192,7 +192,7 @@ export function Footer() {
             fontSize: '13px',
             textAlign: window.innerWidth >= 640 ? 'left' : 'center'
           }}>
-            © 2025 GuideChain. Built with ❤️ for South African tourism.
+            © 2025 GuidesChain. Built with ❤️ for South African tourism.
           </div>
           
           <div style={{

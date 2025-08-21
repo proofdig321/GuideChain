@@ -23,7 +23,7 @@ export class IPFSService {
       name: file.name,
       keyvalues: {
         uploadedAt: new Date().toISOString(),
-        platform: "GuideChain"
+        platform: "GuidesChain"
       }
     }));
 
@@ -54,7 +54,7 @@ export class IPFSService {
     const jsonData = {
       ...metadata,
       timestamp: Date.now(),
-      platform: "GuideChain",
+      platform: "GuidesChain",
       version: "1.0"
     };
 
@@ -257,7 +257,7 @@ export class IPFSService {
             name: name,
             keyvalues: {
               pinnedAt: new Date().toISOString(),
-              platform: "GuideChain"
+              platform: "GuidesChain"
             }
           }
         }),

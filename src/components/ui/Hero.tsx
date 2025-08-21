@@ -71,7 +71,7 @@ export function Hero() {
           <ConnectButton
             client={client}
             appMetadata={{
-              name: "GuideChain",
+              name: "GuidesChain",
               url: "https://guidechain.vercel.app",
             }}
           />

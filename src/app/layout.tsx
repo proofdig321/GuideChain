@@ -3,7 +3,7 @@ import './globals.css';
 import { ThirdwebProvider } from "thirdweb/react";
 
 export const metadata: Metadata = {
-  title: 'GuideChain - Web3 Tourism Platform',
+  title: 'GuidesChain - Web3 Tourism Platform',
   description: 'Decentralized peer-to-peer tourism marketplace connecting tourists with verified South African guides',
   manifest: '/manifest.json',
   icons: {
@@ -29,7 +29,7 @@ export default function RootLayout({
       <head>
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="GuideChain" />
+        <meta name="apple-mobile-web-app-title" content="GuidesChain" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="format-detection" content="telephone=no" />
         <link rel="apple-touch-icon" href="/icons/icon-152x152.png" />

@@ -2,7 +2,7 @@ import { polygonZkEvmTestnet } from "thirdweb/chains";
 
 // Platform Configuration
 export const PLATFORM_CONFIG = {
-  NAME: "GuideChain",
+  NAME: "GuidesChain",
   DESCRIPTION: "Decentralized peer-to-peer tourism marketplace",
   URL: "https://guidechain.vercel.app",
   FEE_PERCENTAGE: 7.5, // 7.5% platform fee

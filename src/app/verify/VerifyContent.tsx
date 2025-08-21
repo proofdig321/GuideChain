@@ -31,7 +31,7 @@ export default function VerifyContent() {
           <ConnectButton
             client={client}
             appMetadata={{
-              name: "GuideChain",
+              name: "GuidesChain",
               url: "https://guidechain.vercel.app",
             }}
           />
@@ -48,7 +48,7 @@ export default function VerifyContent() {
           <ConnectButton
             client={client}
             appMetadata={{
-              name: "GuideChain",
+              name: "GuidesChain",
               url: "https://guidechain.vercel.app",
             }}
           />

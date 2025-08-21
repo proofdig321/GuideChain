@@ -57,7 +57,7 @@ export function Header() {
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'
             }}>
-              GuideChain
+              GuidesChain
             </div>
             <div className="desktop-only" style={{ fontSize: '12px', color: '#6b7280', marginTop: '-2px' }}>
               South Africa
@@ -98,7 +98,7 @@ export function Header() {
             <ConnectButton
               client={client}
               appMetadata={{
-                name: "GuideChain",
+                name: "GuidesChain",
                 url: "https://guidechain.vercel.app",
               }}
             />
@@ -181,7 +181,7 @@ export function Header() {
               <ConnectButton
                 client={client}
                 appMetadata={{
-                  name: "GuideChain",
+                  name: "GuidesChain",
                   url: "https://guidechain.vercel.app",
                 }}
               />

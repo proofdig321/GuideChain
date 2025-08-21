@@ -7,7 +7,7 @@
 ### Admin Wallet Address
 The admin dashboard is restricted to this specific wallet address:
 ```
-0x25E1303E503Dc60B5Eee353183A002a645439328
+0xc84799A904EeB5C57aBBBc40176E7dB8be202C10
 ```
 
 ### Steps to Access Admin Dashboard:
@@ -15,7 +15,7 @@ The admin dashboard is restricted to this specific wallet address:
 1. **Connect the Admin Wallet**
    - Go to `/dashboard` page
    - Click "Connect Wallet" 
-   - Connect the wallet with address: `0x25E1303E503Dc60B5Eee353183A002a645439328`
+   - Connect the wallet with address: `0xc84799A904EeB5C57aBBBc40176E7dB8be202C10`
 
 2. **Admin Features Available**
    - 📊 Platform Statistics (Total Guides, Bookings, Fees)
@@ -63,7 +63,7 @@ If you need to test admin functionality:
 
 ---
 
-**Current Admin Address**: `0x25E1303E503Dc60B5Eee353183A002a645439328`
+**Current Admin Address**: `0xc84799A904EeB5C57aBBBc40176E7dB8be202C10`
 **Dashboard URL**: `/dashboard`
 **Status**: Development Ready
 

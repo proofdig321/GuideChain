@@ -135,7 +135,7 @@ vercel --prod
 - **7.5% Platform Fee** on all completed bookings
 - **Guide Earnings**: 92.5% of booking amount
 - **Payment Currency**: USDC on Polygon zkEVM
-- **Admin Wallet**: `0x25E1303E503Dc60B5Eee353183A002a645439328`
+- **Admin Wallet**: `0xc84799A904EeB5C57aBBBc40176E7dB8be202C10`
 
 ### Revenue Streams
 1. **Booking Fees**: 7.5% of all transactions

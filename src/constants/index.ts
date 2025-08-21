@@ -6,7 +6,7 @@ export const PLATFORM_CONFIG = {
   DESCRIPTION: "Decentralized peer-to-peer tourism marketplace",
   URL: "https://guidechain.vercel.app",
   FEE_PERCENTAGE: 7.5, // 7.5% platform fee
-  ADMIN_ADDRESS: "0x25E1303E503Dc60B5Eee353183A002a645439328",
+  ADMIN_ADDRESS: "0xc84799A904EeB5C57aBBBc40176E7dB8be202C10",
   SUPPORTED_CHAIN: polygonZkEvmTestnet,
   USDC_ADDRESS: "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238", // Polygon zkEVM Testnet USDC
 } as const;

@@ -7,7 +7,7 @@ const client = createThirdwebClient({
   clientId: process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID || "",
 });
 
-const ADMIN_ADDRESS = "0x25E1303E503Dc60B5Eee353183A002a645439328";
+const ADMIN_ADDRESS = "0xc84799A904EeB5C57aBBBc40176E7dB8be202C10";
 
 export default function DashboardContent() {
   const account = useActiveAccount();

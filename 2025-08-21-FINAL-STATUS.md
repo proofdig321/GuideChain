@@ -29,7 +29,7 @@
 - **Dashboard**: Admin/user panels with responsive design
 
 ### 🔐 **Admin Dashboard Access**
-- **Admin Wallet**: `0x25E1303E503Dc60B5Eee353183A002a645439328`
+- **Admin Wallet**: `0xc84799A904EeB5C57aBBBc40176E7dB8be202C10`
 - **Access Method**: Connect wallet at `/dashboard` page
 - **Features**: Platform stats, guide verifications, activity monitoring
 - **Security**: Hardcoded admin address, secure access control

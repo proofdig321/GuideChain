@@ -93,7 +93,7 @@ GuideChain/
 
 ### Platform Economics
 - **7.5% Platform Fees**: Configured across all systems
-- **Admin Wallet**: 0x25E1303E503Dc60B5Eee353183A002a645439328
+- **Admin Wallet**: 0xc84799A904EeB5C57aBBBc40176E7dB8be202C10
 - **USDC Integration**: Polygon zkEVM Testnet ready
 - **Fee Distribution**: Automatic platform fee collection
 - **Revenue Tracking**: Real-time earnings calculation
@@ -142,7 +142,7 @@ GuideChain/
 # 1. Get testnet funds
 Visit: https://faucet.polygon.technology/
 Network: Polygon zkEVM Testnet (Chain ID: 1442)
-Wallet: 0x25E1303E503Dc60B5Eee353183A002a645439328
+Wallet: 0xc84799A904EeB5C57aBBBc40176E7dB8be202C10
 
 # 2. Deploy contracts
 npx thirdweb deploy contracts/GuideRegistry.sol

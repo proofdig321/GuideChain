@@ -214,12 +214,13 @@ export default function GuidesContent() {
                       style={{
                         background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
                         color: 'white',
-                        padding: '12px 24px',
+                        padding: window.innerWidth >= 640 ? '12px 24px' : '10px 20px',
                         borderRadius: '12px',
                         border: 'none',
                         fontWeight: '600',
                         cursor: 'pointer',
-                        transition: 'all 0.2s'
+                        transition: 'all 0.2s',
+                        fontSize: window.innerWidth >= 640 ? '14px' : '13px'
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.transform = 'translateY(-2px)';

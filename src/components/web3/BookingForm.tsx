@@ -67,7 +67,7 @@ export function BookingForm({ guideAddress, guideName, pricePerHour, onClose }: 
         maxHeight: '90vh',
         overflowY: 'auto'
       }}>
-        <div style={{ padding: '24px' }}>
+        <div style={{ padding: window.innerWidth >= 640 ? '24px' : '20px' }}>
           <div style={{
             display: 'flex',
             justifyContent: 'space-between',
@@ -102,7 +102,7 @@ export function BookingForm({ guideAddress, guideName, pricePerHour, onClose }: 
           </div>
 
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: window.innerWidth >= 480 ? '1fr 1fr' : '1fr', gap: '16px' }}>
               <div>
                 <label style={{
                   display: 'block',
@@ -162,7 +162,7 @@ export function BookingForm({ guideAddress, guideName, pricePerHour, onClose }: 
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: window.innerWidth >= 480 ? '1fr 1fr' : '1fr', gap: '16px' }}>
               <div>
                 <label style={{
                   display: 'block',
@@ -290,6 +290,7 @@ export function BookingForm({ guideAddress, guideName, pricePerHour, onClose }: 
 
             <div style={{
               display: 'flex',
+              flexDirection: window.innerWidth >= 480 ? 'row' : 'column',
               gap: '12px',
               paddingTop: '16px'
             }}>

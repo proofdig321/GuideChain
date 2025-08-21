@@ -50,10 +50,10 @@ export default function ContactContent() {
 
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+            gridTemplateColumns: window.innerWidth >= 1024 ? '2fr 1fr' : '1fr',
             gap: '32px'
           }}>
-            <div style={{ gridColumn: 'span 2' }}>
+            <div>
               <div style={{
                 background: 'white',
                 borderRadius: '16px',
@@ -61,7 +61,7 @@ export default function ContactContent() {
                 border: '1px solid #f3f4f6',
                 padding: '32px'
               }}>
-                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">

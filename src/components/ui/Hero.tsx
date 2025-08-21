@@ -40,20 +40,9 @@ export function Hero() {
         filter: 'blur(40px)'
       }}></div>
 
-      <div style={{
-        maxWidth: '1200px',
-        margin: '0 auto',
-        padding: '80px 24px',
-        textAlign: 'center'
-      }}>
+      <div className="container section-padding" style={{ textAlign: 'center' }}>
         {/* Main heading */}
-        <h1 style={{
-          fontSize: 'clamp(2rem, 8vw, 6rem)',
-          fontWeight: '900',
-          lineHeight: '1.1',
-          marginBottom: '24px',
-          textAlign: 'center'
-        }}>
+        <h1 className="hero-title">
           <div style={{ color: '#1f2937', marginBottom: '16px' }}>Explore</div>
           <div style={{
             background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%)',
@@ -64,7 +53,7 @@ export function Hero() {
             South Africa
           </div>
           <div style={{ 
-            fontSize: 'clamp(2rem, 6vw, 4rem)', 
+            fontSize: 'clamp(1.5rem, 6vw, 4rem)', 
             color: '#4b5563', 
             fontWeight: '700',
             marginTop: '8px'
@@ -73,29 +62,12 @@ export function Hero() {
           </div>
         </h1>
 
-        <p style={{
-          fontSize: 'clamp(16px, 4vw, 20px)',
-          color: '#6b7280',
-          marginBottom: '40px',
-          maxWidth: '800px',
-          margin: '0 auto 40px auto',
-          lineHeight: '1.6',
-          textAlign: 'center',
-          padding: '0 16px'
-        }}>
+        <p className="hero-subtitle">
           🌍 Connect with verified local guides • 🔒 Secure Web3 payments • ⭐ Authentic experiences
         </p>
 
         {/* CTA buttons */}
-        <div style={{
-          display: 'flex',
-          flexDirection: window.innerWidth >= 640 ? 'row' : 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '16px',
-          marginBottom: '48px',
-          padding: '0 16px'
-        }}>
+        <div className="flex-responsive" style={{ marginBottom: '64px' }}>
           <ConnectButton
             client={client}
             appMetadata={{
@@ -109,14 +81,7 @@ export function Hero() {
         </div>
 
         {/* Feature cards */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: '24px',
-          maxWidth: '1000px',
-          margin: '0 auto',
-          padding: '0 16px'
-        }}>
+        <div className="responsive-grid-3" style={{ marginBottom: '64px' }}>
           <div className="card" style={{ textAlign: 'center' }}>
             <div style={{
               width: '64px',
@@ -192,29 +157,22 @@ export function Hero() {
         </div>
 
         {/* Stats */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))',
-          gap: '24px',
-          maxWidth: '600px',
-          margin: '60px auto 0 auto',
-          padding: '0 16px'
-        }}>
+        <div className="responsive-grid-4">
           <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: 'clamp(32px, 6vw, 48px)', fontWeight: '900', color: '#3b82f6', marginBottom: '8px' }}>50+</div>
-            <div style={{ color: '#6b7280', fontWeight: '500' }}>Verified Guides</div>
+            <div style={{ fontSize: 'clamp(2rem, 6vw, 3rem)', fontWeight: '900', color: '#3b82f6', marginBottom: '8px' }}>50+</div>
+            <div style={{ color: '#6b7280', fontWeight: '500', fontSize: '14px' }}>Verified Guides</div>
           </div>
           <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: 'clamp(32px, 6vw, 48px)', fontWeight: '900', color: '#8b5cf6', marginBottom: '8px' }}>200+</div>
-            <div style={{ color: '#6b7280', fontWeight: '500' }}>Happy Travelers</div>
+            <div style={{ fontSize: 'clamp(2rem, 6vw, 3rem)', fontWeight: '900', color: '#8b5cf6', marginBottom: '8px' }}>200+</div>
+            <div style={{ color: '#6b7280', fontWeight: '500', fontSize: '14px' }}>Happy Travelers</div>
           </div>
           <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: 'clamp(32px, 6vw, 48px)', fontWeight: '900', color: '#059669', marginBottom: '8px' }}>9</div>
-            <div style={{ color: '#6b7280', fontWeight: '500' }}>Provinces</div>
+            <div style={{ fontSize: 'clamp(2rem, 6vw, 3rem)', fontWeight: '900', color: '#059669', marginBottom: '8px' }}>9</div>
+            <div style={{ color: '#6b7280', fontWeight: '500', fontSize: '14px' }}>Provinces</div>
           </div>
           <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: 'clamp(32px, 6vw, 48px)', fontWeight: '900', color: '#ea580c', marginBottom: '8px' }}>4.9</div>
-            <div style={{ color: '#6b7280', fontWeight: '500' }}>Avg Rating</div>
+            <div style={{ fontSize: 'clamp(2rem, 6vw, 3rem)', fontWeight: '900', color: '#ea580c', marginBottom: '8px' }}>4.9</div>
+            <div style={{ color: '#6b7280', fontWeight: '500', fontSize: '14px' }}>Avg Rating</div>
           </div>
         </div>
       </div>

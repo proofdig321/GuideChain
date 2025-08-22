@@ -95,51 +95,11 @@ export const mockGuides: Guide[] = [
   }
 ];
 
-// Generate additional mock guides for comprehensive testing
-const generateMockGuides = (): Guide[] => {
-  const additionalGuides: Guide[] = [];
-  const names = [
-    "David Smith", "Nomsa Khumalo", "Pierre Dubois", "Zanele Mthethwa", "James Wilson",
-    "Fatima Hassan", "Chris van Niekerk", "Sipho Dlamini", "Maria Santos", "Ahmed Ali",
-    "Lerato Molefe", "John Anderson", "Priya Patel", "Kobus Steyn", "Grace Mbeki",
-    "Michael Brown", "Thandiwe Nkomo", "Jean-Luc Martin", "Nomthandazo Zulu"
-  ];
-
-  names.forEach((name, index) => {
-    const id = `0x${(index + 6).toString().padStart(40, '0')}`;
-    additionalGuides.push({
-      id,
-      address: id,
-      name,
-      location: SA_LOCATIONS[index % SA_LOCATIONS.length],
-      specialties: [
-        TOURISM_SPECIALTIES[index % TOURISM_SPECIALTIES.length],
-        TOURISM_SPECIALTIES[(index + 1) % TOURISM_SPECIALTIES.length],
-      ],
-      pricePerHour: 45 + Math.floor(Math.random() * 100),
-      rating: 3.5 + Math.random() * 1.5,
-      verified: Math.random() > 0.1, // 90% verified
-      verificationDate: new Date(2024, Math.floor(Math.random() * 12), Math.floor(Math.random() * 28)).toISOString(),
-      totalBookings: Math.floor(Math.random() * 200),
-      profileImageHash: `QmProfile${index + 6}`,
-      documentsHash: `QmDocs${index + 6}`,
-      languages: [
-        LANGUAGES[0], // English
-        LANGUAGES[1 + (index % (LANGUAGES.length - 1))],
-      ],
-      experience: `Experienced guide with ${2 + Math.floor(Math.random() * 8)} years in the tourism industry.`,
-      availability: Math.random() > 0.2, // 80% available
-    });
-  });
-
-  return additionalGuides;
-};
-
-export const allMockGuides = [...mockGuides, ...generateMockGuides()];
+export const allMockGuides = mockGuides;
 
 // Mock Platform Stats
 export const mockPlatformStats: PlatformStats = {
-  totalGuides: allMockGuides.length,
+  totalGuides: 5,
   totalBookings: 1247,
   totalRevenue: "89750.50",
   platformFees: "6731.29",

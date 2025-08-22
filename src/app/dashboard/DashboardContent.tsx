@@ -22,21 +22,35 @@ export default function DashboardContent() {
 
   if (!account) {
     return (
-      <div className="min-h-screen" style={{
-        background: 'linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 50%, #fef3c7 100%)'
-      }}>
+      <div style={{ minHeight: '100vh', background: '#f9fafb' }}>
         <Header />
-        <div className="min-h-[calc(100vh-64px)] flex items-center justify-center p-4">
-          <div className="text-center max-w-md mx-auto">
-            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div style={{
+          minHeight: 'calc(100vh - 64px)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '0 16px'
+        }}>
+          <div style={{ textAlign: 'center', maxWidth: '500px' }}>
+            <div style={{
+              width: '80px',
+              height: '80px',
+              background: 'linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%)',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 24px auto',
+              boxShadow: '0 10px 30px rgba(139, 92, 246, 0.3)'
+            }}>
+              <svg style={{ width: '40px', height: '40px', color: 'white' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
             </div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">
+            <h1 className="hero-title" style={{ marginBottom: '16px' }}>
               🔐 Connect Wallet
             </h1>
-            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+            <p style={{ fontSize: '18px', color: '#6b7280', marginBottom: '32px', lineHeight: '1.6' }}>
               Connect your Web3 wallet to access your secure GuidesChain dashboard
             </p>
             <ConnectButton
@@ -54,54 +68,88 @@ export default function DashboardContent() {
   }
 
   return (
-    <div className="min-h-screen" style={{
-      background: 'linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 50%, #fef3c7 100%)'
-    }}>
+    <div style={{ minHeight: '100vh', background: '#f9fafb' }}>
       <Header />
       
       {/* Hero Section */}
-      <section className="py-16 relative overflow-hidden">
-        <div className="absolute top-4 right-4 w-24 h-24 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-2xl"></div>
-        <div className="max-w-7xl mx-auto px-6">
+      <section style={{
+        background: 'linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 50%, #fdf4ff 100%)',
+        padding: '60px 0',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        <div style={{
+          position: 'absolute',
+          top: '20px',
+          right: '20px',
+          width: '100px',
+          height: '100px',
+          background: 'rgba(139, 92, 246, 0.1)',
+          borderRadius: '50%',
+          filter: 'blur(30px)'
+        }}></div>
+        
+        <div className="container" style={{ textAlign: 'center' }}>
           <MockDataBanner />
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-sm font-medium mb-4">
-              <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-              {isAdmin ? "Super Admin Access" : "User Dashboard"}
+          <h1 className="hero-title" style={{ marginBottom: '16px' }}>
+            📊 Dashboard
+          </h1>
+          <p className="hero-subtitle">
+            {isAdmin 
+              ? "Manage your platform with comprehensive admin tools and analytics" 
+              : "Track your bookings, manage your profile, and explore new adventures"
+            }
+          </p>
+          
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '16px',
+            marginTop: '40px',
+            flexWrap: 'wrap'
+          }}>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: 'rgba(255, 255, 255, 0.8)',
+              padding: '8px 16px',
+              borderRadius: '20px',
+              border: '1px solid rgba(255, 255, 255, 0.2)'
+            }}>
+              <div style={{
+                width: '8px',
+                height: '8px',
+                background: isAdmin ? '#8b5cf6' : '#10b981',
+                borderRadius: '50%'
+              }}></div>
+              <span style={{
+                fontSize: '14px',
+                fontWeight: '500',
+                color: '#1f2937'
+              }}>
+                {isAdmin ? 'Super Admin' : 'User'}: {account.address?.slice(0, 6)}...{account.address?.slice(-4)}
+              </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              📊 Dashboard
-            </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-6">
-              {isAdmin 
-                ? "Manage your platform with comprehensive admin tools and analytics" 
-                : "Track your bookings, manage your profile, and explore new adventures"
-              }
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                <span className="text-sm font-medium text-gray-700">
-                  Connected: {account.address?.slice(0, 6)}...{account.address?.slice(-4)}
-                </span>
-              </div>
-              <ConnectButton
-                client={client}
-                appMetadata={{
-                  name: "GuidesChain",
-                  url: "https://guideschain.vercel.app",
-                }}
-              />
-            </div>
+            <ConnectButton
+              client={client}
+              appMetadata={{
+                name: "GuidesChain",
+                url: "https://guideschain.vercel.app",
+              }}
+            />
           </div>
         </div>
       </section>
 
-      <main className="pb-12">
-        <div className="max-w-7xl mx-auto px-6">
-          {isAdmin ? <AdminDashboard /> : <UserDashboard />}
+      <section className="section-padding">
+        <div className="container">
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+            {isAdmin ? <AdminDashboard /> : <UserDashboard />}
+          </div>
         </div>
-      </main>
+      </section>
       <Footer />
     </div>
   );

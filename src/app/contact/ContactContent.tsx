@@ -110,39 +110,39 @@ export default function ContactContent() {
           </div>
 
           {/* Contact Methods Quick Access */}
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            <a href="mailto:support@guidechain.com" className="group bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-12">
+            <a href="mailto:support@guidechain.com" className="group bg-white/95 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Email Support</h3>
-              <p className="text-gray-600 text-sm">Get detailed help via email</p>
+              <h3 className="font-semibold text-gray-900 mb-1 sm:mb-2 text-sm sm:text-base">Email Support</h3>
+              <p className="text-gray-600 text-xs sm:text-sm">Get detailed help via email</p>
             </a>
             
-            <div className="group bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-              <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="group bg-white/95 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                 </svg>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Live Chat</h3>
-              <p className="text-gray-600 text-sm">Coming soon - Real-time support</p>
+              <h3 className="font-semibold text-gray-900 mb-1 sm:mb-2 text-sm sm:text-base">Live Chat</h3>
+              <p className="text-gray-600 text-xs sm:text-sm">Coming soon - Real-time support</p>
             </div>
             
-            <a href="/guides" className="group bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <a href="/guides" className="group bg-white/95 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Find Guides</h3>
-              <p className="text-gray-600 text-sm">Browse verified local guides</p>
+              <h3 className="font-semibold text-gray-900 mb-1 sm:mb-2 text-sm sm:text-base">Find Guides</h3>
+              <p className="text-gray-600 text-xs sm:text-sm">Browse verified local guides</p>
             </a>
           </div>
           
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
             <div className="lg:col-span-2">
               <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-6 md:p-8">
                 {/* Success Message */}
@@ -301,44 +301,52 @@ export default function ContactContent() {
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">
                   Contact Information
                 </h3>
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                    <div>
-                      <p className="font-medium text-gray-900">Email</p>
-                      <p className="text-gray-600 text-sm">support@guidechain.com</p>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <div className="w-6 h-6 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <svg className="w-3 h-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="font-medium text-gray-900 text-sm">Email</p>
+                      <p className="text-gray-600 text-xs break-all">support@guidechain.com</p>
                     </div>
                   </div>
                   
-                  <div className="flex items-center gap-3">
-                    <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    </svg>
-                    <div>
-                      <p className="font-medium text-gray-900">Location</p>
-                      <p className="text-gray-600 text-sm">Cape Town, South Africa</p>
+                  <div className="flex items-start gap-3">
+                    <div className="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <svg className="w-3 h-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      </svg>
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="font-medium text-gray-900 text-sm">Location</p>
+                      <p className="text-gray-600 text-xs">Cape Town, South Africa</p>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-3">
-                    <svg className="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <div>
-                      <p className="font-medium text-gray-900">Response Time</p>
-                      <p className="text-gray-600 text-sm">Within 24 hours</p>
+                  <div className="flex items-start gap-3">
+                    <div className="w-6 h-6 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <svg className="w-3 h-3 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="font-medium text-gray-900 text-sm">Response Time</p>
+                      <p className="text-gray-600 text-xs">Within 24 hours</p>
                     </div>
                   </div>
 
                   {isConnected && (
-                    <div className="flex items-center gap-3 pt-3 border-t border-gray-200">
-                      <svg className="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      <div>
-                        <p className="font-medium text-emerald-900">Web3 Enhanced</p>
+                    <div className="flex items-start gap-3 pt-3 border-t border-gray-200">
+                      <div className="w-6 h-6 bg-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <svg className="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="font-medium text-emerald-900 text-sm">Web3 Enhanced</p>
                         <p className="text-emerald-700 text-xs">Cryptographically signed</p>
                       </div>
                     </div>
@@ -347,21 +355,25 @@ export default function ContactContent() {
               </div>
 
               <div className="bg-gradient-to-br from-blue-50/80 to-purple-50/80 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-blue-200/50">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">
                   Quick Links
                 </h3>
-                <div className="space-y-2">
-                  <a href="/guides" className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium transition-colors">
-                    <span>🧭</span> Find Guides
+                <div className="space-y-3">
+                  <a href="/guides" className="flex items-center gap-3 text-blue-600 hover:text-blue-700 font-medium transition-colors p-2 rounded-lg hover:bg-blue-50">
+                    <span className="text-sm">🧭</span> 
+                    <span className="text-sm">Find Guides</span>
                   </a>
-                  <a href="/verify" className="flex items-center gap-2 text-purple-600 hover:text-purple-700 font-medium transition-colors">
-                    <span>⭐</span> Become a Guide
+                  <a href="/verify" className="flex items-center gap-3 text-purple-600 hover:text-purple-700 font-medium transition-colors p-2 rounded-lg hover:bg-purple-50">
+                    <span className="text-sm">⭐</span> 
+                    <span className="text-sm">Become a Guide</span>
                   </a>
-                  <a href="/dashboard" className="flex items-center gap-2 text-green-600 hover:text-green-700 font-medium transition-colors">
-                    <span>📊</span> Dashboard
+                  <a href="/dashboard" className="flex items-center gap-3 text-green-600 hover:text-green-700 font-medium transition-colors p-2 rounded-lg hover:bg-green-50">
+                    <span className="text-sm">📊</span> 
+                    <span className="text-sm">Dashboard</span>
                   </a>
-                  <a href="/safety" className="flex items-center gap-2 text-orange-600 hover:text-orange-700 font-medium transition-colors">
-                    <span>🛡️</span> Safety Guidelines
+                  <a href="#" className="flex items-center gap-3 text-orange-600 hover:text-orange-700 font-medium transition-colors p-2 rounded-lg hover:bg-orange-50">
+                    <span className="text-sm">🛡️</span> 
+                    <span className="text-sm">Safety Guidelines</span>
                   </a>
                 </div>
               </div>

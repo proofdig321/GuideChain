@@ -26,30 +26,28 @@ export default function DashboardContent() {
         background: 'linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 50%, #fef3c7 100%)'
       }}>
         <Header />
-        <main className="flex items-center justify-center min-h-[80vh]">
-          <div className="text-center p-8">
-            <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-12 shadow-2xl border border-white/20 max-w-md mx-auto">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-              </div>
-              <h1 className="text-2xl font-bold text-gray-900 mb-4">
-                Connect Wallet to Access Dashboard
-              </h1>
-              <p className="text-gray-600 mb-8">
-                Secure access to your GuidesChain dashboard
-              </p>
-              <ConnectButton
-                client={client}
-                appMetadata={{
-                  name: "GuidesChain",
-                  url: "https://guideschain.vercel.app",
-                }}
-              />
+        <div className="min-h-[calc(100vh-64px)] flex items-center justify-center p-4">
+          <div className="text-center max-w-md mx-auto">
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
             </div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-4">
+              🔐 Connect Wallet
+            </h1>
+            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+              Connect your Web3 wallet to access your secure GuidesChain dashboard
+            </p>
+            <ConnectButton
+              client={client}
+              appMetadata={{
+                name: "GuidesChain",
+                url: "https://guideschain.vercel.app",
+              }}
+            />
           </div>
-        </main>
+        </div>
         <Footer />
       </div>
     );
@@ -60,31 +58,47 @@ export default function DashboardContent() {
       background: 'linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 50%, #fef3c7 100%)'
     }}>
       <Header />
-      <main className="py-8">
+      
+      {/* Hero Section */}
+      <section className="py-16 relative overflow-hidden">
+        <div className="absolute top-4 right-4 w-24 h-24 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-2xl"></div>
         <div className="max-w-7xl mx-auto px-6">
           <MockDataBanner />
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-            <div>
-              <h1 className="text-4xl font-bold text-gray-900 mb-2">
-                📊 Dashboard
-              </h1>
-              <p className="text-xl text-gray-600">
-                {isAdmin ? "🔧 Super Admin Panel" : "👤 User Dashboard"}
-              </p>
-              <div className="mt-2 inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
-                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                Connected: {account.address?.slice(0, 6)}...{account.address?.slice(-4)}
-              </div>
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-sm font-medium mb-4">
+              <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+              {isAdmin ? "Super Admin Access" : "User Dashboard"}
             </div>
-            <ConnectButton
-              client={client}
-              appMetadata={{
-                name: "GuidesChain",
-                url: "https://guideschain.vercel.app",
-              }}
-            />
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              📊 Dashboard
+            </h1>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-6">
+              {isAdmin 
+                ? "Manage your platform with comprehensive admin tools and analytics" 
+                : "Track your bookings, manage your profile, and explore new adventures"
+              }
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
+                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <span className="text-sm font-medium text-gray-700">
+                  Connected: {account.address?.slice(0, 6)}...{account.address?.slice(-4)}
+                </span>
+              </div>
+              <ConnectButton
+                client={client}
+                appMetadata={{
+                  name: "GuidesChain",
+                  url: "https://guideschain.vercel.app",
+                }}
+              />
+            </div>
           </div>
+        </div>
+      </section>
 
+      <main className="pb-12">
+        <div className="max-w-7xl mx-auto px-6">
           {isAdmin ? <AdminDashboard /> : <UserDashboard />}
         </div>
       </main>
@@ -133,8 +147,8 @@ function AdminDashboard() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center">
-                  <span className="text-white text-lg">⏳</span>
+                <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
+                  <span className="text-white text-sm">⏳</span>
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900">Pending Verifications</h3>
               </div>
@@ -146,8 +160,8 @@ function AdminDashboard() {
 
             <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center">
-                  <span className="text-white text-lg">👥</span>
+                <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
+                  <span className="text-white text-sm">👥</span>
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900">User Management</h3>
               </div>
@@ -162,8 +176,8 @@ function AdminDashboard() {
 
             <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
-                  <span className="text-white text-lg">📊</span>
+                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                  <span className="text-white text-sm">📊</span>
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900">Analytics</h3>
               </div>
@@ -209,8 +223,8 @@ function AdminDashboard() {
           </div>
           
           <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 border border-white/20 shadow-lg text-center">
-            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <span className="text-white text-2xl">📈</span>
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+              <span className="text-white text-lg">📈</span>
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">Advanced Analytics</h3>
             <p className="text-gray-600 mb-6">Detailed analytics dashboard with custom reports</p>
@@ -278,8 +292,8 @@ function UserDashboard() {
       <div className="grid md:grid-cols-2 gap-6">
         <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 border border-white/20 shadow-lg">
           <div className="flex items-center gap-4 mb-6">
-            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center">
-              <span className="text-white text-2xl">🧭</span>
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
+              <span className="text-white text-lg">🧭</span>
             </div>
             <div>
               <h3 className="text-xl font-bold text-gray-900">Find Guides</h3>
@@ -300,8 +314,8 @@ function UserDashboard() {
 
         <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 border border-white/20 shadow-lg">
           <div className="flex items-center gap-4 mb-6">
-            <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center">
-              <span className="text-white text-2xl">⭐</span>
+            <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center">
+              <span className="text-white text-lg">⭐</span>
             </div>
             <div>
               <h3 className="text-xl font-bold text-gray-900">Become a Guide</h3>

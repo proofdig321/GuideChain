@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useActiveAccount } from "thirdweb/react";
 import { guideRegistryFunctions, reputationSystemFunctions } from "@/lib/contracts";
 import { ipfsService } from "@/lib/ipfs";
+import { allMockGuides } from "@/lib/contracts/mockData";
+import { CONTRACT_ADDRESSES } from "@/constants";
 import type { Guide, IPFSMetadata } from "@/types";
 
 export function useGuides() {
@@ -10,11 +12,22 @@ export function useGuides() {
   const [error, setError] = useState<string | null>(null);
   const account = useActiveAccount();
 
+  // Check if contracts are deployed
+  const contractsDeployed = CONTRACT_ADDRESSES.GUIDE_REGISTRY !== "0x0000000000000000000000000000000000000000";
+
   // Fetch all verified guides
   const fetchGuides = async () => {
     try {
       setLoading(true);
       setError(null);
+      
+      if (!contractsDeployed) {
+        // Use mock data when contracts are not deployed
+        console.log("Using mock data - contracts not deployed yet");
+        await new Promise(resolve => setTimeout(resolve, 500)); // Simulate loading
+        setGuides(allMockGuides);
+        return;
+      }
       
       const verifiedGuides = await guideRegistryFunctions.getAllVerifiedGuides();
       
@@ -61,6 +74,11 @@ export function useGuides() {
   // Get guide by address
   const getGuide = async (address: string): Promise<Guide | null> => {
     try {
+      if (!contractsDeployed) {
+        // Use mock data when contracts are not deployed
+        return allMockGuides.find(guide => guide.address.toLowerCase() === address.toLowerCase()) || null;
+      }
+      
       const guide = await guideRegistryFunctions.getGuide(address);
       if (!guide) return null;
 

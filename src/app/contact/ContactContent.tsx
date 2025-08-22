@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Header } from "@/components/ui/Header";
 import { Footer } from "@/components/ui/Footer";
+import { MockDataBanner } from "@/components/ui/MockDataBanner";
 import { useWeb3Contact } from "@/hooks/useWeb3Contact";
 
 export default function ContactContent() {
@@ -61,21 +62,86 @@ export default function ContactContent() {
       
       <main className="py-12">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              💬 Get in Touch
-            </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Have questions about GuidesChain? Need help with your booking? We're here to help.
-            </p>
-            {isConnected && (
-              <div className="mt-4 inline-flex items-center gap-2 bg-green-50 text-green-700 px-4 py-2 rounded-full text-sm font-medium">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                Wallet Connected: {walletAddress?.slice(0, 6)}...{walletAddress?.slice(-4)}
+          <MockDataBanner />
+          {/* Enhanced Hero Section */}
+          <div className="text-center mb-12 relative">
+            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-4 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-3xl"></div>
+            
+            <div className="relative">
+              <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
+                <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
+                24/7 Support Available
               </div>
-            )}
+              
+              <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+                💬 Get in Touch
+              </h1>
+              
+              <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed">
+                Have questions about GuidesChain? Need help with your booking? 
+                <span className="text-blue-600 font-semibold">We're here to help.</span>
+              </p>
+              
+              <div className="flex flex-wrap justify-center gap-4 mb-8">
+                <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
+                  <span className="text-green-500">✓</span>
+                  <span className="text-sm font-medium text-gray-700">Web3 Enhanced</span>
+                </div>
+                <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
+                  <span className="text-blue-500">⚡</span>
+                  <span className="text-sm font-medium text-gray-700">Fast Response</span>
+                </div>
+                <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
+                  <span className="text-purple-500">🔒</span>
+                  <span className="text-sm font-medium text-gray-700">Secure</span>
+                </div>
+              </div>
+              
+              {isConnected && (
+                <div className="inline-flex items-center gap-3 bg-gradient-to-r from-green-50 to-emerald-50 text-green-700 px-6 py-3 rounded-full border border-green-200 shadow-sm">
+                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                  <span className="font-medium">Wallet Connected:</span>
+                  <code className="bg-green-100 px-2 py-1 rounded text-xs font-mono">
+                    {walletAddress?.slice(0, 6)}...{walletAddress?.slice(-4)}
+                  </code>
+                </div>
+              )}
+            </div>
           </div>
 
+          {/* Contact Methods Quick Access */}
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            <a href="mailto:support@guidechain.com" className="group bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <h3 className="font-semibold text-gray-900 mb-2">Email Support</h3>
+              <p className="text-gray-600 text-sm">Get detailed help via email</p>
+            </a>
+            
+            <div className="group bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+              <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+              </div>
+              <h3 className="font-semibold text-gray-900 mb-2">Live Chat</h3>
+              <p className="text-gray-600 text-sm">Coming soon - Real-time support</p>
+            </div>
+            
+            <a href="/guides" className="group bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+              <h3 className="font-semibold text-gray-900 mb-2">Find Guides</h3>
+              <p className="text-gray-600 text-sm">Browse verified local guides</p>
+            </a>
+          </div>
+          
           <div className="grid lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
               <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-6 md:p-8">

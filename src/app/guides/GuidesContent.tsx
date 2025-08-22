@@ -2,6 +2,7 @@
 
 import { Header } from "@/components/ui/Header";
 import { Footer } from "@/components/ui/Footer";
+import { MockDataBanner } from "@/components/ui/MockDataBanner";
 import { AdvancedSearch } from "@/components/ui/AdvancedSearch";
 
 export default function GuidesContent() {
@@ -12,6 +13,7 @@ export default function GuidesContent() {
       <Header />
       <main className="py-12">
         <div className="max-w-7xl mx-auto px-6">
+          <MockDataBanner />
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               🧭 Find Your Perfect Guide

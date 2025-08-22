@@ -5,6 +5,7 @@ import { ConnectButton, useActiveAccount } from "thirdweb/react";
 import { createThirdwebClient } from "thirdweb";
 import { Header } from "@/components/ui/Header";
 import { Footer } from "@/components/ui/Footer";
+import { MockDataBanner } from "@/components/ui/MockDataBanner";
 
 const client = createThirdwebClient({
   clientId: process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID || "",
@@ -177,6 +178,7 @@ export default function VerifyContent() {
         }}></div>
         
         <div className="container" style={{ textAlign: 'center' }}>
+          <MockDataBanner />
           <h1 className="hero-title" style={{ marginBottom: '16px' }}>
             ⭐ Become a Verified Guide
           </h1>

@@ -5,6 +5,7 @@ import { ConnectButton, useActiveAccount } from "thirdweb/react";
 import { createThirdwebClient } from "thirdweb";
 import { Header } from "@/components/ui/Header";
 import { Footer } from "@/components/ui/Footer";
+import { MockDataBanner } from "@/components/ui/MockDataBanner";
 import { EnterpriseStats } from "@/components/dashboard/EnterpriseStats";
 import { AdminUserManagement } from "@/components/dashboard/AdminUserManagement";
 import { NotificationCenter } from "@/components/ui/NotificationCenter";
@@ -61,6 +62,7 @@ export default function DashboardContent() {
       <Header />
       <main className="py-8">
         <div className="max-w-7xl mx-auto px-6">
+          <MockDataBanner />
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
             <div>
               <h1 className="text-4xl font-bold text-gray-900 mb-2">

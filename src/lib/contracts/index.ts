@@ -1,35 +1,52 @@
 import { getContract, prepareContractCall, readContract, createThirdwebClient } from "thirdweb";
 import { CONTRACT_ADDRESSES, PLATFORM_CONFIG } from "@/constants";
+import { allMockGuides, mockApplications, mockBookings, mockReviews, mockPlatformStats } from "@/lib/contracts/mockData";
 import type { Guide, Booking, Review, VerificationApplication } from "@/types";
 
 const client = createThirdwebClient({
   clientId: process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID || "",
 });
 
-// Contract instances
-export const guideRegistryContract = getContract({
-  client,
-  chain: PLATFORM_CONFIG.SUPPORTED_CHAIN,
-  address: CONTRACT_ADDRESSES.GUIDE_REGISTRY,
-});
+// Check if contracts are deployed
+const contractsDeployed = CONTRACT_ADDRESSES.GUIDE_REGISTRY !== "0x0000000000000000000000000000000000000000";
 
-export const bookingEscrowContract = getContract({
-  client,
-  chain: PLATFORM_CONFIG.SUPPORTED_CHAIN,
-  address: CONTRACT_ADDRESSES.BOOKING_ESCROW,
-});
+// Contract instances (only create if deployed)
+let guideRegistryContract: any = null;
+let bookingEscrowContract: any = null;
+let reputationSystemContract: any = null;
 
-export const reputationSystemContract = getContract({
-  client,
-  chain: PLATFORM_CONFIG.SUPPORTED_CHAIN,
-  address: CONTRACT_ADDRESSES.REPUTATION_SYSTEM,
-});
+if (contractsDeployed) {
+  guideRegistryContract = getContract({
+    client,
+    chain: PLATFORM_CONFIG.SUPPORTED_CHAIN,
+    address: CONTRACT_ADDRESSES.GUIDE_REGISTRY,
+  });
+
+  bookingEscrowContract = getContract({
+    client,
+    chain: PLATFORM_CONFIG.SUPPORTED_CHAIN,
+    address: CONTRACT_ADDRESSES.BOOKING_ESCROW,
+  });
+
+  reputationSystemContract = getContract({
+    client,
+    chain: PLATFORM_CONFIG.SUPPORTED_CHAIN,
+    address: CONTRACT_ADDRESSES.REPUTATION_SYSTEM,
+  });
+}
+
+export { guideRegistryContract, bookingEscrowContract, reputationSystemContract };
 
 // Guide Registry Functions
 export const guideRegistryFunctions = {
   // Read functions
   async getGuide(address: string): Promise<Guide | null> {
     try {
+      if (!contractsDeployed) {
+        // Use mock data when contracts are not deployed
+        return allMockGuides.find(guide => guide.address.toLowerCase() === address.toLowerCase()) || null;
+      }
+      
       const result = await readContract({
         contract: guideRegistryContract,
         method: "function getGuide(address) view returns (bool verified, string memory name, string memory metadataHash, uint256 verificationDate)",
@@ -63,6 +80,11 @@ export const guideRegistryFunctions = {
 
   async getAllVerifiedGuides(): Promise<Guide[]> {
     try {
+      if (!contractsDeployed) {
+        // Use mock data when contracts are not deployed
+        return allMockGuides.filter(guide => guide.verified);
+      }
+      
       const result = await readContract({
         contract: guideRegistryContract,
         method: "function getAllVerifiedGuides() view returns (address[])",
@@ -84,6 +106,11 @@ export const guideRegistryFunctions = {
 
   async getPendingApplications(): Promise<VerificationApplication[]> {
     try {
+      if (!contractsDeployed) {
+        // Use mock data when contracts are not deployed
+        return mockApplications.filter(app => app.status === 0); // PENDING
+      }
+      
       const result = await readContract({
         contract: guideRegistryContract,
         method: "function getPendingApplications() view returns (address[])",
@@ -105,6 +132,11 @@ export const guideRegistryFunctions = {
 
   async getApplication(address: string): Promise<VerificationApplication | null> {
     try {
+      if (!contractsDeployed) {
+        // Use mock data when contracts are not deployed
+        return mockApplications.find(app => app.applicantAddress.toLowerCase() === address.toLowerCase()) || null;
+      }
+      
       const result = await readContract({
         contract: guideRegistryContract,
         method: "function getApplication(address) view returns (string memory name, string memory metadataHash, uint256 submittedAt, uint8 status)",
@@ -131,6 +163,9 @@ export const guideRegistryFunctions = {
 
   // Write functions
   submitApplication: (name: string, metadataHash: string) => {
+    if (!contractsDeployed) {
+      throw new Error("Contracts not deployed yet. Please wait for deployment.");
+    }
     return prepareContractCall({
       contract: guideRegistryContract,
       method: "function submitApplication(string memory name, string memory metadataHash)",
@@ -139,6 +174,9 @@ export const guideRegistryFunctions = {
   },
 
   approveGuide: (applicantAddress: string) => {
+    if (!contractsDeployed) {
+      throw new Error("Contracts not deployed yet. Please wait for deployment.");
+    }
     return prepareContractCall({
       contract: guideRegistryContract,
       method: "function approveGuide(address applicant)",
@@ -147,6 +185,9 @@ export const guideRegistryFunctions = {
   },
 
   rejectGuide: (applicantAddress: string, reason: string) => {
+    if (!contractsDeployed) {
+      throw new Error("Contracts not deployed yet. Please wait for deployment.");
+    }
     return prepareContractCall({
       contract: guideRegistryContract,
       method: "function rejectGuide(address applicant, string memory reason)",
@@ -312,6 +353,12 @@ export const reputationSystemFunctions = {
 
   async getGuideRating(guideAddress: string): Promise<number> {
     try {
+      if (!contractsDeployed) {
+        // Use mock data when contracts are not deployed
+        const guide = allMockGuides.find(g => g.address.toLowerCase() === guideAddress.toLowerCase());
+        return guide?.rating || 0;
+      }
+      
       const result = await readContract({
         contract: reputationSystemContract,
         method: "function getGuideRating(address) view returns (uint256 totalRating, uint256 reviewCount)",
@@ -340,6 +387,11 @@ export const reputationSystemFunctions = {
 export const platformFunctions = {
   async getPlatformStats() {
     try {
+      if (!contractsDeployed) {
+        // Use mock data when contracts are not deployed
+        return mockPlatformStats;
+      }
+      
       const [totalGuides, totalBookings, platformFees] = await Promise.all([
         readContract({
           contract: guideRegistryContract,

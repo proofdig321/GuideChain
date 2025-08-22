@@ -48,17 +48,24 @@ export default function ContactContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gray-50">
       <Header />
       
       {/* Hero Section */}
-      <section className="py-16">
+      <section className="py-16" style={{
+        background: 'linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 50%, #fdf4ff 100%)'
+      }}>
         <div className="max-w-4xl mx-auto px-6">
           <MockDataBanner />
           
           <div className="text-center mb-12">
+            <div className="w-20 h-20 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+              <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+            </div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              💬 Get in Touch
+              Get in Touch
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Have questions about GuidesChain? We're here to help you explore South Africa.
@@ -98,6 +105,11 @@ export default function ContactContent() {
             </div>
           </div>
 
+        </div>
+      </section>
+
+      <section className="py-12">
+        <div className="max-w-4xl mx-auto px-6">
           {/* Main Contact Form */}
           <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
             {success && (
@@ -229,7 +241,14 @@ export default function ContactContent() {
           {/* Quick Links */}
           <div className="mt-12 grid md:grid-cols-2 gap-6">
             <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6">
-              <h3 className="font-semibold text-gray-900 mb-4">🧭 Explore Guides</h3>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </div>
+                <h3 className="font-semibold text-gray-900">Explore Guides</h3>
+              </div>
               <p className="text-gray-600 text-sm mb-4">Browse our verified South African guides</p>
               <a href="/guides" className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium text-sm">
                 Find Guides →
@@ -237,7 +256,14 @@ export default function ContactContent() {
             </div>
             
             <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6">
-              <h3 className="font-semibold text-gray-900 mb-4">⭐ Become a Guide</h3>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center">
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                  </svg>
+                </div>
+                <h3 className="font-semibold text-gray-900">Become a Guide</h3>
+              </div>
               <p className="text-gray-600 text-sm mb-4">Join our verified guide network</p>
               <a href="/verify" className="inline-flex items-center text-purple-600 hover:text-purple-700 font-medium text-sm">
                 Apply Now →

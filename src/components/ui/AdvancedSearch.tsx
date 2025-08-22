@@ -48,34 +48,53 @@ export function AdvancedSearch() {
   return (
     <div className="space-y-6">
       {/* Search Bar */}
-      <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
+      <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
         <form onSubmit={handleSearch} className="space-y-4">
-          <div className="flex gap-4">
+          <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1">
               <input
                 type="text"
                 placeholder="Search guides, locations, specialties..."
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
               />
             </div>
-            <button
-              type="submit"
-              disabled={loading}
-              className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-medium hover:from-blue-700 hover:to-purple-700 transition-all disabled:opacity-50"
-            >
-              {loading ? "Searching..." : "Search"}
-            </button>
-            <button
-              type="button"
-              onClick={() => setShowFilters(!showFilters)}
-              className="px-4 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4" />
-              </svg>
-            </button>
+            <div className="flex gap-2">
+              <button
+                type="submit"
+                disabled={loading}
+                className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:from-blue-700 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+              >
+                {loading ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                    Searching...
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    Search
+                  </>
+                )}
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowFilters(!showFilters)}
+                className={`px-4 py-3 border rounded-lg transition-colors flex items-center gap-2 ${
+                  showFilters 
+                    ? 'border-blue-500 bg-blue-50 text-blue-700' 
+                    : 'border-gray-300 hover:bg-gray-50 text-gray-700'
+                }`}
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.414A1 1 0 013 6.707V4z" />
+                </svg>
+                <span className="hidden sm:inline">Filters</span>
+              </button>
+            </div>
           </div>
 
           {/* Search History */}
@@ -101,25 +120,25 @@ export function AdvancedSearch() {
 
       {/* Advanced Filters */}
       {showFilters && (
-        <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
-          <div className="flex items-center justify-between mb-4">
+        <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+          <div className="flex items-center justify-between mb-6">
             <h3 className="text-lg font-semibold text-gray-900">Advanced Filters</h3>
             <button
               onClick={resetFilters}
-              className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+              className="text-blue-600 hover:text-blue-700 text-sm font-medium px-3 py-1 rounded-md hover:bg-blue-50 transition-colors"
             >
               Reset All
             </button>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Location Filter */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
               <select
                 value={filters.location}
                 onChange={(e) => handleFilterChange("location", e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white transition-colors"
               >
                 <option value="">All Locations</option>
                 {SA_LOCATIONS.map(location => (
@@ -134,7 +153,7 @@ export function AdvancedSearch() {
               <select
                 value={filters.specialty}
                 onChange={(e) => handleFilterChange("specialty", e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white transition-colors"
               >
                 <option value="">All Specialties</option>
                 {TOURISM_SPECIALTIES.map(specialty => (
@@ -145,21 +164,21 @@ export function AdvancedSearch() {
 
             {/* Price Range */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Price Range</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Price Range (USD)</label>
               <div className="flex gap-2">
                 <input
                   type="number"
                   placeholder="Min"
                   value={filters.minPrice || ""}
                   onChange={(e) => handleFilterChange("minPrice", Number(e.target.value) || 0)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                 />
                 <input
                   type="number"
                   placeholder="Max"
                   value={filters.maxPrice === 1000 ? "" : filters.maxPrice}
                   onChange={(e) => handleFilterChange("maxPrice", Number(e.target.value) || 1000)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                 />
               </div>
             </div>
@@ -170,7 +189,7 @@ export function AdvancedSearch() {
               <select
                 value={filters.minRating}
                 onChange={(e) => handleFilterChange("minRating", Number(e.target.value))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white transition-colors"
               >
                 <option value={0}>Any Rating</option>
                 <option value={4}>4+ Stars</option>
@@ -180,31 +199,31 @@ export function AdvancedSearch() {
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-4 mt-4">
-            <label className="flex items-center gap-2">
+          <div className="flex flex-wrap gap-6 mt-6 pt-4 border-t border-gray-200">
+            <label className="flex items-center gap-3 cursor-pointer">
               <input
                 type="checkbox"
                 checked={filters.verified}
                 onChange={(e) => handleFilterChange("verified", e.target.checked)}
-                className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
               />
-              <span className="text-sm text-gray-700">Verified guides only</span>
+              <span className="text-sm font-medium text-gray-700">Verified guides only</span>
             </label>
-            <label className="flex items-center gap-2">
+            <label className="flex items-center gap-3 cursor-pointer">
               <input
                 type="checkbox"
                 checked={filters.availability}
                 onChange={(e) => handleFilterChange("availability", e.target.checked)}
-                className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
               />
-              <span className="text-sm text-gray-700">Available now</span>
+              <span className="text-sm font-medium text-gray-700">Available now</span>
             </label>
           </div>
         </div>
       )}
 
       {/* Search Results */}
-      <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
+      <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
           <div>
             <h2 className="text-xl font-bold text-gray-900">
@@ -218,7 +237,7 @@ export function AdvancedSearch() {
           <select
             value={filters.sortBy}
             onChange={(e) => handleFilterChange("sortBy", e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white transition-colors"
           >
             <option value="relevance">Most Relevant</option>
             <option value="rating">Highest Rated</option>
@@ -241,22 +260,29 @@ export function AdvancedSearch() {
         ) : currentData.length === 0 ? (
           <div className="text-center py-12">
             <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl">🔍</span>
+              <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
             </div>
             <h3 className="text-lg font-medium text-gray-900 mb-2">No guides found</h3>
-            <p className="text-gray-600">Try adjusting your search criteria</p>
+            <p className="text-gray-600">Try adjusting your search criteria or filters</p>
           </div>
         ) : (
           <>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
               {currentData.map((guide) => (
-                <div key={guide.id} className="border border-gray-200 rounded-xl p-4 hover:shadow-lg transition-shadow">
-                  <div className="w-full h-48 bg-gradient-to-br from-blue-400 to-purple-500 rounded-xl flex items-center justify-center text-white text-4xl font-bold mb-4">
+                <div key={guide.id} className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg hover:border-gray-300 transition-all duration-200">
+                  <div className="w-full h-48 bg-gradient-to-br from-blue-400 to-purple-500 rounded-xl flex items-center justify-center text-white text-4xl font-bold mb-4 shadow-sm">
                     {guide.name.charAt(0)}
                   </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">{guide.name}</h3>
-                  <p className="text-gray-600 text-sm mb-2">{guide.location}</p>
-                  <div className="flex items-center gap-2 mb-3">
+                  <h3 className="font-semibold text-gray-900 mb-2 text-lg">{guide.name}</h3>
+                  <p className="text-gray-600 text-sm mb-3 flex items-center gap-1">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    </svg>
+                    {guide.location}
+                  </p>
+                  <div className="flex items-center gap-2 mb-4">
                     <div className="flex items-center">
                       {[...Array(5)].map((_, i) => (
                         <svg
@@ -271,9 +297,12 @@ export function AdvancedSearch() {
                     </div>
                     <span className="text-sm text-gray-600">({guide.totalBookings} bookings)</span>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xl font-bold text-gray-900">${guide.pricePerHour}/hr</span>
-                    <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                  <div className="flex items-center justify-between pt-2 border-t border-gray-100">
+                    <div>
+                      <span className="text-2xl font-bold text-gray-900">${guide.pricePerHour}</span>
+                      <span className="text-gray-600 text-sm">/hour</span>
+                    </div>
+                    <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all font-medium">
                       View Profile
                     </button>
                   </div>

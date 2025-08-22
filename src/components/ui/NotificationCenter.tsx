@@ -5,12 +5,13 @@
 
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNotifications } from "@/hooks/useNotifications";
 import { Pagination } from "@/components/ui/Pagination";
 import { usePagination } from "@/hooks/usePagination";
+import { EmptyState } from "@/components/ui/EmptyState";
 
-export function NotificationCenter() {
+export function NotificationCenter(): React.JSX.Element {
   const {
     notifications,
     unreadCount,
@@ -146,12 +147,13 @@ export function NotificationCenter() {
 
       <div className="max-h-96 overflow-y-auto">
         {currentData.length === 0 ? (
-          <div className="p-8 text-center">
-            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl">📭</span>
-            </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No notifications</h3>
-            <p className="text-gray-600">You're all caught up!</p>
+          <div className="p-8">
+            <EmptyState
+              icon="📭"
+              title="No Notifications"
+              description="You're all caught up! Notifications will appear here when there's activity on your account."
+              size="sm"
+            />
           </div>
         ) : (
           <div className="divide-y divide-gray-200">

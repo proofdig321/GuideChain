@@ -1,29 +1,21 @@
 "use client";
 
-import { Header } from "@/components/ui/Header";
-import { Footer } from "@/components/ui/Footer";
-import { AdvancedSearch } from "@/components/ui/AdvancedSearch";
+import dynamic from "next/dynamic";
 
-export default function GuidesPage() {
-  return (
-    <div className="min-h-screen" style={{
+const GuidesContent = dynamic(() => import("./GuidesContent"), {
+  ssr: false,
+  loading: () => (
+    <div className="min-h-screen flex items-center justify-center" style={{
       background: 'linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 50%, #fef3c7 100%)'
     }}>
-      <Header />
-      <main className="py-12">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              🧭 Find Your Perfect Guide
-            </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Discover verified South African guides with advanced search and filters
-            </p>
-          </div>
-          <AdvancedSearch />
-        </div>
-      </main>
-      <Footer />
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+        <p>Loading guides...</p>
+      </div>
     </div>
-  );
+  ),
+});
+
+export default function GuidesPage() {
+  return <GuidesContent />;
 }

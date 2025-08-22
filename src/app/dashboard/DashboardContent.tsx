@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { ConnectButton, useActiveAccount } from "thirdweb/react";
 import { createThirdwebClient } from "thirdweb";
 import { Header } from "@/components/ui/Header";

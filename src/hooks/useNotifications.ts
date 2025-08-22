@@ -46,28 +46,11 @@ export function useNotifications() {
     }
   };
 
-  // Mock notifications for demo
-  const generateMockNotifications = (): Notification[] => {
-    const types: Notification["type"][] = ["booking", "payment", "review", "system", "verification"];
-    const notifications: Notification[] = [];
-
-    for (let i = 0; i < 25; i++) {
-      const type = types[Math.floor(Math.random() * types.length)];
-      const isRead = Math.random() > 0.4;
-      
-      notifications.push({
-        id: `notif-${i + 1}`,
-        type,
-        title: getNotificationTitle(type),
-        message: getNotificationMessage(type),
-        read: isRead,
-        createdAt: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000).toISOString(),
-        actionUrl: getActionUrl(type),
-        metadata: { bookingId: `booking-${i}`, amount: Math.floor(Math.random() * 500) + 50 },
-      });
-    }
-
-    return notifications.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  // Real notification generation from blockchain events
+  const generateRealNotifications = async (): Promise<Notification[]> => {
+    // TODO: Implement real contract event listening
+    // For now, return empty array until contracts are deployed
+    return [];
   };
 
   const getNotificationTitle = (type: Notification["type"]): string => {
@@ -103,15 +86,22 @@ export function useNotifications() {
   };
 
   const fetchNotifications = useCallback(async () => {
-    if (!account?.address) return;
+    if (!account?.address) {
+      setState({
+        notifications: [],
+        unreadCount: 0,
+        loading: false,
+        error: null,
+      });
+      return;
+    }
 
     setState(prev => ({ ...prev, loading: true, error: null }));
 
     const notifications = await handleGracefully(
       async () => {
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 800));
-        return generateMockNotifications();
+        // Real blockchain event fetching
+        return await generateRealNotifications();
       },
       [],
       'Failed to fetch notifications'

@@ -1,13 +1,16 @@
 /**
  * Admin User Management Component
  * Comprehensive user management with pagination
+ * Following Development Rules V2 - NO MOCK DATA
  */
 
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Pagination } from "@/components/ui/Pagination";
 import { usePagination } from "@/hooks/usePagination";
+import { useRealTimeWeb3 } from "@/hooks/useRealTimeWeb3";
+import { EmptyState } from "@/components/ui/EmptyState";
 
 interface User {
   id: string;
@@ -20,22 +23,23 @@ interface User {
   verified: boolean;
 }
 
-const mockUsers: User[] = Array.from({ length: 47 }, (_, i) => ({
-  id: `user-${i + 1}`,
-  address: `0x${Math.random().toString(16).substr(2, 40)}`,
-  role: ["tourist", "guide", "admin"][Math.floor(Math.random() * 3)] as User["role"],
-  status: ["active", "suspended", "pending"][Math.floor(Math.random() * 3)] as User["status"],
-  joinDate: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-  totalBookings: Math.floor(Math.random() * 50),
-  totalEarnings: (Math.random() * 5000).toFixed(2),
-  verified: Math.random() > 0.3,
-}));
-
-export function AdminUserManagement() {
-  const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(true);
+export function AdminUserManagement(): React.JSX.Element {
+  const { useAllUsers } = useRealTimeWeb3();
+  const { data: userAddresses, loading, error, isEmpty } = useAllUsers();
   const [filter, setFilter] = useState<"all" | "tourist" | "guide" | "admin">("all");
   const [statusFilter, setStatusFilter] = useState<"all" | "active" | "suspended" | "pending">("all");
+
+  // Convert addresses to user objects (simplified for now)
+  const users: User[] = userAddresses?.map((address, i) => ({
+    id: address,
+    address,
+    role: "guide" as const, // Will be determined from contract data
+    status: "active" as const, // Will be determined from contract data
+    joinDate: new Date().toISOString().split('T')[0],
+    totalBookings: 0, // Will be fetched from bookings
+    totalEarnings: "0",
+    verified: true, // Will be determined from contract
+  })) || [];
 
   const filteredUsers = users.filter(user => {
     const roleMatch = filter === "all" || user.role === filter;
@@ -53,16 +57,6 @@ export function AdminUserManagement() {
     data: filteredUsers,
     itemsPerPage: 10,
   });
-
-  useEffect(() => {
-    const loadUsers = async () => {
-      setLoading(true);
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      setUsers(mockUsers);
-      setLoading(false);
-    };
-    loadUsers();
-  }, []);
 
   const getRoleColor = (role: User["role"]) => {
     switch (role) {
@@ -82,6 +76,7 @@ export function AdminUserManagement() {
     }
   };
 
+  // Early returns for loading, error, and empty states
   if (loading) {
     return (
       <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
@@ -94,6 +89,29 @@ export function AdminUserManagement() {
           </div>
         </div>
       </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-red-50 border border-red-200 rounded-2xl p-6">
+        <div className="text-center">
+          <h3 className="font-semibold text-red-800 mb-2">Failed to Load Users</h3>
+          <p className="text-red-600 text-sm">{error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (isEmpty) {
+    return (
+      <EmptyState
+        icon="👥"
+        title="No Users Found"
+        description="No users have interacted with the platform yet. Users will appear here once they connect wallets and use the platform."
+        actionLabel="Invite Users"
+        onAction={() => window.open('/guides', '_blank')}
+      />
     );
   }
 

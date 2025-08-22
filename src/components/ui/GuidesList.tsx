@@ -1,45 +1,27 @@
 /**
  * Guides List Component with Pagination
+ * Following Development Rules V2 - NO MOCK DATA
  */
 
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Pagination } from "@/components/ui/Pagination";
 import { usePagination } from "@/hooks/usePagination";
+import { useRealTimeWeb3 } from "@/hooks/useRealTimeWeb3";
+import { EmptyState } from "@/components/ui/EmptyState";
+import type { Guide } from "@/types";
 
-interface Guide {
-  id: string;
-  name: string;
-  location: string;
-  rating: number;
-  reviews: number;
-  price: string;
-  specialties: string[];
-  verified: boolean;
-}
-
-const mockGuides: Guide[] = Array.from({ length: 23 }, (_, i) => ({
-  id: `guide-${i + 1}`,
-  name: `Guide ${i + 1}`,
-  location: ["Cape Town", "Johannesburg", "Durban", "Stellenbosch"][Math.floor(Math.random() * 4)],
-  rating: 3.5 + Math.random() * 1.5,
-  reviews: Math.floor(Math.random() * 100) + 5,
-  price: (50 + Math.random() * 200).toFixed(0),
-  specialties: ["Wine Tours", "Safari", "City Tours", "Adventure", "Culture"].slice(0, Math.floor(Math.random() * 3) + 1),
-  verified: Math.random() > 0.2,
-}));
-
-export function GuidesList() {
-  const [guides, setGuides] = useState<Guide[]>([]);
-  const [loading, setLoading] = useState(true);
+export function GuidesList(): React.JSX.Element {
+  const { useVerifiedGuides } = useRealTimeWeb3();
+  const { data: guides, loading, error, isEmpty } = useVerifiedGuides();
   const [filter, setFilter] = useState("");
 
-  const filteredGuides = guides.filter(guide =>
+  const filteredGuides = guides?.filter(guide =>
     guide.name.toLowerCase().includes(filter.toLowerCase()) ||
     guide.location.toLowerCase().includes(filter.toLowerCase()) ||
     guide.specialties.some(s => s.toLowerCase().includes(filter.toLowerCase()))
-  );
+  ) || [];
 
   const {
     currentPage,
@@ -52,16 +34,7 @@ export function GuidesList() {
     itemsPerPage: 6,
   });
 
-  useEffect(() => {
-    const loadGuides = async () => {
-      setLoading(true);
-      await new Promise(resolve => setTimeout(resolve, 800));
-      setGuides(mockGuides);
-      setLoading(false);
-    };
-    loadGuides();
-  }, []);
-
+  // Early returns for loading, error, and empty states
   if (loading) {
     return (
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -73,6 +46,29 @@ export function GuidesList() {
           </div>
         ))}
       </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-red-50 border border-red-200 rounded-2xl p-6">
+        <div className="text-center">
+          <h3 className="font-semibold text-red-800 mb-2">Failed to Load Guides</h3>
+          <p className="text-red-600 text-sm">{error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (isEmpty) {
+    return (
+      <EmptyState
+        icon="🧭"
+        title="No Verified Guides Available"
+        description="No guides have been verified yet. Be the first to apply and get verified as a guide on the platform."
+        actionLabel="Apply to Become Guide"
+        onAction={() => window.open('/verify', '_blank')}
+      />
     );
   }
 
@@ -128,7 +124,7 @@ export function GuidesList() {
                     </svg>
                   ))}
                 </div>
-                <span className="text-sm text-gray-600">({guide.reviews} reviews)</span>
+                <span className="text-sm text-gray-600">({guide.totalBookings} bookings)</span>
               </div>
               
               <div className="flex flex-wrap gap-1 mb-4">
@@ -140,7 +136,7 @@ export function GuidesList() {
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-2xl font-bold text-gray-900">${guide.price}</span>
+                <span className="text-2xl font-bold text-gray-900">${guide.pricePerHour}/hr</span>
                 <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all">
                   Book Now
                 </button>

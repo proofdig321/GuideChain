@@ -1,11 +1,14 @@
 /**
  * Enterprise Statistics Component
  * Real-time platform metrics with graceful error handling
+ * Following Development Rules V2 - NO MOCK DATA
  */
 
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { useRealTimeWeb3 } from "@/hooks/useRealTimeWeb3";
+import { EmptyState } from "@/components/ui/EmptyState";
 
 interface PlatformStats {
   totalGuides: number;
@@ -70,86 +73,11 @@ function StatCard({ title, value, change, icon, color, bgColor, loading }: StatC
   );
 }
 
-export function EnterpriseStats() {
-  const [stats, setStats] = useState<PlatformStats | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+export function EnterpriseStats(): React.JSX.Element {
+  const { usePlatformStats } = useRealTimeWeb3();
+  const { data: stats, loading, error, isEmpty, refetch } = usePlatformStats();
 
-  const handleGracefully = async <T>(
-    operation: () => Promise<T>,
-    fallback: T,
-    errorMessage?: string
-  ): Promise<T> => {
-    try {
-      return await operation();
-    } catch (error) {
-      console.error(errorMessage || 'Operation failed gracefully:', error);
-      return fallback;
-    }
-  };
-
-  const fetchStats = async (): Promise<PlatformStats> => {
-    return handleGracefully(
-      async () => {
-        // Simulate API call with potential failure
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        if (Math.random() < 0.1) {
-          throw new Error('Network error');
-        }
-
-        return {
-          totalGuides: 247,
-          activeBookings: 89,
-          totalRevenue: "156,890",
-          platformFees: "11,767",
-          verifiedGuides: 198,
-          completedTours: 1456,
-          averageRating: 4.8,
-          monthlyGrowth: 12.5,
-        };
-      },
-      {
-        totalGuides: 0,
-        activeBookings: 0,
-        totalRevenue: "0",
-        platformFees: "0",
-        verifiedGuides: 0,
-        completedTours: 0,
-        averageRating: 0,
-        monthlyGrowth: 0,
-      },
-      'Failed to fetch platform statistics'
-    );
-  };
-
-  useEffect(() => {
-    const loadStats = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const data = await fetchStats();
-        setStats(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load statistics');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadStats();
-    
-    // Refresh stats every 30 seconds
-    const interval = setInterval(loadStats, 30000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const retry = () => {
-    setError(null);
-    setLoading(true);
-    fetchStats().then(setStats).finally(() => setLoading(false));
-  };
-
+  // Early returns for error and empty states
   if (error) {
     return (
       <div className="bg-red-50 border border-red-200 rounded-2xl p-6">
@@ -166,7 +94,7 @@ export function EnterpriseStats() {
             </div>
           </div>
           <button
-            onClick={retry}
+            onClick={refetch}
             className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
           >
             Retry
@@ -176,19 +104,31 @@ export function EnterpriseStats() {
     );
   }
 
+  if (isEmpty && !loading) {
+    return (
+      <EmptyState
+        icon="📊"
+        title="No Platform Data Available"
+        description="Platform statistics will appear here once contracts are deployed and users start interacting"
+        actionLabel="Deploy Contracts"
+        onAction={() => window.open('https://thirdweb.com/dashboard', '_blank')}
+      />
+    );
+  }
+
   const statCards = [
     {
       title: "Total Guides",
       value: stats?.totalGuides || 0,
-      change: stats?.monthlyGrowth,
+      change: 0,
       icon: "🧭",
       color: "#3b82f6",
       bgColor: "#eff6ff",
     },
     {
-      title: "Active Bookings",
-      value: stats?.activeBookings || 0,
-      change: 8.2,
+      title: "Total Bookings",
+      value: stats?.totalBookings || 0,
+      change: 0,
       icon: "📅",
       color: "#8b5cf6",
       bgColor: "#faf5ff",
@@ -196,7 +136,7 @@ export function EnterpriseStats() {
     {
       title: "Total Revenue (USDC)",
       value: `$${stats?.totalRevenue || "0"}`,
-      change: 15.3,
+      change: 0,
       icon: "💰",
       color: "#059669",
       bgColor: "#ecfdf5",
@@ -204,41 +144,26 @@ export function EnterpriseStats() {
     {
       title: "Platform Fees (USDC)",
       value: `$${stats?.platformFees || "0"}`,
-      change: 15.3,
+      change: 0,
       icon: "🏦",
       color: "#dc2626",
       bgColor: "#fef2f2",
     },
     {
-      title: "Verified Guides",
-      value: stats?.verifiedGuides || 0,
-      change: 5.7,
-      icon: "⭐",
+      title: "Active Users",
+      value: stats?.activeUsers || 0,
+      change: 0,
+      icon: "👥",
       color: "#ea580c",
       bgColor: "#fff7ed",
     },
     {
-      title: "Completed Tours",
-      value: stats?.completedTours || 0,
-      change: 22.1,
-      icon: "✅",
-      color: "#7c3aed",
-      bgColor: "#f3e8ff",
-    },
-    {
       title: "Average Rating",
-      value: stats?.averageRating ? `${stats.averageRating}/5` : "0/5",
-      change: 2.1,
+      value: stats?.averageRating ? `${stats.averageRating.toFixed(1)}/5` : "0/5",
+      change: 0,
       icon: "⭐",
       color: "#f59e0b",
       bgColor: "#fffbeb",
-    },
-    {
-      title: "Monthly Growth",
-      value: stats?.monthlyGrowth ? `${stats.monthlyGrowth}%` : "0%",
-      icon: "📈",
-      color: "#10b981",
-      bgColor: "#f0fdf4",
     },
   ];
 

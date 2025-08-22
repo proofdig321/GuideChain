@@ -30,6 +30,13 @@
 - **Consistent Patterns** - Standardized code structure
 - **Documentation** - JSDoc for all functions
 
+### 5. Data Integrity Standards (CRITICAL)
+- **NO MOCK DATA** - Never use fake/sample data in production
+- **Real Web3 Only** - All data must come from contracts or IPFS
+- **Graceful Empty States** - Professional handling when no data exists
+- **Contract-First** - Always prioritize blockchain data over fallbacks
+- **IPFS Integration** - Metadata must be stored in decentralized storage
+
 ## 📋 ARCHITECTURE PRINCIPLES
 
 ### Component Structure
@@ -198,26 +205,107 @@ const handleSubmit = (input: string) => {
 };
 ```
 
-### Error Handling
+### Graceful Error Handling (MANDATORY)
 ```typescript
-// ✅ REQUIRED: Comprehensive error handling
+// ✅ REQUIRED: Handle everything gracefully - never crash the app
+
+// Universal graceful handler
+const handleGracefully = async <T>(
+  operation: () => Promise<T>,
+  fallback: T,
+  errorMessage?: string
+): Promise<T> => {
+  try {
+    return await operation();
+  } catch (error) {
+    console.error(errorMessage || 'Operation failed gracefully:', error);
+    return fallback;
+  }
+};
+
+// Component-level graceful error handling
 try {
   const result = await riskyOperation();
   return result;
 } catch (error) {
-  // 1. Log error for debugging
+  // 1. Log error for debugging (never expose to user)
   console.error('Operation failed:', error);
   
   // 2. Create user-friendly message
   const message = error instanceof Error 
     ? error.message 
-    : 'Operation failed';
+    : 'Something went wrong. Please try again.';
   
-  // 3. Set error state
-  setError(message);
+  // 3. Set error state with recovery options
+  setError({
+    message,
+    canRetry: true,
+    fallbackAction: () => setError(null)
+  });
   
-  // 4. Re-throw if needed
-  throw new Error(message);
+  // 4. Return graceful fallback (never crash)
+  return fallbackValue;
+}
+
+// Web3 graceful handling
+const handleWeb3Gracefully = async (web3Operation: () => Promise<any>) => {
+  try {
+    return await web3Operation();
+  } catch (error) {
+    // Handle specific Web3 errors gracefully
+    if (error?.code === 4001) {
+      return { success: false, message: 'Transaction cancelled by user' };
+    }
+    if (error?.code === -32603) {
+      return { success: false, message: 'Network error. Please check your connection.' };
+    }
+    // Generic Web3 error
+    return { success: false, message: 'Web3 operation failed. Please try again.' };
+  }
+};
+```
+
+### Error Boundaries
+```typescript
+// ✅ REQUIRED: React Error Boundary for graceful UI recovery
+class GracefulErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('Graceful error boundary caught:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+          <div className="text-center p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              Something went wrong
+            </h2>
+            <p className="text-gray-600 mb-6">
+              We're sorry for the inconvenience. Please refresh the page.
+            </p>
+            <button 
+              onClick={() => window.location.reload()}
+              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+            >
+              Refresh Page
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
 }
 ```
 
@@ -315,6 +403,58 @@ describe('useCustomHook', () => {
 - **Analytics**: User behavior tracking
 - **Uptime**: Service availability monitoring
 
+## 🔄 GRACEFUL HANDLING PRINCIPLES
+
+### Core Principles
+1. **Never Crash**: Always provide fallback UI and functionality
+2. **Progressive Enhancement**: Core features work without Web3/advanced features
+3. **User-Friendly**: Error messages are helpful, not technical
+4. **Recovery Options**: Always provide ways to recover from errors
+5. **Logging**: Comprehensive error logging for debugging (not user-facing)
+6. **NO MOCK DATA**: Never show fake data - use empty states instead
+7. **Real Data First**: Always attempt Web3/IPFS before showing empty states
+
+### Data Handling Rules (MANDATORY)
+```typescript
+// ❌ FORBIDDEN: Mock data generation
+const mockData = generateFakeData();
+
+// ✅ REQUIRED: Real Web3 data with empty state fallback
+const data = await contractFunction.getData();
+if (data.length === 0) {
+  return <EmptyState 
+    title="No Data Available" 
+    description="Be the first to add data"
+    actionLabel="Get Started"
+  />;
+}
+
+// ✅ REQUIRED: Graceful error handling
+try {
+  const realData = await fetchFromBlockchain();
+  return realData;
+} catch (error) {
+  return <ErrorState 
+    message="Failed to load data"
+    onRetry={() => fetchFromBlockchain()}
+  />;
+}
+```
+
+### Implementation Checklist
+- [ ] All async operations wrapped in try-catch
+- [ ] Fallback UI for all error states
+- [ ] User-friendly error messages
+- [ ] Recovery/retry mechanisms
+- [ ] Error boundaries for component crashes
+- [ ] Web3 error handling with specific messages
+- [ ] Network error handling with offline support
+- [ ] Form validation with helpful feedback
+- [ ] **NO MOCK DATA** - All data from Web3/IPFS or empty states
+- [ ] **Empty State Components** - Professional no-data handling
+- [ ] **Contract Event Listeners** - Real-time blockchain updates
+- [ ] **IPFS Metadata Integration** - Decentralized data storage
+
 ## 📝 DOCUMENTATION STANDARDS
 
 ### Code Documentation
@@ -364,3 +504,4 @@ export function calculatePlatformFee(
 **DEVELOPMENT RULES V2 - MODERN ARCHITECTURE**
 **Enterprise-grade standards for scalable Web3 applications**
 **Zero compromise on quality, security, and performance**
+**HANDLE EVERYTHING GRACEFULLY - NO CRASHES, ALWAYS FALLBACKS**

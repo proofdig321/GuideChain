@@ -132,23 +132,24 @@ export default function HomeContent() {
         }}>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
-            gap: '64px',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gap: 'clamp(32px, 8vw, 64px)',
             alignItems: 'center'
           }}>
             <div>
               <h2 style={{
-                fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+                fontSize: 'clamp(2rem, 6vw, 3.5rem)',
                 fontWeight: '900',
                 color: '#1f2937',
-                marginBottom: '32px'
+                marginBottom: 'clamp(16px, 4vw, 32px)',
+                lineHeight: '1.1'
               }}>
                 🌟 For Local Guides
               </h2>
               <p style={{
-                fontSize: '20px',
+                fontSize: 'clamp(16px, 4vw, 20px)',
                 color: '#6b7280',
-                marginBottom: '40px',
+                marginBottom: 'clamp(24px, 6vw, 40px)',
                 lineHeight: '1.6'
               }}>
                 Share your passion for South Africa and earn from your expertise. Join our verified guide network.
@@ -203,33 +204,35 @@ export default function HomeContent() {
             </div>
             
             <div className="card" style={{
-              padding: '48px',
+              padding: 'clamp(24px, 6vw, 48px)',
               textAlign: 'center',
               background: 'linear-gradient(135deg, white 0%, #f0f9ff 100%)'
             }}>
               <div style={{
-                fontSize: '72px',
+                fontSize: 'clamp(48px, 12vw, 72px)',
                 fontWeight: '900',
                 background: 'linear-gradient(135deg, #10b981 0%, #3b82f6 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
-                marginBottom: '16px'
+                marginBottom: 'clamp(8px, 2vw, 16px)',
+                lineHeight: '1'
               }}>
                 92.5%
               </div>
               <div style={{
-                fontSize: '24px',
+                fontSize: 'clamp(18px, 4vw, 24px)',
                 fontWeight: '700',
                 color: '#1f2937',
-                marginBottom: '12px'
+                marginBottom: 'clamp(8px, 2vw, 12px)',
+                lineHeight: '1.2'
               }}>
                 Guide Earnings
               </div>
               <div style={{
                 color: '#6b7280',
-                fontSize: '18px',
-                lineHeight: '1.6'
+                fontSize: 'clamp(14px, 3vw, 18px)',
+                lineHeight: '1.5'
               }}>
                 Keep most of what you earn with our industry-low 7.5% platform fee
               </div>

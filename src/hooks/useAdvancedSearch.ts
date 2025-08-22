@@ -264,7 +264,6 @@ export function useAdvancedSearch() {
   }, [guides, filters]);
 
   const updateFilter = useCallback(<K extends keyof SearchFilters>(
-  const updateFilter = useCallback(<K extends keyof SearchFilters>(
     key: K,
     value: SearchFilters[K]
   ) => {

@@ -230,13 +230,19 @@ function AdminDashboard() {
 
       {/* Tab Content */}
       {activeTab === "overview" && (
-        <div className="space-y-8">
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '32px',
+          paddingBottom: 'clamp(24px, 6vw, 48px)'
+        }}>
           <EnterpriseStats />
           
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '24px'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))',
+            gap: 'clamp(16px, 4vw, 24px)',
+            padding: '0 clamp(8px, 2vw, 0px)'
           }}>
             <div style={{
               background: 'rgba(255, 255, 255, 0.95)',

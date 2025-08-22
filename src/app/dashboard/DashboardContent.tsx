@@ -159,9 +159,16 @@ function AdminDashboard() {
   const [activeTab, setActiveTab] = useState<"overview" | "users" | "analytics" | "notifications">("overview");
 
   return (
-    <div className="space-y-8">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
       {/* Tab Navigation */}
-      <div className="flex gap-2 bg-white/50 p-2 rounded-2xl">
+      <div style={{
+        display: 'flex',
+        gap: '8px',
+        background: 'rgba(255, 255, 255, 0.5)',
+        padding: '8px',
+        borderRadius: '24px',
+        flexWrap: 'wrap'
+      }}>
         {[
           { id: "overview", label: "📊 Overview", count: null },
           { id: "users", label: "👥 Users", count: 47 },
@@ -171,15 +178,49 @@ function AdminDashboard() {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id as typeof activeTab)}
-            className={`px-4 py-2 rounded-xl font-medium transition-all flex items-center gap-2 ${
-              activeTab === tab.id
-                ? "bg-white shadow-lg text-blue-600"
-                : "text-gray-600 hover:text-gray-900"
-            }`}
+            style={{
+              padding: '12px 16px',
+              borderRadius: '16px',
+              fontWeight: '500',
+              transition: 'all 0.2s',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: 'clamp(12px, 3vw, 14px)',
+              whiteSpace: 'nowrap',
+              ...(activeTab === tab.id
+                ? {
+                    background: 'white',
+                    boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)',
+                    color: '#2563eb'
+                  }
+                : {
+                    background: 'transparent',
+                    color: '#6b7280'
+                  })
+            }}
+            onMouseEnter={(e) => {
+              if (activeTab !== tab.id) {
+                e.currentTarget.style.color = '#1f2937';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (activeTab !== tab.id) {
+                e.currentTarget.style.color = '#6b7280';
+              }
+            }}
           >
             {tab.label}
             {tab.count && (
-              <span className="bg-blue-100 text-blue-600 px-2 py-1 rounded-full text-xs">
+              <span style={{
+                background: '#dbeafe',
+                color: '#2563eb',
+                padding: '2px 8px',
+                borderRadius: '20px',
+                fontSize: '12px'
+              }}>
                 {tab.count}
               </span>
             )}
@@ -192,47 +233,187 @@ function AdminDashboard() {
         <div className="space-y-8">
           <EnterpriseStats />
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white text-sm">⏳</span>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: '24px'
+          }}>
+            <div style={{
+              background: 'rgba(255, 255, 255, 0.95)',
+              backdropFilter: 'blur(8px)',
+              borderRadius: '24px',
+              padding: '24px',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)'
+            }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                marginBottom: '16px'
+              }}>
+                <div style={{
+                  width: '32px',
+                  height: '32px',
+                  background: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
+                  borderRadius: '12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <span style={{ color: 'white', fontSize: '14px' }}>⏳</span>
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900">Pending Verifications</h3>
+                <h3 style={{
+                  fontSize: 'clamp(16px, 4vw, 18px)',
+                  fontWeight: '600',
+                  color: '#1f2937'
+                }}>Pending Verifications</h3>
               </div>
-              <p className="text-gray-600 mb-4">Review guide applications and verify credentials</p>
-              <button className="w-full bg-gradient-to-r from-purple-600 to-purple-700 text-white py-3 px-4 rounded-xl font-medium hover:from-purple-700 hover:to-purple-800 transition-all">
+              <p style={{
+                color: '#6b7280',
+                marginBottom: '16px',
+                fontSize: '14px',
+                lineHeight: '1.5'
+              }}>Review guide applications and verify credentials</p>
+              <button style={{
+                width: '100%',
+                background: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
+                color: 'white',
+                padding: '12px 16px',
+                borderRadius: '16px',
+                fontWeight: '500',
+                border: 'none',
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                fontSize: '14px'
+              }} onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)';
+              }} onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)';
+              }}>
                 📋 Review Applications (0)
               </button>
             </div>
 
-            <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white text-sm">👥</span>
+            <div style={{
+              background: 'rgba(255, 255, 255, 0.95)',
+              backdropFilter: 'blur(8px)',
+              borderRadius: '24px',
+              padding: '24px',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)'
+            }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                marginBottom: '16px'
+              }}>
+                <div style={{
+                  width: '32px',
+                  height: '32px',
+                  background: 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)',
+                  borderRadius: '12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <span style={{ color: 'white', fontSize: '14px' }}>👥</span>
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900">User Management</h3>
+                <h3 style={{
+                  fontSize: 'clamp(16px, 4vw, 18px)',
+                  fontWeight: '600',
+                  color: '#1f2937'
+                }}>User Management</h3>
               </div>
-              <p className="text-gray-600 mb-4">Manage users, guides, and platform access</p>
+              <p style={{
+                color: '#6b7280',
+                marginBottom: '16px',
+                fontSize: '14px',
+                lineHeight: '1.5'
+              }}>Manage users, guides, and platform access</p>
               <button 
                 onClick={() => setActiveTab("users")}
-                className="w-full bg-gradient-to-r from-green-600 to-green-700 text-white py-3 px-4 rounded-xl font-medium hover:from-green-700 hover:to-green-800 transition-all"
+                style={{
+                  width: '100%',
+                  background: 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)',
+                  color: 'white',
+                  padding: '12px 16px',
+                  borderRadius: '16px',
+                  fontWeight: '500',
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                  fontSize: '14px'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'linear-gradient(135deg, #16a34a 0%, #15803d 100%)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)';
+                }}
               >
                 👥 Manage Users
               </button>
             </div>
 
-            <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white text-sm">📊</span>
+            <div style={{
+              background: 'rgba(255, 255, 255, 0.95)',
+              backdropFilter: 'blur(8px)',
+              borderRadius: '24px',
+              padding: '24px',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)'
+            }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                marginBottom: '16px'
+              }}>
+                <div style={{
+                  width: '32px',
+                  height: '32px',
+                  background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+                  borderRadius: '12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <span style={{ color: 'white', fontSize: '14px' }}>📊</span>
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900">Analytics</h3>
+                <h3 style={{
+                  fontSize: 'clamp(16px, 4vw, 18px)',
+                  fontWeight: '600',
+                  color: '#1f2937'
+                }}>Analytics</h3>
               </div>
-              <p className="text-gray-600 mb-4">View detailed platform analytics and reports</p>
+              <p style={{
+                color: '#6b7280',
+                marginBottom: '16px',
+                fontSize: '14px',
+                lineHeight: '1.5'
+              }}>View detailed platform analytics and reports</p>
               <button 
                 onClick={() => setActiveTab("analytics")}
-                className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-4 rounded-xl font-medium hover:from-blue-700 hover:to-blue-800 transition-all"
+                style={{
+                  width: '100%',
+                  background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+                  color: 'white',
+                  padding: '12px 16px',
+                  borderRadius: '16px',
+                  fontWeight: '500',
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                  fontSize: '14px'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)';
+                }}
               >
                 📈 View Analytics
               </button>
@@ -246,37 +427,152 @@ function AdminDashboard() {
       )}
 
       {activeTab === "analytics" && (
-        <div className="space-y-6">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
-              <h3 className="text-sm font-medium text-gray-600 mb-2">Page Views</h3>
-              <p className="text-2xl font-bold text-gray-900">12,847</p>
-              <p className="text-sm text-green-600">↗ +12.5%</p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: '24px'
+          }}>
+            <div style={{
+              background: 'rgba(255, 255, 255, 0.95)',
+              backdropFilter: 'blur(8px)',
+              borderRadius: '24px',
+              padding: '24px',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)'
+            }}>
+              <h3 style={{
+                fontSize: '14px',
+                fontWeight: '500',
+                color: '#6b7280',
+                marginBottom: '8px'
+              }}>Page Views</h3>
+              <p style={{
+                fontSize: 'clamp(20px, 5vw, 32px)',
+                fontWeight: '700',
+                color: '#1f2937'
+              }}>12,847</p>
+              <p style={{
+                fontSize: '14px',
+                color: '#059669'
+              }}>↗ +12.5%</p>
             </div>
-            <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
-              <h3 className="text-sm font-medium text-gray-600 mb-2">Conversions</h3>
-              <p className="text-2xl font-bold text-gray-900">3.2%</p>
-              <p className="text-sm text-green-600">↗ +0.8%</p>
+            <div style={{
+              background: 'rgba(255, 255, 255, 0.95)',
+              backdropFilter: 'blur(8px)',
+              borderRadius: '24px',
+              padding: '24px',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)'
+            }}>
+              <h3 style={{
+                fontSize: '14px',
+                fontWeight: '500',
+                color: '#6b7280',
+                marginBottom: '8px'
+              }}>Conversions</h3>
+              <p style={{
+                fontSize: 'clamp(20px, 5vw, 32px)',
+                fontWeight: '700',
+                color: '#1f2937'
+              }}>3.2%</p>
+              <p style={{
+                fontSize: '14px',
+                color: '#059669'
+              }}>↗ +0.8%</p>
             </div>
-            <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
-              <h3 className="text-sm font-medium text-gray-600 mb-2">Avg. Session</h3>
-              <p className="text-2xl font-bold text-gray-900">4m 32s</p>
-              <p className="text-sm text-red-600">↘ -0.3%</p>
+            <div style={{
+              background: 'rgba(255, 255, 255, 0.95)',
+              backdropFilter: 'blur(8px)',
+              borderRadius: '24px',
+              padding: '24px',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)'
+            }}>
+              <h3 style={{
+                fontSize: '14px',
+                fontWeight: '500',
+                color: '#6b7280',
+                marginBottom: '8px'
+              }}>Avg. Session</h3>
+              <p style={{
+                fontSize: 'clamp(20px, 5vw, 32px)',
+                fontWeight: '700',
+                color: '#1f2937'
+              }}>4m 32s</p>
+              <p style={{
+                fontSize: '14px',
+                color: '#dc2626'
+              }}>↘ -0.3%</p>
             </div>
-            <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
-              <h3 className="text-sm font-medium text-gray-600 mb-2">Bounce Rate</h3>
-              <p className="text-2xl font-bold text-gray-900">24.1%</p>
-              <p className="text-sm text-green-600">↗ -2.1%</p>
+            <div style={{
+              background: 'rgba(255, 255, 255, 0.95)',
+              backdropFilter: 'blur(8px)',
+              borderRadius: '24px',
+              padding: '24px',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)'
+            }}>
+              <h3 style={{
+                fontSize: '14px',
+                fontWeight: '500',
+                color: '#6b7280',
+                marginBottom: '8px'
+              }}>Bounce Rate</h3>
+              <p style={{
+                fontSize: 'clamp(20px, 5vw, 32px)',
+                fontWeight: '700',
+                color: '#1f2937'
+              }}>24.1%</p>
+              <p style={{
+                fontSize: '14px',
+                color: '#059669'
+              }}>↗ -2.1%</p>
             </div>
           </div>
           
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 border border-white/20 shadow-lg text-center">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
-              <span className="text-white text-lg">📈</span>
+          <div style={{
+            background: 'rgba(255, 255, 255, 0.95)',
+            backdropFilter: 'blur(8px)',
+            borderRadius: '24px',
+            padding: '32px',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)',
+            textAlign: 'center'
+          }}>
+            <div style={{
+              width: '48px',
+              height: '48px',
+              background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
+              borderRadius: '16px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 16px auto'
+            }}>
+              <span style={{ color: 'white', fontSize: '18px' }}>📈</span>
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Advanced Analytics</h3>
-            <p className="text-gray-600 mb-6">Detailed analytics dashboard with custom reports</p>
-            <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-medium">
+            <h3 style={{
+              fontSize: 'clamp(18px, 4vw, 24px)',
+              fontWeight: '700',
+              color: '#1f2937',
+              marginBottom: '8px'
+            }}>Advanced Analytics</h3>
+            <p style={{
+              color: '#6b7280',
+              marginBottom: '24px',
+              fontSize: '16px'
+            }}>Detailed analytics dashboard with custom reports</p>
+            <button style={{
+              background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
+              color: 'white',
+              padding: '12px 24px',
+              borderRadius: '16px',
+              fontWeight: '500',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: '16px'
+            }}>
               View Full Analytics
             </button>
           </div>
@@ -292,91 +588,315 @@ function AdminDashboard() {
 
 function UserDashboard() {
   return (
-    <div className="space-y-8">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
       {/* User Stats */}
-      <div className="grid md:grid-cols-4 gap-6">
-        <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-medium text-gray-600">Active Bookings</h3>
-            <div className="w-8 h-8 bg-blue-100 rounded-xl flex items-center justify-center">
-              <span className="text-blue-600 text-lg">🎫</span>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+        gap: '24px'
+      }}>
+        <div style={{
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(8px)',
+          borderRadius: '24px',
+          padding: '24px',
+          border: '1px solid rgba(255, 255, 255, 0.2)',
+          boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)'
+        }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: '16px'
+          }}>
+            <h3 style={{
+              fontSize: '14px',
+              fontWeight: '500',
+              color: '#6b7280'
+            }}>Active Bookings</h3>
+            <div style={{
+              width: '32px',
+              height: '32px',
+              background: '#dbeafe',
+              borderRadius: '16px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <span style={{ color: '#2563eb', fontSize: '18px' }}>🎫</span>
             </div>
           </div>
-          <p className="text-2xl font-bold text-gray-900">0</p>
+          <p style={{
+            fontSize: 'clamp(20px, 5vw, 32px)',
+            fontWeight: '700',
+            color: '#1f2937'
+          }}>0</p>
         </div>
 
-        <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-medium text-gray-600">Completed Tours</h3>
-            <div className="w-8 h-8 bg-green-100 rounded-xl flex items-center justify-center">
-              <span className="text-green-600 text-lg">✅</span>
+        <div style={{
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(8px)',
+          borderRadius: '24px',
+          padding: '24px',
+          border: '1px solid rgba(255, 255, 255, 0.2)',
+          boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)'
+        }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: '16px'
+          }}>
+            <h3 style={{
+              fontSize: '14px',
+              fontWeight: '500',
+              color: '#6b7280'
+            }}>Completed Tours</h3>
+            <div style={{
+              width: '32px',
+              height: '32px',
+              background: '#dcfce7',
+              borderRadius: '16px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <span style={{ color: '#16a34a', fontSize: '18px' }}>✅</span>
             </div>
           </div>
-          <p className="text-2xl font-bold text-gray-900">0</p>
+          <p style={{
+            fontSize: 'clamp(20px, 5vw, 32px)',
+            fontWeight: '700',
+            color: '#1f2937'
+          }}>0</p>
         </div>
 
-        <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-medium text-gray-600">Total Spent</h3>
-            <div className="w-8 h-8 bg-purple-100 rounded-xl flex items-center justify-center">
-              <span className="text-purple-600 text-lg">💰</span>
+        <div style={{
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(8px)',
+          borderRadius: '24px',
+          padding: '24px',
+          border: '1px solid rgba(255, 255, 255, 0.2)',
+          boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)'
+        }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: '16px'
+          }}>
+            <h3 style={{
+              fontSize: '14px',
+              fontWeight: '500',
+              color: '#6b7280'
+            }}>Total Spent</h3>
+            <div style={{
+              width: '32px',
+              height: '32px',
+              background: '#f3e8ff',
+              borderRadius: '16px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <span style={{ color: '#8b5cf6', fontSize: '18px' }}>💰</span>
             </div>
           </div>
-          <p className="text-2xl font-bold text-gray-900">$0</p>
+          <p style={{
+            fontSize: 'clamp(20px, 5vw, 32px)',
+            fontWeight: '700',
+            color: '#1f2937'
+          }}>$0</p>
         </div>
 
-        <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-medium text-gray-600">Reviews Given</h3>
-            <div className="w-8 h-8 bg-yellow-100 rounded-xl flex items-center justify-center">
-              <span className="text-yellow-600 text-lg">⭐</span>
+        <div style={{
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(8px)',
+          borderRadius: '24px',
+          padding: '24px',
+          border: '1px solid rgba(255, 255, 255, 0.2)',
+          boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)'
+        }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: '16px'
+          }}>
+            <h3 style={{
+              fontSize: '14px',
+              fontWeight: '500',
+              color: '#6b7280'
+            }}>Reviews Given</h3>
+            <div style={{
+              width: '32px',
+              height: '32px',
+              background: '#fef3c7',
+              borderRadius: '16px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <span style={{ color: '#f59e0b', fontSize: '18px' }}>⭐</span>
             </div>
           </div>
-          <p className="text-2xl font-bold text-gray-900">0</p>
+          <p style={{
+            fontSize: 'clamp(20px, 5vw, 32px)',
+            fontWeight: '700',
+            color: '#1f2937'
+          }}>0</p>
         </div>
       </div>
 
       {/* User Actions */}
-      <div className="grid md:grid-cols-2 gap-6">
-        <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 border border-white/20 shadow-lg">
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
-              <span className="text-white text-lg">🧭</span>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+        gap: '24px'
+      }}>
+        <div style={{
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(8px)',
+          borderRadius: '24px',
+          padding: '32px',
+          border: '1px solid rgba(255, 255, 255, 0.2)',
+          boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)'
+        }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '16px',
+            marginBottom: '24px'
+          }}>
+            <div style={{
+              width: '48px',
+              height: '48px',
+              background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+              borderRadius: '16px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <span style={{ color: 'white', fontSize: '18px' }}>🧭</span>
             </div>
             <div>
-              <h3 className="text-xl font-bold text-gray-900">Find Guides</h3>
-              <p className="text-gray-600">Discover amazing local guides</p>
+              <h3 style={{
+                fontSize: 'clamp(18px, 4vw, 24px)',
+                fontWeight: '700',
+                color: '#1f2937'
+              }}>Find Guides</h3>
+              <p style={{
+                color: '#6b7280',
+                fontSize: '14px'
+              }}>Discover amazing local guides</p>
             </div>
           </div>
-          <p className="text-gray-600 mb-6">Browse verified South African guides and book your next adventure</p>
+          <p style={{
+            color: '#6b7280',
+            marginBottom: '24px',
+            fontSize: '16px',
+            lineHeight: '1.5'
+          }}>Browse verified South African guides and book your next adventure</p>
           <a 
             href="/guides" 
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-xl font-medium hover:from-blue-700 hover:to-blue-800 transition-all"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+              color: 'white',
+              padding: '12px 24px',
+              borderRadius: '16px',
+              fontWeight: '500',
+              textDecoration: 'none',
+              transition: 'all 0.2s',
+              fontSize: '16px'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%)';
+              e.currentTarget.style.transform = 'translateY(-1px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
           >
             🧭 Browse Guides
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </a>
         </div>
 
-        <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 border border-white/20 shadow-lg">
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center">
-              <span className="text-white text-lg">⭐</span>
+        <div style={{
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(8px)',
+          borderRadius: '24px',
+          padding: '32px',
+          border: '1px solid rgba(255, 255, 255, 0.2)',
+          boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)'
+        }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '16px',
+            marginBottom: '24px'
+          }}>
+            <div style={{
+              width: '48px',
+              height: '48px',
+              background: 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)',
+              borderRadius: '16px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <span style={{ color: 'white', fontSize: '18px' }}>⭐</span>
             </div>
             <div>
-              <h3 className="text-xl font-bold text-gray-900">Become a Guide</h3>
-              <p className="text-gray-600">Share your local expertise</p>
+              <h3 style={{
+                fontSize: 'clamp(18px, 4vw, 24px)',
+                fontWeight: '700',
+                color: '#1f2937'
+              }}>Become a Guide</h3>
+              <p style={{
+                color: '#6b7280',
+                fontSize: '14px'
+              }}>Share your local expertise</p>
             </div>
           </div>
-          <p className="text-gray-600 mb-6">Join our community of verified guides and earn from your local knowledge</p>
+          <p style={{
+            color: '#6b7280',
+            marginBottom: '24px',
+            fontSize: '16px',
+            lineHeight: '1.5'
+          }}>Join our community of verified guides and earn from your local knowledge</p>
           <a 
             href="/verify" 
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white py-3 px-6 rounded-xl font-medium hover:from-green-700 hover:to-green-800 transition-all"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: 'linear-gradient(135deg, #16a34a 0%, #15803d 100%)',
+              color: 'white',
+              padding: '12px 24px',
+              borderRadius: '16px',
+              fontWeight: '500',
+              textDecoration: 'none',
+              transition: 'all 0.2s',
+              fontSize: '16px'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'linear-gradient(135deg, #15803d 0%, #166534 100%)';
+              e.currentTarget.style.transform = 'translateY(-1px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'linear-gradient(135deg, #16a34a 0%, #15803d 100%)';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
           >
             🚀 Apply Now
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </a>

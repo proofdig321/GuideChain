@@ -76,12 +76,30 @@ export function NotificationCenter(): React.JSX.Element {
 
   if (loading) {
     return (
-      <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
-        <div className="animate-pulse space-y-4">
-          <div className="h-6 bg-gray-200 rounded w-48"></div>
-          <div className="space-y-3">
+      <div style={{
+        background: 'rgba(255, 255, 255, 0.95)',
+        backdropFilter: 'blur(8px)',
+        borderRadius: '24px',
+        padding: '24px',
+        border: '1px solid rgba(255, 255, 255, 0.2)',
+        boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)'
+      }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div style={{
+            height: '24px',
+            background: '#e5e7eb',
+            borderRadius: '4px',
+            width: '192px',
+            animation: 'pulse 2s infinite'
+          }}></div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {[...Array(5)].map((_, i) => (
-              <div key={i} className="h-16 bg-gray-200 rounded"></div>
+              <div key={i} style={{
+                height: '64px',
+                background: '#e5e7eb',
+                borderRadius: '8px',
+                animation: 'pulse 2s infinite'
+              }}></div>
             ))}
           </div>
         </div>
@@ -91,16 +109,39 @@ export function NotificationCenter(): React.JSX.Element {
 
   if (error) {
     return (
-      <div className="bg-red-50 border border-red-200 rounded-2xl p-6">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
-            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div style={{
+        background: '#fef2f2',
+        border: '1px solid #fecaca',
+        borderRadius: '24px',
+        padding: '24px'
+      }}>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px'
+        }}>
+          <div style={{
+            width: '32px',
+            height: '32px',
+            background: '#ef4444',
+            borderRadius: '50%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+            <svg style={{ width: '16px', height: '16px', color: 'white' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </div>
           <div>
-            <h3 className="font-semibold text-red-800">Failed to Load Notifications</h3>
-            <p className="text-red-600 text-sm">{error}</p>
+            <h3 style={{
+              fontWeight: '600',
+              color: '#991b1b'
+            }}>Failed to Load Notifications</h3>
+            <p style={{
+              color: '#dc2626',
+              fontSize: '14px'
+            }}>{error}</p>
           </div>
         </div>
       </div>
@@ -108,23 +149,70 @@ export function NotificationCenter(): React.JSX.Element {
   }
 
   return (
-    <div className="bg-white/95 backdrop-blur-sm rounded-2xl border border-white/20 shadow-lg overflow-hidden">
-      <div className="p-6 border-b border-gray-200">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <div className="flex items-center gap-3">
-            <h2 className="text-xl font-bold text-gray-900">Notifications</h2>
+    <div style={{
+      background: 'rgba(255, 255, 255, 0.95)',
+      backdropFilter: 'blur(8px)',
+      borderRadius: '24px',
+      border: '1px solid rgba(255, 255, 255, 0.2)',
+      boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)',
+      overflow: 'hidden'
+    }}>
+      <div style={{
+        padding: '24px',
+        borderBottom: '1px solid #e5e7eb'
+      }}>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          alignItems: 'flex-start',
+          gap: '16px'
+        }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px'
+          }}>
+            <h2 style={{
+              fontSize: 'clamp(18px, 4vw, 24px)',
+              fontWeight: '700',
+              color: '#1f2937'
+            }}>Notifications</h2>
             {unreadCount > 0 && (
-              <span className="bg-red-500 text-white px-2 py-1 rounded-full text-xs font-medium">
+              <span style={{
+                background: '#ef4444',
+                color: 'white',
+                padding: '4px 8px',
+                borderRadius: '20px',
+                fontSize: '12px',
+                fontWeight: '500'
+              }}>
                 {unreadCount}
               </span>
             )}
           </div>
           
-          <div className="flex gap-3">
+          <div style={{
+            display: 'flex',
+            gap: '12px',
+            flexWrap: 'wrap',
+            width: '100%'
+          }}>
             <select
               value={filter}
               onChange={(e) => setFilter(e.target.value as typeof filter)}
-              className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
+              style={{
+                padding: '8px 12px',
+                border: '1px solid #d1d5db',
+                borderRadius: '12px',
+                fontSize: '14px',
+                background: 'white',
+                outline: 'none',
+                minWidth: '150px',
+                flex: '1'
+              }}
+              onFocus={(e) => e.currentTarget.style.borderColor = '#3b82f6'}
+              onBlur={(e) => e.currentTarget.style.borderColor = '#d1d5db'}
             >
               <option value="all">All Notifications</option>
               <option value="unread">Unread</option>
@@ -136,7 +224,19 @@ export function NotificationCenter(): React.JSX.Element {
             {unreadCount > 0 && (
               <button
                 onClick={markAllAsRead}
-                className="px-3 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 transition-colors"
+                style={{
+                  padding: '8px 12px',
+                  background: '#2563eb',
+                  color: 'white',
+                  borderRadius: '12px',
+                  fontSize: '14px',
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'background-color 0.2s',
+                  whiteSpace: 'nowrap'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.background = '#1d4ed8'}
+                onMouseLeave={(e) => e.currentTarget.style.background = '#2563eb'}
               >
                 Mark All Read
               </button>
@@ -145,9 +245,12 @@ export function NotificationCenter(): React.JSX.Element {
         </div>
       </div>
 
-      <div className="max-h-96 overflow-y-auto">
+      <div style={{
+        maxHeight: '384px',
+        overflowY: 'auto'
+      }}>
         {currentData.length === 0 ? (
-          <div className="p-8">
+          <div style={{ padding: '32px' }}>
             <EmptyState
               icon="📭"
               title="No Notifications"
@@ -156,49 +259,119 @@ export function NotificationCenter(): React.JSX.Element {
             />
           </div>
         ) : (
-          <div className="divide-y divide-gray-200">
-            {currentData.map((notification) => (
+          <div>
+            {currentData.map((notification, index) => (
               <div
                 key={notification.id}
-                className={`p-4 hover:bg-gray-50 transition-colors ${
-                  !notification.read ? "bg-blue-50/50" : ""
-                }`}
+                style={{
+                  padding: '16px',
+                  borderBottom: index < currentData.length - 1 ? '1px solid #e5e7eb' : 'none',
+                  background: !notification.read ? 'rgba(239, 246, 255, 0.5)' : 'transparent',
+                  transition: 'background-color 0.2s'
+                }}
+                onMouseEnter={(e) => {
+                  if (notification.read) {
+                    e.currentTarget.style.backgroundColor = '#f9fafb';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = !notification.read ? 'rgba(239, 246, 255, 0.5)' : 'transparent';
+                }}
               >
-                <div className="flex items-start gap-3">
-                  <div className="flex-shrink-0">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm ${getNotificationColor(notification.type)}`}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '12px'
+                }}>
+                  <div style={{ flexShrink: 0 }}>
+                    <div style={{
+                      width: '32px',
+                      height: '32px',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '14px',
+                      ...(notification.type === 'booking' ? { background: '#dbeafe', color: '#1e40af' } :
+                         notification.type === 'payment' ? { background: '#dcfce7', color: '#166534' } :
+                         notification.type === 'review' ? { background: '#fef3c7', color: '#a16207' } :
+                         notification.type === 'system' ? { background: '#f3f4f6', color: '#374151' } :
+                         notification.type === 'verification' ? { background: '#f3e8ff', color: '#7c3aed' } :
+                         { background: '#f3f4f6', color: '#374151' })
+                    }}>
                       {getNotificationIcon(notification.type)}
                     </div>
                   </div>
                   
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <h4 className={`text-sm font-medium ${!notification.read ? "text-gray-900" : "text-gray-700"}`}>
+                  <div style={{
+                    flex: 1,
+                    minWidth: 0
+                  }}>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      justifyContent: 'space-between'
+                    }}>
+                      <div style={{ flex: 1 }}>
+                        <h4 style={{
+                          fontSize: '14px',
+                          fontWeight: '500',
+                          color: !notification.read ? '#1f2937' : '#374151'
+                        }}>
                           {notification.title}
                         </h4>
-                        <p className="text-sm text-gray-600 mt-1">
+                        <p style={{
+                          fontSize: '14px',
+                          color: '#6b7280',
+                          marginTop: '4px'
+                        }}>
                           {notification.message}
                         </p>
-                        <p className="text-xs text-gray-500 mt-2">
+                        <p style={{
+                          fontSize: '12px',
+                          color: '#9ca3af',
+                          marginTop: '8px'
+                        }}>
                           {formatTime(notification.createdAt)}
                         </p>
                       </div>
                       
-                      <div className="flex items-center gap-2 ml-4">
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        marginLeft: '16px'
+                      }}>
                         {!notification.read && (
                           <button
                             onClick={() => markAsRead(notification.id)}
-                            className="text-blue-600 hover:text-blue-700 text-xs font-medium"
+                            style={{
+                              color: '#2563eb',
+                              fontSize: '12px',
+                              fontWeight: '500',
+                              background: 'none',
+                              border: 'none',
+                              cursor: 'pointer'
+                            }}
+                            onMouseEnter={(e) => e.currentTarget.style.color = '#1d4ed8'}
+                            onMouseLeave={(e) => e.currentTarget.style.color = '#2563eb'}
                           >
                             Mark Read
                           </button>
                         )}
                         <button
                           onClick={() => deleteNotification(notification.id)}
-                          className="text-gray-400 hover:text-red-500 transition-colors"
+                          style={{
+                            color: '#9ca3af',
+                            background: 'none',
+                            border: 'none',
+                            cursor: 'pointer',
+                            transition: 'color 0.2s'
+                          }}
+                          onMouseEnter={(e) => e.currentTarget.style.color = '#ef4444'}
+                          onMouseLeave={(e) => e.currentTarget.style.color = '#9ca3af'}
                         >
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                           </svg>
                         </button>
@@ -213,7 +386,10 @@ export function NotificationCenter(): React.JSX.Element {
       </div>
 
       {totalPages > 1 && (
-        <div className="px-6 py-4 border-t border-gray-200">
+        <div style={{
+          padding: '16px 24px',
+          borderTop: '1px solid #e5e7eb'
+        }}>
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}

@@ -34,36 +34,118 @@ interface StatCardProps {
 function StatCard({ title, value, change, icon, color, bgColor, loading }: StatCardProps) {
   if (loading) {
     return (
-      <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
-        <div className="animate-pulse">
-          <div className="flex items-center justify-between mb-4">
-            <div className="h-4 bg-gray-200 rounded w-24"></div>
-            <div className="h-8 w-8 bg-gray-200 rounded-xl"></div>
+      <div style={{
+        background: 'rgba(255, 255, 255, 0.95)',
+        backdropFilter: 'blur(8px)',
+        borderRadius: '24px',
+        padding: '24px',
+        border: '1px solid rgba(255, 255, 255, 0.2)',
+        boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)'
+      }}>
+        <div>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: '16px'
+          }}>
+            <div style={{
+              height: '16px',
+              background: '#e5e7eb',
+              borderRadius: '4px',
+              width: '96px',
+              animation: 'pulse 2s infinite'
+            }}></div>
+            <div style={{
+              height: '32px',
+              width: '32px',
+              background: '#e5e7eb',
+              borderRadius: '12px',
+              animation: 'pulse 2s infinite'
+            }}></div>
           </div>
-          <div className="h-8 bg-gray-200 rounded w-16 mb-2"></div>
-          <div className="h-3 bg-gray-200 rounded w-20"></div>
+          <div style={{
+            height: '32px',
+            background: '#e5e7eb',
+            borderRadius: '4px',
+            width: '64px',
+            marginBottom: '8px',
+            animation: 'pulse 2s infinite'
+          }}></div>
+          <div style={{
+            height: '12px',
+            background: '#e5e7eb',
+            borderRadius: '4px',
+            width: '80px',
+            animation: 'pulse 2s infinite'
+          }}></div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-sm font-medium text-gray-600">{title}</h3>
-        <div 
-          className="w-10 h-10 rounded-xl flex items-center justify-center text-lg"
-          style={{ backgroundColor: bgColor, color }}
-        >
+    <div style={{
+      background: 'rgba(255, 255, 255, 0.95)',
+      backdropFilter: 'blur(8px)',
+      borderRadius: '24px',
+      padding: '24px',
+      border: '1px solid rgba(255, 255, 255, 0.2)',
+      boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)',
+      transition: 'all 0.3s',
+      cursor: 'default'
+    }} onMouseEnter={(e) => {
+      e.currentTarget.style.boxShadow = '0 20px 25px rgba(0, 0, 0, 0.15)';
+      e.currentTarget.style.transform = 'translateY(-2px)';
+    }} onMouseLeave={(e) => {
+      e.currentTarget.style.boxShadow = '0 10px 15px rgba(0, 0, 0, 0.1)';
+      e.currentTarget.style.transform = 'translateY(0)';
+    }}>
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: '16px'
+      }}>
+        <h3 style={{
+          fontSize: 'clamp(12px, 3vw, 14px)',
+          fontWeight: '500',
+          color: '#6b7280'
+        }}>{title}</h3>
+        <div style={{
+          width: '40px',
+          height: '40px',
+          borderRadius: '12px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '18px',
+          backgroundColor: bgColor,
+          color
+        }}>
           {icon}
         </div>
       </div>
       
-      <div className="flex items-end justify-between">
+      <div style={{
+        display: 'flex',
+        alignItems: 'end',
+        justifyContent: 'space-between'
+      }}>
         <div>
-          <p className="text-2xl font-bold text-gray-900">{value}</p>
+          <p style={{
+            fontSize: 'clamp(20px, 5vw, 32px)',
+            fontWeight: '700',
+            color: '#1f2937',
+            lineHeight: '1.2'
+          }}>{value}</p>
           {change !== undefined && (
-            <p className={`text-sm font-medium ${change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+            <p style={{
+              fontSize: '14px',
+              fontWeight: '500',
+              color: change >= 0 ? '#059669' : '#dc2626',
+              marginTop: '4px'
+            }}>
               {change >= 0 ? '↗' : '↘'} {Math.abs(change)}%
             </p>
           )}
@@ -80,22 +162,61 @@ export function EnterpriseStats(): React.JSX.Element {
   // Early returns for error and empty states
   if (error) {
     return (
-      <div className="bg-red-50 border border-red-200 rounded-2xl p-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
-              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div style={{
+        background: '#fef2f2',
+        border: '1px solid #fecaca',
+        borderRadius: '24px',
+        padding: '24px'
+      }}>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '16px'
+        }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px'
+          }}>
+            <div style={{
+              width: '32px',
+              height: '32px',
+              background: '#ef4444',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <svg style={{ width: '16px', height: '16px', color: 'white' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </div>
             <div>
-              <h3 className="font-semibold text-red-800">Failed to Load Statistics</h3>
-              <p className="text-red-600 text-sm">{error}</p>
+              <h3 style={{
+                fontWeight: '600',
+                color: '#991b1b'
+              }}>Failed to Load Statistics</h3>
+              <p style={{
+                color: '#dc2626',
+                fontSize: '14px'
+              }}>{error}</p>
             </div>
           </div>
           <button
             onClick={refetch}
-            className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
+            style={{
+              background: '#dc2626',
+              color: 'white',
+              padding: '8px 16px',
+              borderRadius: '12px',
+              border: 'none',
+              cursor: 'pointer',
+              transition: 'background-color 0.2s'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.background = '#b91c1c'}
+            onMouseLeave={(e) => e.currentTarget.style.background = '#dc2626'}
           >
             Retry
           </button>
@@ -168,16 +289,42 @@ export function EnterpriseStats(): React.JSX.Element {
   ];
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900">Platform Statistics</h2>
-        <div className="flex items-center gap-2 text-sm text-gray-500">
-          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        gap: '16px'
+      }}>
+        <h2 style={{
+          fontSize: 'clamp(20px, 5vw, 32px)',
+          fontWeight: '700',
+          color: '#1f2937'
+        }}>Platform Statistics</h2>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          fontSize: '14px',
+          color: '#6b7280'
+        }}>
+          <div style={{
+            width: '8px',
+            height: '8px',
+            background: '#22c55e',
+            borderRadius: '50%',
+            animation: 'pulse 2s infinite'
+          }}></div>
           Live Data
         </div>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+        gap: '24px'
+      }}>
         {statCards.map((card, index) => (
           <StatCard
             key={index}

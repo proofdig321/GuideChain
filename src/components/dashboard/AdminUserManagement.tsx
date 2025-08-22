@@ -79,12 +79,30 @@ export function AdminUserManagement(): React.JSX.Element {
   // Early returns for loading, error, and empty states
   if (loading) {
     return (
-      <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
-        <div className="animate-pulse space-y-4">
-          <div className="h-6 bg-gray-200 rounded w-48"></div>
-          <div className="space-y-3">
+      <div style={{
+        background: 'rgba(255, 255, 255, 0.95)',
+        backdropFilter: 'blur(8px)',
+        borderRadius: '24px',
+        padding: '24px',
+        border: '1px solid rgba(255, 255, 255, 0.2)',
+        boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)'
+      }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div style={{
+            height: '24px',
+            background: '#e5e7eb',
+            borderRadius: '4px',
+            width: '192px',
+            animation: 'pulse 2s infinite'
+          }}></div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {[...Array(5)].map((_, i) => (
-              <div key={i} className="h-16 bg-gray-200 rounded"></div>
+              <div key={i} style={{
+                height: '64px',
+                background: '#e5e7eb',
+                borderRadius: '8px',
+                animation: 'pulse 2s infinite'
+              }}></div>
             ))}
           </div>
         </div>
@@ -94,10 +112,22 @@ export function AdminUserManagement(): React.JSX.Element {
 
   if (error) {
     return (
-      <div className="bg-red-50 border border-red-200 rounded-2xl p-6">
-        <div className="text-center">
-          <h3 className="font-semibold text-red-800 mb-2">Failed to Load Users</h3>
-          <p className="text-red-600 text-sm">{error}</p>
+      <div style={{
+        background: '#fef2f2',
+        border: '1px solid #fecaca',
+        borderRadius: '24px',
+        padding: '24px'
+      }}>
+        <div style={{ textAlign: 'center' }}>
+          <h3 style={{
+            fontWeight: '600',
+            color: '#991b1b',
+            marginBottom: '8px'
+          }}>Failed to Load Users</h3>
+          <p style={{
+            color: '#dc2626',
+            fontSize: '14px'
+          }}>{error}</p>
         </div>
       </div>
     );
@@ -116,16 +146,52 @@ export function AdminUserManagement(): React.JSX.Element {
   }
 
   return (
-    <div className="bg-white/95 backdrop-blur-sm rounded-2xl border border-white/20 shadow-lg overflow-hidden">
-      <div className="p-6 border-b border-gray-200">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <h2 className="text-xl font-bold text-gray-900">User Management</h2>
+    <div style={{
+      background: 'rgba(255, 255, 255, 0.95)',
+      backdropFilter: 'blur(8px)',
+      borderRadius: '24px',
+      border: '1px solid rgba(255, 255, 255, 0.2)',
+      boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)',
+      overflow: 'hidden'
+    }}>
+      <div style={{
+        padding: '24px',
+        borderBottom: '1px solid #e5e7eb'
+      }}>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          alignItems: 'flex-start',
+          gap: '16px'
+        }}>
+          <h2 style={{
+            fontSize: 'clamp(18px, 4vw, 24px)',
+            fontWeight: '700',
+            color: '#1f2937'
+          }}>User Management</h2>
           
-          <div className="flex gap-3">
+          <div style={{
+            display: 'flex',
+            gap: '12px',
+            flexWrap: 'wrap',
+            width: '100%'
+          }}>
             <select
               value={filter}
               onChange={(e) => setFilter(e.target.value as typeof filter)}
-              className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
+              style={{
+                padding: '8px 12px',
+                border: '1px solid #d1d5db',
+                borderRadius: '12px',
+                fontSize: '14px',
+                background: 'white',
+                outline: 'none',
+                minWidth: '120px',
+                flex: '1'
+              }}
+              onFocus={(e) => e.currentTarget.style.borderColor = '#3b82f6'}
+              onBlur={(e) => e.currentTarget.style.borderColor = '#d1d5db'}
             >
               <option value="all">All Roles</option>
               <option value="tourist">Tourists</option>
@@ -136,7 +202,18 @@ export function AdminUserManagement(): React.JSX.Element {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value as typeof statusFilter)}
-              className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
+              style={{
+                padding: '8px 12px',
+                border: '1px solid #d1d5db',
+                borderRadius: '12px',
+                fontSize: '14px',
+                background: 'white',
+                outline: 'none',
+                minWidth: '120px',
+                flex: '1'
+              }}
+              onFocus={(e) => e.currentTarget.style.borderColor = '#3b82f6'}
+              onBlur={(e) => e.currentTarget.style.borderColor = '#d1d5db'}
             >
               <option value="all">All Status</option>
               <option value="active">Active</option>
@@ -147,54 +224,189 @@ export function AdminUserManagement(): React.JSX.Element {
         </div>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="w-full">
-          <thead className="bg-gray-50">
+      <div style={{ overflowX: 'auto' }}>
+        <table style={{ width: '100%', minWidth: '600px' }}>
+          <thead style={{ background: '#f9fafb' }}>
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bookings</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Earnings</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+              <th style={{
+                padding: '12px 24px',
+                textAlign: 'left',
+                fontSize: '12px',
+                fontWeight: '500',
+                color: '#6b7280',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em'
+              }}>User</th>
+              <th style={{
+                padding: '12px 24px',
+                textAlign: 'left',
+                fontSize: '12px',
+                fontWeight: '500',
+                color: '#6b7280',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em'
+              }}>Role</th>
+              <th style={{
+                padding: '12px 24px',
+                textAlign: 'left',
+                fontSize: '12px',
+                fontWeight: '500',
+                color: '#6b7280',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em'
+              }}>Status</th>
+              <th style={{
+                padding: '12px 24px',
+                textAlign: 'left',
+                fontSize: '12px',
+                fontWeight: '500',
+                color: '#6b7280',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em'
+              }}>Bookings</th>
+              <th style={{
+                padding: '12px 24px',
+                textAlign: 'left',
+                fontSize: '12px',
+                fontWeight: '500',
+                color: '#6b7280',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em'
+              }}>Earnings</th>
+              <th style={{
+                padding: '12px 24px',
+                textAlign: 'left',
+                fontSize: '12px',
+                fontWeight: '500',
+                color: '#6b7280',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em'
+              }}>Actions</th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody style={{ background: 'white' }}>
             {currentData.map((user) => (
-              <tr key={user.id} className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="flex items-center">
-                    <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-medium">
+              <tr key={user.id} style={{
+                borderBottom: '1px solid #e5e7eb',
+                transition: 'background-color 0.2s'
+              }} onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#f9fafb';
+              }} onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'white';
+              }}>
+                <td style={{
+                  padding: '16px 24px',
+                  whiteSpace: 'nowrap'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <div style={{
+                      width: '40px',
+                      height: '40px',
+                      background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'white',
+                      fontWeight: '500',
+                      fontSize: '14px'
+                    }}>
                       {user.address.slice(2, 4).toUpperCase()}
                     </div>
-                    <div className="ml-4">
-                      <div className="text-sm font-medium text-gray-900">
+                    <div style={{ marginLeft: '16px' }}>
+                      <div style={{
+                        fontSize: '14px',
+                        fontWeight: '500',
+                        color: '#1f2937'
+                      }}>
                         {user.address.slice(0, 6)}...{user.address.slice(-4)}
                       </div>
-                      <div className="text-sm text-gray-500">Joined {user.joinDate}</div>
+                      <div style={{
+                        fontSize: '14px',
+                        color: '#6b7280'
+                      }}>Joined {user.joinDate}</div>
                     </div>
                   </div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getRoleColor(user.role)}`}>
+                <td style={{
+                  padding: '16px 24px',
+                  whiteSpace: 'nowrap'
+                }}>
+                  <span style={{
+                    display: 'inline-flex',
+                    padding: '4px 8px',
+                    fontSize: '12px',
+                    fontWeight: '600',
+                    borderRadius: '20px',
+                    ...(user.role === 'admin' ? { background: '#fef2f2', color: '#991b1b' } :
+                       user.role === 'guide' ? { background: '#eff6ff', color: '#1e40af' } :
+                       { background: '#f0fdf4', color: '#166534' })
+                  }}>
                     {user.role}
                   </span>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(user.status)}`}>
+                <td style={{
+                  padding: '16px 24px',
+                  whiteSpace: 'nowrap'
+                }}>
+                  <span style={{
+                    display: 'inline-flex',
+                    padding: '4px 8px',
+                    fontSize: '12px',
+                    fontWeight: '600',
+                    borderRadius: '20px',
+                    ...(user.status === 'active' ? { background: '#f0fdf4', color: '#166534' } :
+                       user.status === 'suspended' ? { background: '#fef2f2', color: '#991b1b' } :
+                       { background: '#fefce8', color: '#a16207' })
+                  }}>
                     {user.status}
                   </span>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                <td style={{
+                  padding: '16px 24px',
+                  whiteSpace: 'nowrap',
+                  fontSize: '14px',
+                  color: '#1f2937'
+                }}>
                   {user.totalBookings}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                <td style={{
+                  padding: '16px 24px',
+                  whiteSpace: 'nowrap',
+                  fontSize: '14px',
+                  color: '#1f2937'
+                }}>
                   ${user.totalEarnings}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  <div className="flex gap-2">
-                    <button className="text-blue-600 hover:text-blue-900">Edit</button>
-                    <button className="text-red-600 hover:text-red-900">Suspend</button>
+                <td style={{
+                  padding: '16px 24px',
+                  whiteSpace: 'nowrap',
+                  fontSize: '14px',
+                  fontWeight: '500'
+                }}>
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <button style={{
+                      color: '#2563eb',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      fontSize: '14px'
+                    }} onMouseEnter={(e) => {
+                      e.currentTarget.style.color = '#1d4ed8';
+                    }} onMouseLeave={(e) => {
+                      e.currentTarget.style.color = '#2563eb';
+                    }}>Edit</button>
+                    <button style={{
+                      color: '#dc2626',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      fontSize: '14px'
+                    }} onMouseEnter={(e) => {
+                      e.currentTarget.style.color = '#b91c1c';
+                    }} onMouseLeave={(e) => {
+                      e.currentTarget.style.color = '#dc2626';
+                    }}>Suspend</button>
                   </div>
                 </td>
               </tr>
@@ -203,7 +415,10 @@ export function AdminUserManagement(): React.JSX.Element {
         </table>
       </div>
 
-      <div className="px-6 py-4 border-t border-gray-200">
+      <div style={{
+        padding: '16px 24px',
+        borderTop: '1px solid #e5e7eb'
+      }}>
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}

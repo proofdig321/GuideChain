@@ -22,27 +22,66 @@ export function EmptyState({
   icon,
   size = "md" 
 }: EmptyStateProps) {
-  const sizeClasses = {
-    sm: "py-8",
-    md: "py-12", 
-    lg: "py-16"
+  const sizeStyles = {
+    sm: { padding: '32px 0' },
+    md: { padding: '48px 0' }, 
+    lg: { padding: '64px 0' }
   };
 
   const iconSizes = {
-    sm: "text-4xl",
-    md: "text-6xl",
-    lg: "text-8xl"
+    sm: { fontSize: '36px' },
+    md: { fontSize: '60px' },
+    lg: { fontSize: '80px' }
   };
 
   return (
-    <div className={`text-center ${sizeClasses[size]}`}>
-      <div className={`${iconSizes[size]} mb-4`}>{icon}</div>
-      <h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>
-      <p className="text-gray-600 mb-6 max-w-md mx-auto">{description}</p>
+    <div style={{
+      textAlign: 'center',
+      ...sizeStyles[size]
+    }}>
+      <div style={{
+        ...iconSizes[size],
+        marginBottom: '16px',
+        lineHeight: '1'
+      }}>{icon}</div>
+      <h3 style={{
+        fontSize: 'clamp(18px, 4vw, 24px)',
+        fontWeight: '600',
+        color: '#1f2937',
+        marginBottom: '8px',
+        lineHeight: '1.3'
+      }}>{title}</h3>
+      <p style={{
+        color: '#6b7280',
+        marginBottom: '24px',
+        maxWidth: '448px',
+        margin: '0 auto 24px auto',
+        fontSize: 'clamp(14px, 3vw, 16px)',
+        lineHeight: '1.5',
+        padding: '0 16px'
+      }}>{description}</p>
       {actionLabel && onAction && (
         <button 
           onClick={onAction}
-          className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-medium hover:from-blue-700 hover:to-purple-700 transition-all"
+          style={{
+            background: 'linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%)',
+            color: 'white',
+            padding: '12px 24px',
+            borderRadius: '12px',
+            fontWeight: '500',
+            border: 'none',
+            cursor: 'pointer',
+            transition: 'all 0.2s',
+            fontSize: '14px'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'linear-gradient(135deg, #1d4ed8 0%, #7c3aed 100%)';
+            e.currentTarget.style.transform = 'translateY(-1px)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%)';
+            e.currentTarget.style.transform = 'translateY(0)';
+          }}
         >
           {actionLabel}
         </button>

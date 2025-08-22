@@ -46,34 +46,73 @@ export function AdvancedSearch() {
   };
 
   return (
-    <div className="space-y-6">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       {/* Search Bar */}
-      <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
-        <form onSubmit={handleSearch} className="space-y-4">
-          <div className="flex flex-col sm:flex-row gap-4">
-            <div className="flex-1">
+      <div style={{
+        background: 'white',
+        borderRadius: '24px',
+        padding: '24px',
+        border: '1px solid #e5e7eb',
+        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)'
+      }}>
+        <form onSubmit={handleSearch} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px'
+          }}>
+            <div style={{ flex: 1 }}>
               <input
                 type="text"
                 placeholder="Search guides, locations, specialties..."
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                style={{
+                  width: '100%',
+                  padding: '12px 16px',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '12px',
+                  fontSize: '16px',
+                  outline: 'none',
+                  transition: 'border-color 0.2s'
+                }}
+                onFocus={(e) => e.currentTarget.style.borderColor = '#3b82f6'}
+                onBlur={(e) => e.currentTarget.style.borderColor = '#d1d5db'}
               />
             </div>
-            <div className="flex gap-2">
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
               <button
                 type="submit"
                 disabled={loading}
-                className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:from-blue-700 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                style={{
+                  padding: '12px 24px',
+                  background: loading ? '#9ca3af' : 'linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%)',
+                  color: 'white',
+                  borderRadius: '12px',
+                  fontWeight: '500',
+                  border: 'none',
+                  cursor: loading ? 'not-allowed' : 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  transition: 'all 0.2s'
+                }}
               >
                 {loading ? (
                   <>
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                    <div style={{
+                      width: '16px',
+                      height: '16px',
+                      border: '2px solid transparent',
+                      borderTop: '2px solid white',
+                      borderRadius: '50%',
+                      animation: 'spin 1s linear infinite'
+                    }}></div>
                     Searching...
                   </>
                 ) : (
                   <>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
                     Search
@@ -83,24 +122,31 @@ export function AdvancedSearch() {
               <button
                 type="button"
                 onClick={() => setShowFilters(!showFilters)}
-                className={`px-4 py-3 border rounded-lg transition-colors flex items-center gap-2 ${
-                  showFilters 
-                    ? 'border-blue-500 bg-blue-50 text-blue-700' 
-                    : 'border-gray-300 hover:bg-gray-50 text-gray-700'
-                }`}
+                style={{
+                  padding: '12px 16px',
+                  border: showFilters ? '1px solid #3b82f6' : '1px solid #d1d5db',
+                  background: showFilters ? '#eff6ff' : 'white',
+                  color: showFilters ? '#1d4ed8' : '#374151',
+                  borderRadius: '12px',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  transition: 'all 0.2s'
+                }}
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.414A1 1 0 013 6.707V4z" />
                 </svg>
-                <span className="hidden sm:inline">Filters</span>
+                <span style={{ display: window.innerWidth >= 640 ? 'inline' : 'none' }}>Filters</span>
               </button>
             </div>
           </div>
 
           {/* Search History */}
           {searchHistory.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              <span className="text-sm text-gray-600">Recent:</span>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+              <span style={{ fontSize: '14px', color: '#6b7280' }}>Recent:</span>
               {searchHistory.slice(0, 5).map((term, i) => (
                 <button
                   key={i}
@@ -108,7 +154,18 @@ export function AdvancedSearch() {
                     setSearchInput(term);
                     search(term);
                   }}
-                  className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-gray-200 transition-colors"
+                  style={{
+                    padding: '4px 12px',
+                    background: '#f3f4f6',
+                    color: '#374151',
+                    borderRadius: '20px',
+                    fontSize: '14px',
+                    border: 'none',
+                    cursor: 'pointer',
+                    transition: 'background-color 0.2s'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#e5e7eb'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = '#f3f4f6'}
                 >
                   {term}
                 </button>
@@ -120,25 +177,69 @@ export function AdvancedSearch() {
 
       {/* Advanced Filters */}
       {showFilters && (
-        <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-gray-900">Advanced Filters</h3>
+        <div style={{
+          background: 'white',
+          borderRadius: '24px',
+          padding: '24px',
+          border: '1px solid #e5e7eb',
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)'
+        }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: '24px'
+          }}>
+            <h3 style={{ fontSize: '18px', fontWeight: '600', color: '#1f2937' }}>Advanced Filters</h3>
             <button
               onClick={resetFilters}
-              className="text-blue-600 hover:text-blue-700 text-sm font-medium px-3 py-1 rounded-md hover:bg-blue-50 transition-colors"
+              style={{
+                color: '#2563eb',
+                fontSize: '14px',
+                fontWeight: '500',
+                padding: '4px 12px',
+                borderRadius: '8px',
+                border: 'none',
+                background: 'transparent',
+                cursor: 'pointer',
+                transition: 'all 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.background = '#eff6ff'}
+              onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
             >
               Reset All
             </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: '24px'
+          }}>
             {/* Location Filter */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
+              <label style={{
+                display: 'block',
+                fontSize: '14px',
+                fontWeight: '500',
+                color: '#374151',
+                marginBottom: '8px'
+              }}>Location</label>
               <select
                 value={filters.location}
                 onChange={(e) => handleFilterChange("location", e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white transition-colors"
+                style={{
+                  width: '100%',
+                  padding: '8px 12px',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '12px',
+                  background: 'white',
+                  fontSize: '14px',
+                  outline: 'none',
+                  transition: 'border-color 0.2s'
+                }}
+                onFocus={(e) => e.currentTarget.style.borderColor = '#3b82f6'}
+                onBlur={(e) => e.currentTarget.style.borderColor = '#d1d5db'}
               >
                 <option value="">All Locations</option>
                 {SA_LOCATIONS.map(location => (
@@ -149,11 +250,28 @@ export function AdvancedSearch() {
 
             {/* Specialty Filter */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Specialty</label>
+              <label style={{
+                display: 'block',
+                fontSize: '14px',
+                fontWeight: '500',
+                color: '#374151',
+                marginBottom: '8px'
+              }}>Specialty</label>
               <select
                 value={filters.specialty}
                 onChange={(e) => handleFilterChange("specialty", e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white transition-colors"
+                style={{
+                  width: '100%',
+                  padding: '8px 12px',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '12px',
+                  background: 'white',
+                  fontSize: '14px',
+                  outline: 'none',
+                  transition: 'border-color 0.2s'
+                }}
+                onFocus={(e) => e.currentTarget.style.borderColor = '#3b82f6'}
+                onBlur={(e) => e.currentTarget.style.borderColor = '#d1d5db'}
               >
                 <option value="">All Specialties</option>
                 {TOURISM_SPECIALTIES.map(specialty => (
@@ -164,32 +282,75 @@ export function AdvancedSearch() {
 
             {/* Price Range */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Price Range (USD)</label>
-              <div className="flex gap-2">
+              <label style={{
+                display: 'block',
+                fontSize: '14px',
+                fontWeight: '500',
+                color: '#374151',
+                marginBottom: '8px'
+              }}>Price Range (USD)</label>
+              <div style={{ display: 'flex', gap: '8px' }}>
                 <input
                   type="number"
                   placeholder="Min"
                   value={filters.minPrice || ""}
                   onChange={(e) => handleFilterChange("minPrice", Number(e.target.value) || 0)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  style={{
+                    width: '100%',
+                    padding: '8px 12px',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '12px',
+                    fontSize: '14px',
+                    outline: 'none',
+                    transition: 'border-color 0.2s'
+                  }}
+                  onFocus={(e) => e.currentTarget.style.borderColor = '#3b82f6'}
+                  onBlur={(e) => e.currentTarget.style.borderColor = '#d1d5db'}
                 />
                 <input
                   type="number"
                   placeholder="Max"
                   value={filters.maxPrice === 1000 ? "" : filters.maxPrice}
                   onChange={(e) => handleFilterChange("maxPrice", Number(e.target.value) || 1000)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  style={{
+                    width: '100%',
+                    padding: '8px 12px',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '12px',
+                    fontSize: '14px',
+                    outline: 'none',
+                    transition: 'border-color 0.2s'
+                  }}
+                  onFocus={(e) => e.currentTarget.style.borderColor = '#3b82f6'}
+                  onBlur={(e) => e.currentTarget.style.borderColor = '#d1d5db'}
                 />
               </div>
             </div>
 
             {/* Rating Filter */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Minimum Rating</label>
+              <label style={{
+                display: 'block',
+                fontSize: '14px',
+                fontWeight: '500',
+                color: '#374151',
+                marginBottom: '8px'
+              }}>Minimum Rating</label>
               <select
                 value={filters.minRating}
                 onChange={(e) => handleFilterChange("minRating", Number(e.target.value))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white transition-colors"
+                style={{
+                  width: '100%',
+                  padding: '8px 12px',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '12px',
+                  background: 'white',
+                  fontSize: '14px',
+                  outline: 'none',
+                  transition: 'border-color 0.2s'
+                }}
+                onFocus={(e) => e.currentTarget.style.borderColor = '#3b82f6'}
+                onBlur={(e) => e.currentTarget.style.borderColor = '#d1d5db'}
               >
                 <option value={0}>Any Rating</option>
                 <option value={4}>4+ Stars</option>
@@ -199,37 +360,82 @@ export function AdvancedSearch() {
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-6 mt-6 pt-4 border-t border-gray-200">
-            <label className="flex items-center gap-3 cursor-pointer">
+          <div style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '24px',
+            marginTop: '24px',
+            paddingTop: '16px',
+            borderTop: '1px solid #e5e7eb'
+          }}>
+            <label style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              cursor: 'pointer'
+            }}>
               <input
                 type="checkbox"
                 checked={filters.verified}
                 onChange={(e) => handleFilterChange("verified", e.target.checked)}
-                className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                style={{
+                  width: '16px',
+                  height: '16px',
+                  accentColor: '#2563eb'
+                }}
               />
-              <span className="text-sm font-medium text-gray-700">Verified guides only</span>
+              <span style={{ fontSize: '14px', fontWeight: '500', color: '#374151' }}>Verified guides only</span>
             </label>
-            <label className="flex items-center gap-3 cursor-pointer">
+            <label style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              cursor: 'pointer'
+            }}>
               <input
                 type="checkbox"
                 checked={filters.availability}
                 onChange={(e) => handleFilterChange("availability", e.target.checked)}
-                className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                style={{
+                  width: '16px',
+                  height: '16px',
+                  accentColor: '#2563eb'
+                }}
               />
-              <span className="text-sm font-medium text-gray-700">Available now</span>
+              <span style={{ fontSize: '14px', fontWeight: '500', color: '#374151' }}>Available now</span>
             </label>
           </div>
         </div>
       )}
 
       {/* Search Results */}
-      <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+      <div style={{
+        background: 'white',
+        borderRadius: '24px',
+        padding: '24px',
+        border: '1px solid #e5e7eb',
+        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)'
+      }}>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          alignItems: 'flex-start',
+          gap: '16px',
+          marginBottom: '24px'
+        }}>
           <div>
-            <h2 className="text-xl font-bold text-gray-900">
+            <h2 style={{
+              fontSize: '20px',
+              fontWeight: '700',
+              color: '#1f2937'
+            }}>
               Search Results ({searchResults.totalResults})
             </h2>
-            <p className="text-sm text-gray-600">
+            <p style={{
+              fontSize: '14px',
+              color: '#6b7280'
+            }}>
               Found in {searchResults.searchTime}ms
             </p>
           </div>
@@ -237,7 +443,17 @@ export function AdvancedSearch() {
           <select
             value={filters.sortBy}
             onChange={(e) => handleFilterChange("sortBy", e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white transition-colors"
+            style={{
+              padding: '8px 12px',
+              border: '1px solid #d1d5db',
+              borderRadius: '12px',
+              background: 'white',
+              fontSize: '14px',
+              outline: 'none',
+              transition: 'border-color 0.2s'
+            }}
+            onFocus={(e) => e.currentTarget.style.borderColor = '#3b82f6'}
+            onBlur={(e) => e.currentTarget.style.borderColor = '#d1d5db'}
           >
             <option value="relevance">Most Relevant</option>
             <option value="rating">Highest Rated</option>
@@ -248,46 +464,128 @@ export function AdvancedSearch() {
         </div>
 
         {loading ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '24px'
+          }}>
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="animate-pulse">
-                <div className="w-full h-48 bg-gray-200 rounded-xl mb-4"></div>
-                <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-                <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+              <div key={i} style={{ animation: 'pulse 2s infinite' }}>
+                <div style={{
+                  width: '100%',
+                  height: '192px',
+                  background: '#e5e7eb',
+                  borderRadius: '16px',
+                  marginBottom: '16px'
+                }}></div>
+                <div style={{
+                  height: '16px',
+                  background: '#e5e7eb',
+                  borderRadius: '4px',
+                  width: '75%',
+                  marginBottom: '8px'
+                }}></div>
+                <div style={{
+                  height: '12px',
+                  background: '#e5e7eb',
+                  borderRadius: '4px',
+                  width: '50%'
+                }}></div>
               </div>
             ))}
           </div>
         ) : currentData.length === 0 ? (
-          <div className="text-center py-12">
-            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div style={{ textAlign: 'center', padding: '48px 0' }}>
+            <div style={{
+              width: '64px',
+              height: '64px',
+              background: '#f3f4f6',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 16px auto'
+            }}>
+              <svg style={{ width: '32px', height: '32px', color: '#9ca3af' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No guides found</h3>
-            <p className="text-gray-600">Try adjusting your search criteria or filters</p>
+            <h3 style={{ fontSize: '18px', fontWeight: '500', color: '#1f2937', marginBottom: '8px' }}>No guides found</h3>
+            <p style={{ color: '#6b7280' }}>Try adjusting your search criteria or filters</p>
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: '24px',
+              marginBottom: '24px'
+            }}>
               {currentData.map((guide) => (
-                <div key={guide.id} className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg hover:border-gray-300 transition-all duration-200">
-                  <div className="w-full h-48 bg-gradient-to-br from-blue-400 to-purple-500 rounded-xl flex items-center justify-center text-white text-4xl font-bold mb-4 shadow-sm">
+                <div key={guide.id} style={{
+                  background: 'white',
+                  border: '1px solid #e5e7eb',
+                  borderRadius: '16px',
+                  padding: '24px',
+                  transition: 'all 0.2s',
+                  cursor: 'pointer'
+                }} onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.1)';
+                  e.currentTarget.style.borderColor = '#d1d5db';
+                }} onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = 'none';
+                  e.currentTarget.style.borderColor = '#e5e7eb';
+                }}>
+                  <div style={{
+                    width: '100%',
+                    height: '192px',
+                    background: 'linear-gradient(135deg, #60a5fa 0%, #a855f7 100%)',
+                    borderRadius: '16px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'white',
+                    fontSize: '36px',
+                    fontWeight: '700',
+                    marginBottom: '16px',
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)'
+                  }}>
                     {guide.name.charAt(0)}
                   </div>
-                  <h3 className="font-semibold text-gray-900 mb-2 text-lg">{guide.name}</h3>
-                  <p className="text-gray-600 text-sm mb-3 flex items-center gap-1">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <h3 style={{
+                    fontWeight: '600',
+                    color: '#1f2937',
+                    marginBottom: '8px',
+                    fontSize: '18px'
+                  }}>{guide.name}</h3>
+                  <p style={{
+                    color: '#6b7280',
+                    fontSize: '14px',
+                    marginBottom: '12px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px'
+                  }}>
+                    <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     </svg>
                     {guide.location}
                   </p>
-                  <div className="flex items-center gap-2 mb-4">
-                    <div className="flex items-center">
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    marginBottom: '16px'
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
                       {[...Array(5)].map((_, i) => (
                         <svg
                           key={i}
-                          className={`w-4 h-4 ${i < Math.floor(guide.rating) ? 'text-yellow-400' : 'text-gray-300'}`}
+                          style={{
+                            width: '16px',
+                            height: '16px',
+                            color: i < Math.floor(guide.rating) ? '#fbbf24' : '#d1d5db'
+                          }}
                           fill="currentColor"
                           viewBox="0 0 20 20"
                         >
@@ -295,14 +593,36 @@ export function AdvancedSearch() {
                         </svg>
                       ))}
                     </div>
-                    <span className="text-sm text-gray-600">({guide.totalBookings} bookings)</span>
+                    <span style={{ fontSize: '14px', color: '#6b7280' }}>({guide.totalBookings} bookings)</span>
                   </div>
-                  <div className="flex items-center justify-between pt-2 border-t border-gray-100">
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    paddingTop: '8px',
+                    borderTop: '1px solid #f3f4f6'
+                  }}>
                     <div>
-                      <span className="text-2xl font-bold text-gray-900">${guide.pricePerHour}</span>
-                      <span className="text-gray-600 text-sm">/hour</span>
+                      <span style={{
+                        fontSize: '24px',
+                        fontWeight: '700',
+                        color: '#1f2937'
+                      }}>${guide.pricePerHour}</span>
+                      <span style={{
+                        color: '#6b7280',
+                        fontSize: '14px'
+                      }}>/hour</span>
                     </div>
-                    <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all font-medium">
+                    <button style={{
+                      background: 'linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%)',
+                      color: 'white',
+                      padding: '8px 16px',
+                      borderRadius: '12px',
+                      fontWeight: '500',
+                      border: 'none',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s'
+                    }}>
                       View Profile
                     </button>
                   </div>

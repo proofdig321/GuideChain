@@ -7,58 +7,140 @@ import { AdvancedSearch } from "@/components/ui/AdvancedSearch";
 
 export default function GuidesContent() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div style={{ minHeight: '100vh', background: '#f9fafb' }}>
       <Header />
       
       {/* Hero Section */}
-      <section className="py-16 relative overflow-hidden" style={{
+      <section style={{
+        padding: '64px 0',
+        position: 'relative',
+        overflow: 'hidden',
         background: 'linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 50%, #fdf4ff 100%)'
       }}>
-        <div className="absolute top-4 right-4 w-24 h-24 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-2xl"></div>
-        <div className="max-w-7xl mx-auto px-6">
+        <div style={{
+          position: 'absolute',
+          top: '16px',
+          right: '16px',
+          width: '96px',
+          height: '96px',
+          background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%)',
+          borderRadius: '50%',
+          filter: 'blur(40px)'
+        }}></div>
+        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
           <MockDataBanner />
-          <div className="text-center mb-8">
-            <div className="w-20 h-20 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-              <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+            <div style={{
+              width: '80px',
+              height: '80px',
+              background: 'linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%)',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 24px auto',
+              boxShadow: '0 10px 30px rgba(139, 92, 246, 0.3)'
+            }}>
+              <svg style={{ width: '40px', height: '40px', color: 'white' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </div>
-            <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-sm font-medium mb-4">
-              <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: '#eff6ff',
+              color: '#1d4ed8',
+              padding: '8px 16px',
+              borderRadius: '20px',
+              fontSize: '14px',
+              fontWeight: '500',
+              marginBottom: '16px'
+            }}>
+              <span style={{
+                width: '8px',
+                height: '8px',
+                background: '#3b82f6',
+                borderRadius: '50%',
+                animation: 'pulse 2s infinite'
+              }}></span>
               24 Verified Guides Available
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            <h1 style={{
+              fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+              fontWeight: '900',
+              color: '#1f2937',
+              marginBottom: '24px'
+            }}>
               Find Your Perfect Guide
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed">
+            <p style={{
+              fontSize: '20px',
+              color: '#6b7280',
+              maxWidth: '768px',
+              margin: '0 auto 32px auto',
+              lineHeight: '1.6'
+            }}>
               Discover verified South African guides with advanced search and filters
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
-                <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+            <div style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              gap: '16px'
+            }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                background: 'rgba(255, 255, 255, 0.8)',
+                backdropFilter: 'blur(8px)',
+                padding: '8px 16px',
+                borderRadius: '20px',
+                border: '1px solid rgba(255, 255, 255, 0.2)'
+              }}>
+                <svg style={{ width: '16px', height: '16px', color: '#22c55e' }} fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
-                <span className="text-sm font-medium text-gray-700">Verified Guides</span>
+                <span style={{ fontSize: '14px', fontWeight: '500', color: '#374151' }}>Verified Guides</span>
               </div>
-              <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
-                <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                background: 'rgba(255, 255, 255, 0.8)',
+                backdropFilter: 'blur(8px)',
+                padding: '8px 16px',
+                borderRadius: '20px',
+                border: '1px solid rgba(255, 255, 255, 0.2)'
+              }}>
+                <svg style={{ width: '16px', height: '16px', color: '#3b82f6' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
-                <span className="text-sm font-medium text-gray-700">Instant Booking</span>
+                <span style={{ fontSize: '14px', fontWeight: '500', color: '#374151' }}>Instant Booking</span>
               </div>
-              <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
-                <svg className="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                background: 'rgba(255, 255, 255, 0.8)',
+                backdropFilter: 'blur(8px)',
+                padding: '8px 16px',
+                borderRadius: '20px',
+                border: '1px solid rgba(255, 255, 255, 0.2)'
+              }}>
+                <svg style={{ width: '16px', height: '16px', color: '#8b5cf6' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
-                <span className="text-sm font-medium text-gray-700">Smart Search</span>
+                <span style={{ fontSize: '14px', fontWeight: '500', color: '#374151' }}>Smart Search</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <main className="pb-12">
-        <div className="max-w-7xl mx-auto px-6">
+      <main style={{ paddingBottom: '48px' }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
           <AdvancedSearch />
         </div>
       </main>

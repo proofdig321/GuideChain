@@ -63,88 +63,75 @@ export default function ContactContent() {
       <main className="py-12">
         <div className="max-w-6xl mx-auto px-6">
           <MockDataBanner />
-          {/* Enhanced Hero Section */}
-          <div className="text-center mb-12 relative">
-            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-4 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-3xl"></div>
-            
-            <div className="relative">
-              <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
-                <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
-                24/7 Support Available
-              </div>
-              
-              <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-                💬 Get in Touch
-              </h1>
-              
-              <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed">
-                Have questions about GuidesChain? Need help with your booking? 
-                <span className="text-blue-600 font-semibold">We're here to help.</span>
-              </p>
-              
-              <div className="flex flex-wrap justify-center gap-4 mb-8">
-                <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
-                  <span className="text-green-500">✓</span>
-                  <span className="text-sm font-medium text-gray-700">Web3 Enhanced</span>
-                </div>
-                <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
-                  <span className="text-blue-500">⚡</span>
-                  <span className="text-sm font-medium text-gray-700">Fast Response</span>
-                </div>
-                <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
-                  <span className="text-purple-500">🔒</span>
-                  <span className="text-sm font-medium text-gray-700">Secure</span>
-                </div>
-              </div>
-              
-              {isConnected && (
-                <div className="inline-flex items-center gap-3 bg-gradient-to-r from-green-50 to-emerald-50 text-green-700 px-6 py-3 rounded-full border border-green-200 shadow-sm">
-                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                  <span className="font-medium">Wallet Connected:</span>
-                  <code className="bg-green-100 px-2 py-1 rounded text-xs font-mono">
-                    {walletAddress?.slice(0, 6)}...{walletAddress?.slice(-4)}
-                  </code>
-                </div>
-              )}
+          {/* Hero Section */}
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs font-medium mb-4">
+              <span className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></span>
+              24/7 Support Available
             </div>
+            
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              💬 Get in Touch
+            </h1>
+            
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
+              Have questions about GuidesChain? Need help with your booking? 
+              <span className="text-blue-600 font-semibold">We're here to help.</span>
+            </p>
+            
+            {isConnected && (
+              <div className="inline-flex items-center gap-2 bg-green-50 text-green-700 px-4 py-2 rounded-full border border-green-200 text-sm">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span className="font-medium">Connected:</span>
+                <code className="text-xs">
+                  {walletAddress?.slice(0, 6)}...{walletAddress?.slice(-4)}
+                </code>
+              </div>
+            )}
           </div>
 
-          {/* Contact Methods Quick Access */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-12">
-            <a href="mailto:support@guidechain.com" className="group bg-white/95 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
-                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          {/* Contact Methods */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <a href="mailto:support@guidechain.com" className="flex items-center gap-3 p-4 bg-white/95 rounded-xl border border-white/20 hover:shadow-md transition-all">
+              <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-1 sm:mb-2 text-sm sm:text-base">Email Support</h3>
-              <p className="text-gray-600 text-xs sm:text-sm">Get detailed help via email</p>
+              <div>
+                <h3 className="font-medium text-gray-900 text-sm">Email Support</h3>
+                <p className="text-gray-600 text-xs">Get detailed help</p>
+              </div>
             </a>
             
-            <div className="group bg-white/95 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
-                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="flex items-center gap-3 p-4 bg-white/95 rounded-xl border border-white/20">
+              <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                 </svg>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-1 sm:mb-2 text-sm sm:text-base">Live Chat</h3>
-              <p className="text-gray-600 text-xs sm:text-sm">Coming soon - Real-time support</p>
+              <div>
+                <h3 className="font-medium text-gray-900 text-sm">Live Chat</h3>
+                <p className="text-gray-600 text-xs">Coming soon</p>
+              </div>
             </div>
             
-            <a href="/guides" className="group bg-white/95 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
-                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <a href="/guides" className="flex items-center gap-3 p-4 bg-white/95 rounded-xl border border-white/20 hover:shadow-md transition-all">
+              <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg className="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-1 sm:mb-2 text-sm sm:text-base">Find Guides</h3>
-              <p className="text-gray-600 text-xs sm:text-sm">Browse verified local guides</p>
+              <div>
+                <h3 className="font-medium text-gray-900 text-sm">Find Guides</h3>
+                <p className="text-gray-600 text-xs">Browse guides</p>
+              </div>
             </a>
           </div>
           
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2">
-              <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-6 md:p-8">
+              <div className="bg-white/95 backdrop-blur-sm rounded-xl shadow-lg border border-white/20 p-6">
                 {/* Success Message */}
                 {success && (
                   <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
@@ -296,9 +283,9 @@ export default function ContactContent() {
               </div>
             </div>
 
-            <div className="space-y-6">
-              <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-4 md:p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            <div className="space-y-4">
+              <div className="bg-white/95 backdrop-blur-sm rounded-xl shadow-lg border border-white/20 p-4">
+                <h3 className="text-base font-semibold text-gray-900 mb-3">
                   Contact Information
                 </h3>
                 <div className="space-y-4">
@@ -354,26 +341,22 @@ export default function ContactContent() {
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-blue-50/80 to-purple-50/80 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-blue-200/50">
-                <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">
+              <div className="bg-gradient-to-br from-blue-50/80 to-purple-50/80 backdrop-blur-sm rounded-xl p-4 border border-blue-200/50">
+                <h3 className="text-base font-semibold text-gray-900 mb-3">
                   Quick Links
                 </h3>
-                <div className="space-y-3">
-                  <a href="/guides" className="flex items-center gap-3 text-blue-600 hover:text-blue-700 font-medium transition-colors p-2 rounded-lg hover:bg-blue-50">
-                    <span className="text-sm">🧭</span> 
-                    <span className="text-sm">Find Guides</span>
+                <div className="space-y-2">
+                  <a href="/guides" className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium transition-colors text-sm">
+                    <span>🧭</span> Find Guides
                   </a>
-                  <a href="/verify" className="flex items-center gap-3 text-purple-600 hover:text-purple-700 font-medium transition-colors p-2 rounded-lg hover:bg-purple-50">
-                    <span className="text-sm">⭐</span> 
-                    <span className="text-sm">Become a Guide</span>
+                  <a href="/verify" className="flex items-center gap-2 text-purple-600 hover:text-purple-700 font-medium transition-colors text-sm">
+                    <span>⭐</span> Become a Guide
                   </a>
-                  <a href="/dashboard" className="flex items-center gap-3 text-green-600 hover:text-green-700 font-medium transition-colors p-2 rounded-lg hover:bg-green-50">
-                    <span className="text-sm">📊</span> 
-                    <span className="text-sm">Dashboard</span>
+                  <a href="/dashboard" className="flex items-center gap-2 text-green-600 hover:text-green-700 font-medium transition-colors text-sm">
+                    <span>📊</span> Dashboard
                   </a>
-                  <a href="#" className="flex items-center gap-3 text-orange-600 hover:text-orange-700 font-medium transition-colors p-2 rounded-lg hover:bg-orange-50">
-                    <span className="text-sm">🛡️</span> 
-                    <span className="text-sm">Safety Guidelines</span>
+                  <a href="#" className="flex items-center gap-2 text-orange-600 hover:text-orange-700 font-medium transition-colors text-sm">
+                    <span>🛡️</span> Safety Guidelines
                   </a>
                 </div>
               </div>

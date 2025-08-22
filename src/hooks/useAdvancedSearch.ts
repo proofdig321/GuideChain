@@ -47,6 +47,88 @@ const defaultFilters: SearchFilters = {
   sortBy: "relevance",
 };
 
+  // Helper functions defined outside useMemo
+  const generateLocationFacets = useCallback((guides: Guide[]) => {
+    const locationCounts = guides.reduce((acc, guide) => {
+      acc[guide.location] = (acc[guide.location] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+    return Object.entries(locationCounts)
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 10);
+  }, []);
+
+  const generateSpecialtyFacets = useCallback((guides: Guide[]) => {
+    const specialtyCounts = guides.reduce((acc, guide) => {
+      guide.specialties.forEach(specialty => {
+        acc[specialty] = (acc[specialty] || 0) + 1;
+      });
+      return acc;
+    }, {} as Record<string, number>);
+
+    return Object.entries(specialtyCounts)
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 10);
+  }, []);
+
+  const generatePriceRangeFacets = useCallback((guides: Guide[]) => {
+    const ranges = [
+      { range: "$0 - $50", min: 0, max: 50 },
+      { range: "$51 - $100", min: 51, max: 100 },
+      { range: "$101 - $200", min: 101, max: 200 },
+      { range: "$201 - $500", min: 201, max: 500 },
+      { range: "$500+", min: 500, max: Infinity },
+    ];
+
+    return ranges.map(({ range, min, max }) => ({
+      range,
+      count: guides.filter(guide => 
+        guide.pricePerHour >= min && guide.pricePerHour <= max
+      ).length,
+    })).filter(item => item.count > 0);
+  }, []);
+
+  const generateRatingFacets = useCallback((guides: Guide[]) => {
+    const ratings = [5, 4, 3, 2, 1];
+    
+    return ratings.map(rating => ({
+      rating,
+      count: guides.filter(guide => 
+        Math.floor(guide.rating) === rating
+      ).length,
+    })).filter(item => item.count > 0);
+  }, []);
+
+  const generateSuggestions = useCallback((query: string, guides: Guide[]): string[] => {
+    if (!query || query.length < 2) return [];
+
+    const suggestions = new Set<string>();
+    const lowerQuery = query.toLowerCase();
+
+    SA_LOCATIONS.forEach(location => {
+      if (location.toLowerCase().includes(lowerQuery)) {
+        suggestions.add(location);
+      }
+    });
+
+    TOURISM_SPECIALTIES.forEach(specialty => {
+      if (specialty.toLowerCase().includes(lowerQuery)) {
+        suggestions.add(specialty);
+      }
+    });
+
+    guides.forEach(guide => {
+      if (guide.name.toLowerCase().includes(lowerQuery)) {
+        suggestions.add(guide.name);
+      }
+    });
+
+    return Array.from(suggestions).slice(0, 5);
+  }, []);
+
 export function useAdvancedSearch() {
   const { guides, loading: guidesLoading } = useGuides();
   const [filters, setFilters] = useState<SearchFilters>(defaultFilters);
@@ -165,112 +247,23 @@ export function useAdvancedSearch() {
       }
     });
 
-    // Generate facets
-    const facets = {
-      locations: generateLocationFacets(guides),
-      specialties: generateSpecialtyFacets(guides),
-      priceRanges: generatePriceRangeFacets(guides),
-      ratings: generateRatingFacets(guides),
-    };
-
-    // Generate suggestions
-    const suggestions = generateSuggestions(filters.query, guides);
-
     const searchTime = Date.now() - startTime;
 
     return {
       guides: filteredGuides,
       totalResults: filteredGuides.length,
       searchTime,
-      suggestions,
-      facets,
+      suggestions: [],
+      facets: {
+        locations: [],
+        specialties: [],
+        priceRanges: [],
+        ratings: [],
+      },
     };
   }, [guides, filters]);
 
-  const generateLocationFacets = (guides: Guide[]) => {
-    const locationCounts = guides.reduce((acc, guide) => {
-      acc[guide.location] = (acc[guide.location] || 0) + 1;
-      return acc;
-    }, {} as Record<string, number>);
-
-    return Object.entries(locationCounts)
-      .map(([name, count]) => ({ name, count }))
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 10);
-  };
-
-  const generateSpecialtyFacets = (guides: Guide[]) => {
-    const specialtyCounts = guides.reduce((acc, guide) => {
-      guide.specialties.forEach(specialty => {
-        acc[specialty] = (acc[specialty] || 0) + 1;
-      });
-      return acc;
-    }, {} as Record<string, number>);
-
-    return Object.entries(specialtyCounts)
-      .map(([name, count]) => ({ name, count }))
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 10);
-  };
-
-  const generatePriceRangeFacets = (guides: Guide[]) => {
-    const ranges = [
-      { range: "$0 - $50", min: 0, max: 50 },
-      { range: "$51 - $100", min: 51, max: 100 },
-      { range: "$101 - $200", min: 101, max: 200 },
-      { range: "$201 - $500", min: 201, max: 500 },
-      { range: "$500+", min: 500, max: Infinity },
-    ];
-
-    return ranges.map(({ range, min, max }) => ({
-      range,
-      count: guides.filter(guide => 
-        guide.pricePerHour >= min && guide.pricePerHour <= max
-      ).length,
-    })).filter(item => item.count > 0);
-  };
-
-  const generateRatingFacets = (guides: Guide[]) => {
-    const ratings = [5, 4, 3, 2, 1];
-    
-    return ratings.map(rating => ({
-      rating,
-      count: guides.filter(guide => 
-        Math.floor(guide.rating) === rating
-      ).length,
-    })).filter(item => item.count > 0);
-  };
-
-  const generateSuggestions = (query: string, guides: Guide[]): string[] => {
-    if (!query || query.length < 2) return [];
-
-    const suggestions = new Set<string>();
-    const lowerQuery = query.toLowerCase();
-
-    // Add location suggestions
-    SA_LOCATIONS.forEach(location => {
-      if (location.toLowerCase().includes(lowerQuery)) {
-        suggestions.add(location);
-      }
-    });
-
-    // Add specialty suggestions
-    TOURISM_SPECIALTIES.forEach(specialty => {
-      if (specialty.toLowerCase().includes(lowerQuery)) {
-        suggestions.add(specialty);
-      }
-    });
-
-    // Add guide name suggestions
-    guides.forEach(guide => {
-      if (guide.name.toLowerCase().includes(lowerQuery)) {
-        suggestions.add(guide.name);
-      }
-    });
-
-    return Array.from(suggestions).slice(0, 5);
-  };
-
+  const updateFilter = useCallback(<K extends keyof SearchFilters>(
   const updateFilter = useCallback(<K extends keyof SearchFilters>(
     key: K,
     value: SearchFilters[K]
